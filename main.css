@@ -1,0 +1,15 @@
+.form-control:focus {
+    border-color: #F5C936;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #F5C936;
+  }
+  .accordion{
+    --bs-accordion-border-color:#F5C936;
+    --bs-accordion-btn-bg:#fffbee;
+    --bs-accordion-active-bg:#F5C936;
+    --bs-accordion-focus-border-color:#F5C936;
+    --bs-accordion-focus-box-shadow-color:#F5C936;
+    --bs-accordion-btn-focus-box-shadow: none;    
+  }
+  .loc-ico{
+    margin-top: -0.5rem !important;
+  }
