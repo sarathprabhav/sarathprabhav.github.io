@@ -1,4 +1,13 @@
 
+// Load navbar dynamically
+fetch("navbar.html")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("navbar").innerHTML = data;
+  });
+
+
+
 // Highlight active navbar link automatically
 const links = document.querySelectorAll('.nav-link');
 const current = window.location.pathname.split('/').pop();

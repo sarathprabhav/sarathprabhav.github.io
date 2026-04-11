@@ -16,26 +16,28 @@
   </style>
 </head>
 
-<body>
+<body class="gallery-page">
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="index.html">MySite</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav2">
+    <a class="navbar-brand" href="index.html">Sarath Prabhavu J</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="nav2">
+
+    <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="cv.html">CV</a></li>
         <li class="nav-item"><a class="nav-link" href="outreach.html">Outreach</a></li>
         <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
-        <li class="nav-item"><a class="nav-link" href="calculators.html">Calculators</a></li>
-        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="calculators.html">Researcher Tools</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 
 <div class="container my-5">
   <h1 class="text-center mb-4">Gallery</h1>
@@ -139,7 +141,19 @@ function openLightbox(img) {
   const modal = new bootstrap.Modal(document.getElementById('lightboxModal'));
   modal.show();
 }
+
+
+// Highlight active navbar link automatically
+const links = document.querySelectorAll('.nav-link');
+const current = window.location.pathname.split('/').pop();
+
+links.forEach(link => {
+  if(link.getAttribute('href') === current) {
+    link.classList.add('active');
+  }
+});
 </script>
+
 
 </body>
 </html>
