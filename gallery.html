@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .gallery-img { cursor: pointer; transition: transform .2s ease; }
+    .gallery-img:hover { transform: scale(1.02); }
+    .meta { font-size: 0.9rem; color: #666; }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">MySite</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav2">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav2">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="outreach.html">Outreach</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="calculators.html">Calculators</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-5">
+  <h1 class="text-center mb-4">Gallery</h1>
+
+  <!-- TABS (Astro default) -->
+  <ul class="nav nav-tabs justify-content-center">
+    <li class="nav-item">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#astro">🌌 Astrophotography</button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#photo">📷 Photography</button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-4">
+
+
+    <!-- ASTROPHOTOGRAPHY (DEFAULT) -->
+    <div class="tab-pane fade show active" id="astro">
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <img src="images/eclipse2025.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Orion Nebula" data-meta="Location: India | Telescope: 8-inch Dobsonian | Exposure: 120s x 30">
+          <div class="meta">Orion Nebula</div>
+        </div>
+
+        <div class="col-md-4">
+          <img src="images/mw1.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Milky Way Core" data-meta="Location: UAE Desert | Lens: 14mm | ISO 3200">
+          <div class="meta">Milky Way Core</div>
+        </div>
+
+        <div class="col-md-4">
+          <img src="images/moon1.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Andromeda Galaxy" data-meta="Location: Kerala | Tracker: Star Adventurer | Exposure: 60s x 50">
+          <div class="meta">Andromeda Galaxy</div>
+        </div>
+        
+        
+        <div class="col-md-4">
+          <img src="images/Rosetta_Nebula.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Andromeda Galaxy" data-meta="Location: Kerala | Tracker: Star Adventurer | Exposure: 60s x 50">
+          <div class="meta">Andromeda Galaxy</div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- NORMAL PHOTOGRAPHY -->
+    <div class="tab-pane fade" id="photo">
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <img src="images/photo1.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Street Scene" data-meta="Location: France | Camera: Sony A7">
+          <div class="meta">Street Scene</div>
+        </div>
+
+        <div class="col-md-4">
+          <img src="images/photo2.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Portrait" data-meta="Natural Light | 50mm Lens">
+          <div class="meta">Portrait</div>
+        </div>
+
+        <div class="col-md-4">
+          <img src="images/photo3.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
+               data-title="Landscape" data-meta="Sunset | HDR">
+          <div class="meta">Landscape</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX MODAL -->
+<div class="modal fade" id="lightboxModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-body text-center">
+        <img id="lightboxImg" class="img-fluid mb-3">
+        <h5 id="lightboxTitle"></h5>
+        <p id="lightboxMeta"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+
+<script>
+function openLightbox(img) {
+  document.getElementById('lightboxImg').src = img.src;
+  document.getElementById('lightboxTitle').innerText = img.dataset.title;
+  document.getElementById('lightboxMeta').innerText = img.dataset.meta;
+
+  const modal = new bootstrap.Modal(document.getElementById('lightboxModal'));
+  modal.show();
+}
+</script>
+
+</body>
+</html>

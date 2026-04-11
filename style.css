@@ -1,0 +1,17 @@
+/* =============================
+   5. style.css
+   ============================= */
+
+.hero {
+  height: 20vh;
+  background: linear-gradient(to right, #000428, #004e92);
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+.nav-link.active {
+  font-weight: bold;
+  color: #0d6efd !important;
+  border-bottom: 2px solid #0d6efd;
+}
