@@ -59,58 +59,17 @@
 
     <!-- ASTROPHOTOGRAPHY (DEFAULT) -->
     <div class="tab-pane fade show active" id="astro">
-      <div class="row g-4">
-
-        <div class="col-md-4">
-          <img src="images/eclipse2025.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Orion Nebula" data-meta="Location: India | Telescope: 8-inch Dobsonian | Exposure: 120s x 30">
-          <div class="meta">Orion Nebula</div>
-        </div>
-
-        <div class="col-md-4">
-          <img src="images/mw1.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Milky Way Core" data-meta="Location: UAE Desert | Lens: 14mm | ISO 3200">
-          <div class="meta">Milky Way Core</div>
-        </div>
-
-        <div class="col-md-4">
-          <img src="images/moon1.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Andromeda Galaxy" data-meta="Location: Kerala | Tracker: Star Adventurer | Exposure: 60s x 50">
-          <div class="meta">Andromeda Galaxy</div>
-        </div>
-        
-        
-        <div class="col-md-4">
-          <img src="images/Rosetta_Nebula.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Andromeda Galaxy" data-meta="Location: Kerala | Tracker: Star Adventurer | Exposure: 60s x 50">
-          <div class="meta">Andromeda Galaxy</div>
-        </div>
-
-
+      <div class="row g-4" id="astroGallery">
+         <!-- Images will be dynamically loaded here by JavaScript -->
       </div>
     </div>
 
+
     <!-- NORMAL PHOTOGRAPHY -->
     <div class="tab-pane fade" id="photo">
-      <div class="row g-4">
+      <div class="row g-4" id ="photoGallery">
+        
 
-        <div class="col-md-4">
-          <img src="images/photo1.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Street Scene" data-meta="Location: France | Camera: Sony A7">
-          <div class="meta">Street Scene</div>
-        </div>
-
-        <div class="col-md-4">
-          <img src="images/photo2.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Portrait" data-meta="Natural Light | 50mm Lens">
-          <div class="meta">Portrait</div>
-        </div>
-
-        <div class="col-md-4">
-          <img src="images/photo3.jpg" class="img-fluid rounded shadow gallery-img" onclick="openLightbox(this)"
-               data-title="Landscape" data-meta="Sunset | HDR">
-          <div class="meta">Landscape</div>
-        </div>
 
       </div>
     </div>
@@ -155,6 +114,114 @@ links.forEach(link => {
   }
 });
 </script>
+
+<script>
+
+// Dynamically load astrophotography images (can be extended to fetch from JSON or API)
+document.addEventListener("DOMContentLoaded", function () {
+
+  const imageFolder = "images/astrophotos/";
+
+  const images = [
+    {
+      file: "eclipse2025.jpg",
+      title: "Total Lunar Eclipse",
+      meta: "Location: Kerala, India | 70-200mm at 200mm | Single shots"
+    },
+    {
+      file: "mw1.jpg",
+      title: "Milky Way Core",
+      meta: "Location: Tamil Nadu | Nikon 24-120mm | Stacked"
+    },
+    {
+      file: "moon1.jpg",
+      title: "Andromeda Galaxy",
+      meta: "Location: Kerala | Tracker: Star Adventurer | Exposure: 60s x 50"
+    },
+    {
+      file: "Rosetta_Nebula.jpg",
+      title: "Rosetta Nebula",
+      meta: "Location: Kerala | Telescope Setup | Deep Sky Imaging"
+    }
+  ];
+
+  const container = document.getElementById("astroGallery");
+
+  images.forEach(imgData => {
+    const col = document.createElement("div");
+    col.className = "col-md-4";
+
+    col.innerHTML = `
+      <img src="${imageFolder + imgData.file}" 
+           class="img-fluid rounded shadow gallery-img"
+           onclick="openLightbox(this)"
+           data-title="${imgData.title}"
+           data-meta="${imgData.meta}">
+      <div class="meta">${imgData.title}</div>
+    `;
+
+    container.appendChild(col);
+  });
+
+});
+</script>
+
+<script>
+// Dynamically load normal photography images (can be extended to fetch from JSON or API)
+document.addEventListener("DOMContentLoaded", function () {
+
+  const imageFolder = "images/astrophotos/";
+
+  const images = [
+    {
+      file: "eclipse2025.jpg",
+      title: "Total Lunar Eclipse",
+      meta: "Location: Kerala, India | 70-200mm at 200mm | Single shots"
+    },
+    {
+      file: "mw1.jpg",
+      title: "Milky Way Core",
+      meta: "Location: Tamil Nadu | Nikon 24-120mm | Stacked"
+    },
+    {
+      file: "moon1.jpg",
+      title: "Andromeda Galaxy",
+      meta: "Location: Kerala | Tracker: Star Adventurer | Exposure: 60s x 50"
+    },
+    {
+      file: "Rosetta_Nebula.jpg",
+      title: "Rosetta Nebula",
+      meta: "Location: Kerala | Telescope Setup | Deep Sky Imaging"
+    }
+  ];
+
+  const container = document.getElementById("photoGallery");
+
+  images.forEach(imgData => {
+    const col = document.createElement("div");
+    col.className = "col-md-4";
+
+    col.innerHTML = `
+      <img src="${imageFolder + imgData.file}" 
+           class="img-fluid rounded shadow gallery-img"
+           onclick="openLightbox(this)"
+           data-title="${imgData.title}"
+           data-meta="${imgData.meta}">
+      <div class="meta">${imgData.title}</div>
+    `;
+
+    container.appendChild(col);
+  });
+
+});
+</script>
+
+
+
+
+
+
+
 
 
 </body>
