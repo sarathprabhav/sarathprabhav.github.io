@@ -34,3 +34,54 @@ body {
   font-weight: bold;
   border-bottom: 2px solid #a0b7da;
 }
+
+
+
+/* Skill styles */
+
+ .skills-section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 30px 0 15px;
+  padding: 5px 10px;
+  background: linear-gradient(90deg, #515f74, #5c88c9);
+  color: white;
+  border-radius: 8px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(13,110,253,0.15);
+}
+
+.skills-group {
+  padding: 10px 0 5px 0;
+  margin-bottom: 5px;
+  border-left: 3px solid rgba(13,110,253,0.25);
+  padding-left: 12px;
+}
+.skill-item {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 3px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* make main skill name stronger */
+/* .skill-title {
+  /* font-size: 1rem; */
+  /* font-weight: 700; */
+} */
+
+/* subtle left accent line = hierarchy cue */
+.skill-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  background: #0d6efd;
+  border-radius: 3px;
+  opacity: 0.6;
+}
