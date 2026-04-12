@@ -41,28 +41,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="script.js"></script>
-
-<script>
-// Highlight active navbar link automatically
-const links = document.querySelectorAll('.nav-link');
-const current = window.location.pathname.split('/').pop();
-
-links.forEach(link => {
-  if(link.getAttribute('href') === current) {
-    link.classList.add('active');
-  }
-});
-</script>
-
-<script>
-// Dynamically load navbar from external file
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
-</script>
+<script src="scripts.js"></script>
 
 
 </body>

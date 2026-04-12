@@ -22,28 +22,8 @@
   </ul>
 </div>
 
-<script src="script.js"></script>
+<script src="scripts.js"></script>
 
-<script>
-// Highlight active navbar link automatically
-const links = document.querySelectorAll('.nav-link');
-const current = window.location.pathname.split('/').pop();
-
-links.forEach(link => {
-  if(link.getAttribute('href') === current) {
-    link.classList.add('active');
-  }
-});
-</script>
-
-<script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-    });
-
-</script>
 
 
 

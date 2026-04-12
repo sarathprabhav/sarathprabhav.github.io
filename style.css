@@ -18,6 +18,19 @@ body {
 
 
 .gallery-page {
-  background-color: #1e1e1e;
+  background-color: #383333;
   color: #f1f1f1;
+}
+
+.card {
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.nav-link.active {
+  font-weight: bold;
+  border-bottom: 2px solid #a0b7da;
 }
