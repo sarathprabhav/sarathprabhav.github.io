@@ -41,29 +41,31 @@ body {
 
  .skills-section-title {
   font-size: 1.15rem;
-  font-weight: 800;
-  margin: 30px 0 15px;
-  padding: 5px 10px;
-  background: linear-gradient(90deg, #515f74, #5c88c9);
-  color: white;
+  font-weight: 400;
+  /* margin: 3px 0 2px; */
+  padding: 5px 8px;
+  background: linear-gradient(90deg,#b2d1ff, #e9f1ff );
+  color: rgb(0, 0, 0);
   border-radius: 8px;
+  /* border: 5px solid rgba(0,0,0,0.1); */
   letter-spacing: 0.3px;
-  box-shadow: 0 4px 12px rgba(13,110,253,0.15);
+  box-shadow: 0 4px 12px rgba(97, 160, 255, 0.15);
 }
 
 .skills-group {
-  padding: 10px 0 5px 0;
-  margin-bottom: 5px;
+  padding: 5px 0 5px 0;
+  margin-bottom: 0px;
   border-left: 3px solid rgba(13,110,253,0.25);
   padding-left: 12px;
+  /* border: #000428 solid 1px; */
 }
 .skill-item {
   background: #fff;
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 8px 6px;
   margin-bottom: 3px;
-  transition: all 0.2s ease;
+  transition: all 0.5s ease;
   position: relative;
 }
 
