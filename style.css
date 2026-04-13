@@ -40,43 +40,59 @@ body {
 /* Skill styles */
 
  .skills-section-title {
-  font-size: 1.15rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 600;
   /* margin: 3px 0 2px; */
-  padding: 5px 8px;
-  background: linear-gradient(90deg,#b2d1ff, #e9f1ff );
+  /* padding: 5px 8px; */
+  /* background: linear-gradient(90deg,#b2d1ff, #e9f1ff ); */
   color: rgb(0, 0, 0);
-  border-radius: 8px;
+  /* border-radius: 8px; */
   /* border: 5px solid rgba(0,0,0,0.1); */
   letter-spacing: 0.3px;
-  box-shadow: 0 4px 12px rgba(97, 160, 255, 0.15);
+  /* box-shadow: 0 4px 12px rgba(97, 160, 255, 0.15); */
 }
 
 .skills-group {
-  padding: 5px 0 5px 0;
+  /* padding: 5px 0 5px 0; */
   margin-bottom: 0px;
-  border-left: 3px solid rgba(13,110,253,0.25);
-  padding-left: 12px;
+  /* border-left: 3px solid rgba(13,110,253,0.25); */
+  padding-left: 0px;
   /* border: #000428 solid 1px; */
 }
 .skill-item {
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 12px;
-  padding: 8px 6px;
-  margin-bottom: 3px;
+  /* color: #004e92; */
+  /* text-decoration: underline; */
+  /* border: 1px solid rgba(0,0,0,0.08); */
+  /* border-radius: 12px; */
+  /* padding: 8px 6px; */
+  /* margin-bottom: 3px; */
   transition: all 0.5s ease;
   position: relative;
+}
+.skill-title {
+   color: #004e92;
+  text-decoration: underline;
+  /* font-size: 0.95rem; */
+  /* font-weight: 600; */
+  /* color: #000000; */
+
+}
+
+.skill-details {
+  /* text-decoration: none !important; */
+  font-size: 0.95rem;
+  /* color: #000000; */
+  margin-top: 2px;
 }
 
 /* make main skill name stronger */
 /* .skill-title {
   /* font-size: 1rem; */
   /* font-weight: 700; */
-} */
 
 /* subtle left accent line = hierarchy cue */
-.skill-item::before {
+/* .skill-item::before {
   content: "";
   position: absolute;
   left: 0;
@@ -86,4 +102,4 @@ body {
   background: #0d6efd;
   border-radius: 3px;
   opacity: 0.6;
-}
+} */
