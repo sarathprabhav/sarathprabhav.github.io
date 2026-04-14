@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>M-H Curve Plotter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- PapaParse -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<style>
+body {
+  background:#dddada;
+  color:white;
+}
+.card {
+  background:#ffffff;
+  border:none;
+}
+input {
+  background:#d2d2d3 !important;
+  color:rgb(59, 59, 59) !important;
+}
+
+.csv-sample {
+  background:#e9ecef;
+  color:#212529;
+  padding:0.2em 0.4em;
+  border-radius:0.25rem;
+  font-family:monospace;
+}
+.text-warning {
+  color:#cf0505 !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container py-4">
+
+<h2 class="text-center mb-4 mt-4" style="color: #212529;">🧲 M–H Curve Plotter</h2>
+
+<!-- INSTRUCTIONS -->
+<div class="card p-3 mb-3">
+  <h5>📌 Data Format Instructions</h5>
+
+  <p><b>CSV Format:</b></p>
+  <code class="csv-sample">
+    H1,M1,H2,M2,H3,M3,...<br>
+    0,0.1,1,0.15,2,0.18,3,...
+</code>
+  
+  <hr>
+
+  <p><b>Temperature Input Format:</b></p>
+  <p>Enter comma-separated values ONLY:</p>
+  <code class="csv-sample">4,50,100,150,200</code>
+
+  <p class="text-warning mt-2">
+    ❌ Do NOT include “K” or extra commas<br>
+    ✔ Correct: 4,50,100,150<br>
+    ✔ Wrong: 4K,,50K,,100K
+  </p>
+</div>
+
+<!-- INPUT -->
+<div class="card p-3 mb-3"> 
+
+  <label class="form-label">Upload CSV File</label>
+  <input type="file" id="fileInput" class="form-control mb-3">
+
+  <label class="form-label">Temperatures (K)</label>
+  <input type="text" id="tempInput" class="form-control mb-3"
+         placeholder="e.g. 4,50,100,150,200">
+
+  <button class="btn btn-warning w-100" onclick="plotMH()">
+    Plot M–H Curves
+  </button>
+</div>
+
+<!-- CHART -->
+<div class="card p-3 d-none" id="chartCard">
+  <canvas id="chart"></canvas>
+  <button class="btn btn-success mt-2 w-100" onclick="savePlot()">
+  💾 Save Plot (PNG)
+</button>
+</div>
+
+</div>
+
+<script>
+
+let rawData = [];
+let chart;
+
+// ---------------- READ CSV ----------------
+document.getElementById("fileInput").addEventListener("change", function(e) {
+
+  Papa.parse(e.target.files[0], {
+    complete: function(results) {
+      rawData = results.data;
+      console.log("CSV Loaded:", rawData);
+    }
+  });
+
+});
+
+// ---------------- MAIN FUNCTION ----------------
+function plotMH() {
+
+  if (!rawData.length) {
+    alert("Please upload CSV first");
+    return;
+  }
+
+  let temperatures = document.getElementById("tempInput")
+    .value
+    .split(",")
+    .map(x => parseFloat(x.trim()))
+    .filter(x => !isNaN(x));
+
+  let headers = rawData[0];
+  let data = rawData.slice(1);
+
+  let pairs = headers.length / 2;
+
+  let datasets = [];
+
+  for (let i = 0; i < pairs; i++) {
+
+    let H = [];
+    let M = [];
+
+    for (let r = 0; r < data.length; r++) {
+
+      let h = parseFloat(data[r][2*i]);
+      let m = parseFloat(data[r][2*i + 1]);
+
+      if (!isNaN(h) && !isNaN(m)) {
+        H.push(h);
+        M.push(m);
+      }
+    }
+
+    datasets.push({
+      label: (temperatures[i] || ("T"+i)) + " K",
+      data: H.map((h, idx) => ({x: h, y: M[idx]})),
+      borderWidth: 1,
+      pointStyle: "triangle",
+      fill: false
+    });
+  }
+
+  drawChart(datasets);
+    document.getElementById("chartCard").classList.remove("d-none");
+
+}
+
+// ---------------- PLOT ----------------
+function drawChart(datasets) {
+
+  if (chart) chart.destroy();
+
+  chart = new Chart(document.getElementById("chart"), {
+    type: "line",
+    data: { datasets: datasets },
+    options: {
+      parsing: false,
+      responsive: true,
+      devicePixelRatio: 3,
+      plugins: {
+        
+        title: {
+          display: true,
+          text: "M–H Curves"
+        },
+        legend: {
+          display: true,
+          position: "top",
+            labels: {
+            usePointStyle: true,
+            pointStyle: "triangle",
+            boxWidth: 5,
+            },
+
+        }
+
+      },
+      scales: {
+        x: {
+          type: "linear",
+          title: { display: true, text: "Magnetic Field (H)" }
+        },
+        y: {
+          title: { display: true, text: "Magnetization (M)" }
+        }
+      }
+    }
+  });
+}
+
+function savePlot() {
+  const canvas = document.getElementById("chart");
+
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "M-H_curve.png";
+  link.click();
+}
+
+</script>
+<footer class="text-center text-white bg-dark py-2 mt-4">
+  © 2026 Sarath Prabhavu
+</footer>
+</body>
+</html>
