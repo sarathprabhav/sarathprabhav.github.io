@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Schwarzschild Radius Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark text-light">
+
+<div class="container py-5">
+  <h1 class="text-center mb-4">🕳️ Schwarzschild Radius Calculator</h1>
+
+  <div class="card bg-secondary p-4">
+
+    <!-- Mass input -->
+    <div class="mb-3">
+      <label class="form-label">Enter Mass:</label>
+      <input type="number" id="massInput" class="form-control" placeholder="e.g. 5.97 (Earth mass approx)">
+    </div>
+
+    <!-- Unit selection -->
+    <div class="mb-3">
+      <label class="form-label">Mass Unit:</label>
+      <select id="unitSelect" class="form-select">
+        <option value="kg">Kilogram (kg)</option>
+        <option value="earth">Earth Mass</option>
+        <option value="sun">Solar Mass</option>
+      </select>
+    </div>
+
+    <!-- Button -->
+    <button class="btn btn-warning w-100" onclick="calculateRadius()">
+      Calculate Schwarzschild Radius
+    </button>
+
+  </div>
+
+  <!-- Result -->
+  <div class="mt-5">
+    <h3>Result</h3>
+    <table class="table table-dark table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody id="resultTable"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// Constants
+const G = 6.67430e-11;        // gravitational constant
+const c = 299792458;          // speed of light
+
+// reference masses
+const earthMass = 5.972e24;   // kg
+const sunMass = 1.989e30;     // kg
+
+function calculateRadius() {
+  let mass = parseFloat(document.getElementById("massInput").value);
+  let unit = document.getElementById("unitSelect").value;
+
+  if (!mass || mass <= 0) {
+    alert("Please enter a valid mass!");
+    return;
+  }
+
+  // convert to kg
+  if (unit === "earth") {
+    mass = mass * earthMass;
+  } 
+  else if (unit === "sun") {
+    mass = mass * sunMass;
+  }
+
+  // Schwarzschild radius formula:
+  // Rs = 2GM / c^2
+  const radius = (2 * G * mass) / (c * c);
+
+  // convert to useful units
+  const radiusKm = radius / 1000;
+  const radiusMm = radius * 1000;
+
+  let output = `
+    <tr><td>Radius (meters)</td><td>${radius.toExponential(6)}</td></tr>
+    <tr><td>Radius (km)</td><td>${radiusKm.toExponential(6)}</td></tr>
+    <tr><td>Radius (mm)</td><td>${radiusMm.toExponential(6)}</td></tr>
+  `;
+
+  document.getElementById("resultTable").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
