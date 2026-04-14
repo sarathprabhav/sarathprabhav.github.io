@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Solar System Scaler</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark text-light">
+
+<div class="container py-5">
+  <h1 class="text-center mb-4">🌌 Solar System Scaler</h1>
+
+  <div class="card bg-secondary p-4">
+    
+    <!-- Selection -->
+    <div class="mb-3">
+      <label class="form-label">Scale Based On:</label>
+      <select id="baseObject" class="form-select">
+        <option value="sun">Sun</option>
+        <option value="earth">Earth</option>
+      </select>
+    </div>
+
+    <!-- Input size -->
+    <div class="mb-3">
+      <label class="form-label">Enter Diameter (in cm):</label>
+      <input type="number" id="inputSize" class="form-control" placeholder="e.g. 10">
+    </div>
+
+    <!-- Button -->
+    <button class="btn btn-warning w-100" onclick="calculateScale()">
+      Calculate Scale
+    </button>
+  </div>
+
+  <!-- Results -->
+  <div class="mt-5">
+    <h3>Scaled Results</h3>
+    <table class="table table-dark table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Object</th>
+          <th>Diameter (cm)</th>
+          <th>Distance from Sun (m)</th>
+        </tr>
+      </thead>
+      <tbody id="resultTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// Real values (km)
+const solarSystem = {
+  sun: { diameter: 1391400, distance: 0 },
+  mercury: { diameter: 4879, distance: 57900000 },
+  venus: { diameter: 12104, distance: 108200000 },
+  earth: { diameter: 12742, distance: 149600000 },
+  mars: { diameter: 6779, distance: 227900000 },
+  jupiter: { diameter: 139820, distance: 778500000 },
+  saturn: { diameter: 116460, distance: 1434000000 },
+  uranus: { diameter: 50724, distance: 2871000000 },
+  neptune: { diameter: 49244, distance: 4495000000 }
+};
+
+function calculateScale() {
+  const base = document.getElementById("baseObject").value;
+  const inputSize = parseFloat(document.getElementById("inputSize").value);
+
+  if (!inputSize || inputSize <= 0) {
+    alert("Please enter a valid size!");
+    return;
+  }
+
+  const baseRealDiameter = solarSystem[base].diameter;
+
+  // Scale factor
+  const scale = inputSize / baseRealDiameter;
+
+  let output = "";
+
+  for (let key in solarSystem) {
+    let body = solarSystem[key];
+
+    let scaledDiameter = body.diameter * scale;
+    let scaledDistance = body.distance * scale / 1000; // convert km → meters
+
+    output += `
+      <tr>
+        <td>${key.toUpperCase()}</td>
+        <td>${scaledDiameter.toFixed(4)}</td>
+        <td>${scaledDistance.toFixed(2)}</td>
+      </tr>
+    `;
+  }
+
+  document.getElementById("resultTable").innerHTML = output;
+}
+</script>
+
+</body>
+</html>

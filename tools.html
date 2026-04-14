@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <title>Tools | Sarath Prabhavu</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar-placeholder"></div>
+
+<!-- PAGE HEADER -->
+<header class="bg-dark text-white text-center py-4">
+  <div class="container">
+    <!-- <h1>Tools</h1> -->
+    <p class="lead">Interactive calculators and science tools</p>
+  </div>
+</header>
+
+<!-- TOOLS SECTION -->
+<section class="py-5 bg-light">
+  <div class="container">
+
+    <div class="row g-4">
+
+      <!-- Solar System Scaler -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">🌌 Solar System Scaler</h5>
+            <p class="card-text">
+              Scale the entire solar system based on the size of Earth or Sun.
+            </p>
+            <a href="tools/solar_system_scaler.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open Tool</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit Converter -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">📏 Unit Converter</h5>
+            <p class="card-text">
+              Convert between different units of length, mass, and time.
+            </p>
+            <a href="converter.html" class="btn btn-primary">Open Tool</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Speed Calculator -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">🚀 Speed Calculator</h5>
+            <p class="card-text">
+              Calculate speed, distance, or time easily.
+            </p>
+            <a href="speed.html" class="btn btn-primary">Open Tool</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gravity Calculator -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">🌍 Gravity Calculator</h5>
+            <p class="card-text">
+              Calculate gravitational force between two objects.
+            </p>
+            <a href="gravity.html" class="btn btn-primary">Open Tool</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Energy Calculator -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">⚡ Energy Calculator</h5>
+            <p class="card-text">
+              Compute kinetic and potential energy.
+            </p>
+            <a href="energy.html" class="btn btn-primary">Open Tool</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- More Tools Placeholder -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-dashed">
+          <div class="card-body text-center">
+            <h5 class="card-title">➕ More Coming</h5>
+            <p class="card-text">
+              New tools will be added soon.
+            </p>
+            <button class="btn btn-outline-secondary" disabled>Stay Tuned</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white text-center py-3">
+  <p class="mb-0">© 2026 Sarath Prabhavu</p>
+</footer>
+
+<!-- Navbar Loader Script -->
+<script>
+fetch('navbar.html')
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('navbar-placeholder').innerHTML = data;
+  });
+</script>
+
+</body>
+</html>

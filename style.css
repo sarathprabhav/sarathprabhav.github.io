@@ -103,3 +103,22 @@ body {
   border-radius: 3px;
   opacity: 0.6;
 } */
+
+#blog-posts img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+#blog-posts img.small {
+  max-width: 50%;
+}
+
+#blog-posts img.medium {
+  max-width: 80%;
+}
+
+#blog-posts img.full {
+  max-width: 100%;
+}
