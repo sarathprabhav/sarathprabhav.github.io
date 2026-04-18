@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Magnetic Entropy Calculator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #f0f4f8;
+    --surface: #ffffff;
+    --surface2: #f1f5f9;
+    --border: #cbd5e1;
+    --accent: #0077cc;
+    --accent2: #7c3aed;
+    --accent3: #f59e0b;
+    --text: #1e293b;
+    --muted: #64748b;
+    --success: #059669;
+    --danger: #dc2626;
+    --plot-bg: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,119,204,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,119,204,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #app { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* HEADER */
+  header { text-align: center; padding: 48px 0 40px; }
+  header .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 700;
+    color: #2b2929;
+    line-height: 1.15;
+  }
+  header h1 span { color: var(--accent); }
+  header p {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  /* PANELS */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .panel-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* UPLOAD ZONE */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--accent);
+    background: rgba(0,119,204,0.04);
+  }
+  .upload-zone input[type=file] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .upload-icon { font-size: 40px; margin-bottom: 10px; }
+  .upload-zone p { color: var(--muted); font-size: 14px; }
+  .upload-zone .hint { font-size: 12px; color: var(--muted); margin-top: 6px; opacity: 0.6; }
+  .file-name {
+    margin-top: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(0,119,204,0.08);
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  /* TEMPERATURE INPUT */
+  .temp-hint { font-size: 12px; color: var(--muted); }
+  .temp-input-wrap { margin-top: 12px; }
+  .temp-input-wrap label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  #tempInput {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #tempInput:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,119,204,0.1); }
+  #tempPreview {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 28px;
+  }
+  .temp-tag {
+    background: rgba(0,119,204,0.1);
+    border: 1px solid rgba(0,119,204,0.3);
+    color: var(--accent);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+  }
+  .temp-tag.mismatch {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.3);
+    color: #fca5a5;
+  }
+  #tempMatchInfo { margin-top: 8px; font-size: 12px; }
+
+  /* H STEP */
+  .h-step-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .h-step-row label { font-size: 13px; color: var(--muted); }
+  .h-step-row input {
+    width: 90px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .h-step-row input:focus { border-color: var(--accent); }
+
+  /* BUTTONS */
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #005fa3; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-secondary:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .btn-dl {
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: var(--accent2);
+    padding: 7px 14px;
+    font-size: 11px;
+  }
+  .btn-dl:hover { background: rgba(124,58,237,0.18); }
+
+  /* STATUS */
+  #status {
+    margin-top: 14px;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: none;
+  }
+  #status.info { background: rgba(0,119,204,0.07); color: #005fa3; border: 1px solid rgba(0,119,204,0.2); display: block; }
+  #status.error { background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); display: block; }
+  #status.success { background: rgba(16,185,129,0.1); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); display: block; }
+
+  /* PLOTS SECTION */
+  #plots-section { display: none; }
+  .plot-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .plot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .plot-header h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .plot-header .plot-sub { font-size: 12px; color: var(--muted); margin-top: 2px; font-family: 'DM Sans', sans-serif; font-weight: 300; }
+  .plot-body { padding: 12px; }
+  .plot-div { width: 100%; min-height: 400px; border-radius: 8px; }
+
+  /* SUMMARY TABLE */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+  }
+  .summary-table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--surface2);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .summary-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(203,213,225,0.5);
+    color: var(--text);
+  }
+  .summary-table tr:hover td { background: rgba(0,119,204,0.03); }
+
+  /* PLOTS GRID for summary */
+  .plots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 20px; }
+  @media (max-width: 640px) { .plots-grid { grid-template-columns: 1fr; } }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    background: rgba(0,229,255,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(0,229,255,0.2);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+  .mt-16 { margin-top: 16px; }
+  .flex-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="label">Physics · Magnetocaloric Analysis</div>
+    <h1>Magnetic <span>Entropy</span> Calculator</h1>
+    <p>Upload M-H curve data, assign temperatures, and compute ΔS with interactive plots.</p>
+  </header>
+
+  <!-- STEP 1: Upload -->
+  <div class="panel">
+    <div class="panel-title">01 — Upload CSV Data</div>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="csvFile" accept=".csv,.dat,.txt"/>
+      <div class="upload-icon">📂</div>
+      <p>Drop your CSV file here or click to browse</p>
+      <p class="hint">Columns: H1, M1, H2, M2, H3, M3 … (tab or comma separated)</p>
+      <div id="fileName" style="display:none" class="file-name"></div>
+    </div>
+  </div>
+
+  <!-- STEP 2: Temperatures -->
+  <div class="panel" id="tempPanel" style="display:none">
+    <div class="panel-title">02 — Set Temperatures</div>
+    <p class="temp-hint">Enter all temperatures (K) as comma-separated values — one per H-M pair in order.</p>
+    <div class="temp-input-wrap">
+      <label>Temperatures (K) — comma separated</label>
+      <input type="text" id="tempInput" placeholder="e.g. 4, 50, 100, 120, 140, 160, 170, 180, 190, 200" spellcheck="false"/>
+      <div id="tempPreview"></div>
+      <div id="tempMatchInfo"></div>
+    </div>
+    <div class="h-step-row">
+      <label>H interpolation step (ΔH):</label>
+      <input type="number" id="hStep" value="0.25" min="0.01" step="0.01"/>
+      <span style="font-size:12px;color:var(--muted)">same unit as your H column</span>
+    </div>
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="runBtn">▶ &nbsp;Run Analysis</button>
+      <button class="btn btn-secondary" id="resetBtn">↺ &nbsp;Reset</button>
+    </div>
+    <div id="status"></div>
+  </div>
+
+  <!-- PLOTS -->
+  <div id="plots-section">
+    <div class="panel" style="padding-bottom:8px">
+      <div class="panel-title">03 — Plots</div>
+      <div class="btn-row" id="plotBtns">
+        <button class="btn btn-primary" data-plot="mh">M-H Curves</button>
+        <button class="btn btn-secondary" data-plot="dsH">ΔS vs H</button>
+        <button class="btn btn-secondary" data-plot="dsT">ΔS vs T</button>
+        <button class="btn btn-secondary" data-plot="dsTneg">−ΔS vs T</button>
+        <button class="btn btn-secondary" data-plot="dsMax">ΔS_max vs T</button>
+        <button class="btn btn-secondary" data-plot="contour">Contour Map</button>
+        <button class="btn btn-secondary" data-plot="surface">3D Surface</button>
+      </div>
+    </div>
+
+    <div id="plotContainer"></div>
+    <div id="summarySection" style="display:none">
+      <div class="panel">
+        <div class="panel-title">Peak ΔS Summary</div>
+        <table class="summary-table" id="summaryTable"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+let rawData = null;       // parsed CSV rows (array of objects)
+let nPairs = 0;
+let temperatures = [];
+let computed = null;      // { H_common, interp, dMdT, deltaS, T_mid, H_vals, Z }
+let activePlot = null;
+
+// Plotly layout defaults
+const plotLayout = (title, xLabel, yLabel, extra={}) => ({
+  title: { text: title, font: { color: '#1e293b', family: 'Space Mono', size: 14 } },
+  paper_bgcolor: '#ffffff',
+  plot_bgcolor: '#f8fafc',
+  font: { color: '#475569', family: 'DM Sans' },
+  xaxis: { title: xLabel, gridcolor: '#e2e8f0', zerolinecolor: '#cbd5e1', color: '#475569' },
+  yaxis: { title: yLabel, gridcolor: '#e2e8f0', zerolinecolor: '#cbd5e1', color: '#475569' },
+  legend: { bgcolor: 'rgba(255,255,255,0.9)', bordercolor: '#cbd5e1', borderwidth: 1 },
+  margin: { t: 60, r: 20, b: 60, l: 65 },
+  ...extra
+});
+
+const plotConfig = {
+  responsive: true,
+  displayModeBar: true,
+  modeBarButtonsToRemove: ['sendDataToCloud'],
+  toImageButtonOptions: { format: 'png', filename: 'entropy_plot', scale: 2 }
+};
+
+// Palette
+const palette = [
+  '#00e5ff','#7c3aed','#f59e0b','#10b981','#ef4444','#f97316',
+  '#3b82f6','#ec4899','#84cc16','#8b5cf6','#06b6d4','#14b8a6',
+  '#e879f9','#fb923c'
+];
+
+// ─── Upload ───────────────────────────────────────────────────────────────────
+const csvFileEl = document.getElementById('csvFile');
+const uploadZone = document.getElementById('uploadZone');
+const fileNameEl = document.getElementById('fileName');
+const tempPanel = document.getElementById('tempPanel');
+
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f) processFile(f);
+});
+
+csvFileEl.addEventListener('change', () => {
+  if (csvFileEl.files[0]) processFile(csvFileEl.files[0]);
+});
+
+function processFile(file) {
+  fileNameEl.textContent = '📄 ' + file.name;
+  fileNameEl.style.display = 'inline-block';
+
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: true,
+    complete: result => {
+      rawData = result.data;
+      const cols = result.meta.fields || [];
+
+      // detect H/M column pairs
+      // Support H1,M1 or H,M,H.1,M.1 style
+      const hCols = cols.filter(c => /^H\d*$|^H\.\d+$/i.test(c.trim()));
+      const mCols = cols.filter(c => /^M\d*$|^M\.\d+$/i.test(c.trim()));
+      nPairs = Math.min(hCols.length, mCols.length);
+
+      if (nPairs === 0) {
+        showStatus('No H/M column pairs found. Ensure columns are named H1,M1,H2,M2… or H,M,H.1,M.1…', 'error');
+        return;
+      }
+
+      // store column order on rawData for later
+      rawData._hCols = hCols;
+      rawData._mCols = mCols;
+
+      buildTempInputs();
+      tempPanel.style.display = 'block';
+      showStatus(`Detected ${nPairs} H-M pair(s). Enter temperatures below.`, 'info');
+    },
+    error: err => showStatus('Parse error: ' + err.message, 'error')
+  });
+}
+
+function buildTempInputs() {
+  // Now just show the panel; user types comma-separated temps
+  const input = document.getElementById('tempInput');
+  const preview = document.getElementById('tempPreview');
+  const matchInfo = document.getElementById('tempMatchInfo');
+
+  input.addEventListener('input', () => {
+    const vals = parseTempString(input.value);
+    preview.innerHTML = vals.map((v, i) => {
+      const mismatch = isNaN(v);
+      return `<span class="temp-tag${mismatch?' mismatch':''}">${isNaN(v) ? '?' : v+' K'}</span>`;
+    }).join('');
+    if (vals.length > 0 && !vals.some(isNaN)) {
+      const diff = vals.length - nPairs;
+      if (diff === 0) {
+        matchInfo.innerHTML = `<span style="color:var(--success)">✓ ${vals.length} temperatures match ${nPairs} column pairs.</span>`;
+      } else if (diff > 0) {
+        matchInfo.innerHTML = `<span style="color:#f59e0b">⚠ ${vals.length} temps entered but only ${nPairs} pairs detected — extra temps will be ignored.</span>`;
+      } else {
+        matchInfo.innerHTML = `<span style="color:var(--danger)">✗ ${vals.length} temps entered but ${nPairs} pairs detected — need ${Math.abs(diff)} more.</span>`;
+      }
+    } else {
+      matchInfo.innerHTML = '';
+    }
+  });
+}
+
+function parseTempString(str) {
+  return str.split(/[\s,]+/).filter(s => s.trim() !== '').map(Number);
+}
+
+// ─── Run Analysis ─────────────────────────────────────────────────────────────
+document.getElementById('runBtn').addEventListener('click', runAnalysis);
+document.getElementById('resetBtn').addEventListener('click', () => location.reload());
+
+function runAnalysis() {
+  // collect temperatures from comma input
+  const tempStr = document.getElementById('tempInput').value;
+  temperatures = parseTempString(tempStr);
+
+  if (temperatures.length === 0 || temperatures.some(isNaN)) {
+    showStatus('Please enter valid temperatures as comma-separated numbers (e.g. 4, 50, 100, 150).', 'error');
+    return;
+  }
+  if (temperatures.length < nPairs) {
+    showStatus(`Only ${temperatures.length} temperatures entered but ${nPairs} column pairs detected. Please add ${nPairs - temperatures.length} more.`, 'error');
+    return;
+  }
+  if (temperatures.length > nPairs) {
+    temperatures = temperatures.slice(0, nPairs); // trim extras
+  }
+
+  const hStep = parseFloat(document.getElementById('hStep').value);
+  if (isNaN(hStep) || hStep <= 0) { showStatus('Invalid H step value.', 'error'); return; }
+
+  showStatus('Computing…', 'info');
+
+  try {
+    computed = compute(rawData, rawData._hCols, rawData._mCols, temperatures, hStep);
+    showStatus(`Done! ${nPairs} curves processed. Choose a plot below.`, 'success');
+    document.getElementById('plots-section').style.display = 'block';
+    // auto-show MH
+    setActivePlot('mh');
+    highlightBtn('mh');
+  } catch(e) {
+    showStatus('Computation error: ' + e.message, 'error');
+    console.error(e);
+  }
+}
+
+// ─── Core Computation ─────────────────────────────────────────────────────────
+function compute(data, hCols, mCols, T_s, dH) {
+  // Build H_common from 0 to global max H, step dH
+  let hMax = 0;
+  for (let i = 0; i < hCols.length; i++) {
+    data.forEach(row => {
+      const v = parseFloat(row[hCols[i]]);
+      if (!isNaN(v) && v > hMax) hMax = v;
+    });
+  }
+  const H_common = [];
+  for (let h = 0; h <= hMax + 1e-9; h = +(h + dH).toFixed(10)) H_common.push(h);
+
+  // Interpolate M at H_common for each pair
+  const interp = {}; // keyed by T index
+  for (let i = 0; i < hCols.length; i++) {
+    const Harr = [], Marr = [];
+    data.forEach(row => {
+      const hv = parseFloat(row[hCols[i]]);
+      const mv = parseFloat(row[mCols[i]]);
+      if (!isNaN(hv) && !isNaN(mv)) { Harr.push(hv); Marr.push(mv); }
+    });
+    // sort by H
+    const idx = Harr.map((_,j)=>j).sort((a,b)=>Harr[a]-Harr[b]);
+    const Hs = idx.map(j=>Harr[j]);
+    const Ms = idx.map(j=>Marr[j]);
+    interp[i] = H_common.map(h => linearInterp(Hs, Ms, h));
+  }
+
+  // dM/dT for each adjacent temperature pair
+  const dMdT = [];
+  for (let i = 0; i < T_s.length - 1; i++) {
+    const dT = T_s[i+1] - T_s[i];
+    const arr = H_common.map((_,k) => (interp[i+1][k] - interp[i][k]) / dT);
+    dMdT.push(arr);
+  }
+
+  // deltaS via cumulative trapezoid along H
+  const deltaS = []; // array of arrays, one per adjacent T pair
+  for (let i = 0; i < dMdT.length; i++) {
+    const dS = [0];
+    for (let k = 1; k < H_common.length; k++) {
+      dS.push(dS[k-1] + 0.5*(dMdT[i][k-1] + dMdT[i][k]) * dH);
+    }
+    deltaS.push(dS);
+  }
+
+  const T_mid = T_s.slice(0,-1).map((t,i) => (t + T_s[i+1]) / 2);
+
+  // Matrix Z for contour/3D: rows = T_mid index, cols = H
+  const Z = deltaS; // deltaS[i] = ΔS array over H for T_mid[i]
+
+  return { H_common, interp, dMdT, deltaS, T_mid, hCols, mCols, T_s };
+}
+
+function linearInterp(xs, ys, x) {
+  if (x <= xs[0]) return ys[0];
+  if (x >= xs[xs.length-1]) return ys[ys.length-1];
+  let lo = 0, hi = xs.length - 1;
+  while (hi - lo > 1) {
+    const mid = (lo+hi)>>1;
+    if (xs[mid] <= x) lo = mid; else hi = mid;
+  }
+  const t = (x - xs[lo]) / (xs[hi] - xs[lo]);
+  return ys[lo] + t*(ys[hi]-ys[lo]);
+}
+
+// ─── Plot Buttons ─────────────────────────────────────────────────────────────
+document.getElementById('plotBtns').addEventListener('click', e => {
+  const btn = e.target.closest('[data-plot]');
+  if (!btn || !computed) return;
+  const key = btn.dataset.plot;
+  setActivePlot(key);
+  highlightBtn(key);
+});
+
+function highlightBtn(key) {
+  document.querySelectorAll('#plotBtns [data-plot]').forEach(b => {
+    b.className = b.dataset.plot === key ? 'btn btn-primary' : 'btn btn-secondary';
+  });
+}
+
+function setActivePlot(key) {
+  activePlot = key;
+  renderPlot(key);
+}
+
+function renderPlot(key) {
+  const container = document.getElementById('plotContainer');
+  container.innerHTML = '';
+  document.getElementById('summarySection').style.display = 'none';
+
+  const card = document.createElement('div');
+  card.className = 'plot-card';
+
+  const plotId = 'plot_' + key;
+
+  const titles = {
+    mh:      ['M-H Curves', 'M vs H at each temperature'],
+    dsH:     ['ΔS vs H', 'Magnetic Entropy Change vs Field'],
+    dsT:     ['ΔS vs T', 'Entropy Change vs Temperature at fixed H values'],
+    dsTneg:  ['−ΔS vs T', 'Negated Entropy Change vs Temperature'],
+    dsMax:   ['ΔS_max vs T', 'Peak Entropy Change vs Temperature'],
+    contour: ['ΔS Contour Map', 'ΔS(H, T) — colour map'],
+    surface: ['3D Surface ΔS(H,T)', 'Interactive 3D surface plot']
+  };
+
+  const [title, sub] = titles[key] || ['Plot', ''];
+
+  card.innerHTML = `
+    <div class="plot-header">
+      <div>
+        <h3>${title}</h3>
+        <div class="plot-sub">${sub}</div>
+      </div>
+      <div class="flex-row">
+        <button class="btn btn-dl" id="dlBtn">⬇ Download PNG</button>
+      </div>
+    </div>
+    <div class="plot-body">
+      <div id="${plotId}" class="plot-div"></div>
+    </div>`;
+
+  container.appendChild(card);
+
+  // Draw plot
+  switch(key) {
+    case 'mh':      plotMH(plotId);      break;
+    case 'dsH':     plotDsH(plotId);     break;
+    case 'dsT':     plotDsT(plotId,false);  break;
+    case 'dsTneg':  plotDsT(plotId,true);   break;
+    case 'dsMax':   plotDsMax(plotId);   break;
+    case 'contour': plotContour(plotId); break;
+    case 'surface': plotSurface(plotId); break;
+  }
+
+  // Download button
+  card.querySelector('#dlBtn').addEventListener('click', () => {
+    Plotly.downloadImage(plotId, { format: 'png', width: 1400, height: 900, filename: `entropy_${key}` });
+  });
+
+  // Summary for dsMax
+  if (key === 'dsMax') renderSummary();
+}
+
+// ─── Individual Plot Functions ────────────────────────────────────────────────
+function plotMH(id) {
+  const { H_common, interp, T_s, hCols } = computed;
+  const traces = T_s.map((T, i) => ({
+    x: H_common,
+    y: interp[i],
+    mode: 'lines',
+    name: `${T} K`,
+    line: { color: palette[i % palette.length], width: 2 }
+  }));
+  Plotly.newPlot(id, traces, plotLayout('M-H Curves', 'H', 'M (emu/g)'), plotConfig);
+}
+
+function plotDsH(id) {
+  const { H_common, deltaS, T_mid } = computed;
+  const traces = T_mid.map((T, i) => ({
+    x: H_common,
+    y: deltaS[i],
+    mode: 'lines',
+    name: `${T.toFixed(1)} K`,
+    line: { color: palette[i % palette.length], width: 2 }
+  }));
+  Plotly.newPlot(id, traces, plotLayout('ΔS vs H', 'H (T)', 'ΔS (J/kg·K)'), plotConfig);
+}
+
+function plotDsT(id, negate) {
+  const { H_common, deltaS, T_mid } = computed;
+  // H targets: 0 to hMax, step 2 (roughly 8 curves)
+  const hMax = H_common[H_common.length - 1];
+  const step = Math.max(1, Math.round(hMax / 7));
+  const H_targets = [];
+  for (let h = 0; h <= hMax + 1e-9; h += step) H_targets.push(+h.toFixed(2));
+
+  const traces = H_targets.map((Htgt, ci) => {
+    const idx = H_common.reduce((best, h, i) => Math.abs(h-Htgt) < Math.abs(H_common[best]-Htgt) ? i : best, 0);
+    const ys = deltaS.map(dS => negate ? -dS[idx] : dS[idx]);
+    return {
+      x: T_mid,
+      y: ys,
+      mode: 'lines+markers',
+      name: `H = ${H_common[idx].toFixed(2)}`,
+      line: { color: palette[ci % palette.length], width: 2 },
+      marker: { size: 5 }
+    };
+  });
+  const ylabel = negate ? '−ΔS (J/kg·K)' : 'ΔS (J/kg·K)';
+  const title = negate ? '−ΔS vs Temperature' : 'ΔS vs Temperature';
+  Plotly.newPlot(id, traces, plotLayout(title, 'Temperature (K)', ylabel), plotConfig);
+}
+
+function plotDsMax(id) {
+  const { deltaS, T_mid } = computed;
+  const dSmax = deltaS.map(dS => Math.max(...dS.map(Math.abs)));
+  const traces = [{
+    x: T_mid,
+    y: dSmax,
+    mode: 'lines+markers',
+    name: 'ΔS_max',
+    line: { color: '#00e5ff', width: 2.5 },
+    marker: { size: 7, color: '#00e5ff' }
+  }];
+  Plotly.newPlot(id, traces, plotLayout('Maximum |ΔS| vs Temperature', 'Temperature (K)', 'ΔS_max (J/kg·K)'), plotConfig);
+}
+
+function plotContour(id) {
+  const { H_common, deltaS, T_mid } = computed;
+  const Z = deltaS.map(dS => [...dS]);
+  const traces = [{
+    type: 'contour',
+    x: H_common,
+    y: T_mid,
+    z: Z,
+    colorscale: 'Viridis',
+    contours: { coloring: 'heatmap', showlabels: true },
+    colorbar: { title: 'ΔS', tickfont: { color: '#475569' }, titlefont: { color: '#475569' } }
+  }];
+  Plotly.newPlot(id, traces, plotLayout('ΔS Contour Map', 'H (T)', 'Temperature (K)'), plotConfig);
+}
+
+function plotSurface(id) {
+  const { H_common, deltaS, T_mid } = computed;
+  const Z = deltaS.map(dS => [...dS]);
+  const traces = [{
+    type: 'surface',
+    x: H_common,
+    y: T_mid,
+    z: Z,
+    colorscale: 'Viridis',
+    colorbar: { title: 'ΔS', tickfont: { color: '#475569' }, titlefont: { color: '#475569' } }
+  }];
+  const layout = plotLayout('3D Surface: ΔS(H, T)', '', '');
+  layout.scene = {
+    xaxis: { title: 'H (T)', gridcolor: '#e2e8f0', color: '#475569' },
+    yaxis: { title: 'Temperature (K)', gridcolor: '#e2e8f0', color: '#475569' },
+    zaxis: { title: 'ΔS (J/kg·K)', gridcolor: '#e2e8f0', color: '#475569' },
+    bgcolor: '#f8fafc'
+  };
+  Plotly.newPlot(id, traces, layout, plotConfig);
+}
+
+function renderSummary() {
+  const { deltaS, T_mid, H_common } = computed;
+  const section = document.getElementById('summarySection');
+  const table = document.getElementById('summaryTable');
+  section.style.display = 'block';
+  table.innerHTML = `
+    <thead><tr>
+      <th>T_mid (K)</th>
+      <th>ΔS_max (J/kg·K)</th>
+      <th>H at ΔS_max (T)</th>
+    </tr></thead>
+    <tbody>
+    ${T_mid.map((T,i) => {
+      const dS = deltaS[i];
+      const absMax = Math.max(...dS.map(Math.abs));
+      const idxMax = dS.findIndex(v => Math.abs(v) === absMax);
+      return `<tr><td>${T.toFixed(2)}</td><td>${deltaS[i][idxMax].toFixed(5)}</td><td>${H_common[idxMax].toFixed(3)}</td></tr>`;
+    }).join('')}
+    </tbody>`;
+}
+
+// ─── Status ───────────────────────────────────────────────────────────────────
+function showStatus(msg, type='info') {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = type;
+}
+</script>
+</body>
+</html>
