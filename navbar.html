@@ -1,20 +1,59 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" id="main-navbar">
   <div class="container">
-    <a class="navbar-brand" href="index.html">Sarath Prabhavu J</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+    <a class="navbar-brand" href="index.html">Sarath Prabhavu J.</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="nav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="cv.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="outreach.html">Outreach</a></li>
-        <li class="nav-item"><a class="nav-link" href="courses.html">Courses</a></li>
-        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-        <li class="nav-item"><a class="nav-link" href="media.html">Media</a></li>
-        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-        <li class="nav-item"><a class="nav-link" href="tools.html">Tools</a></li> 
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+
+        <!-- About dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="cv.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            About
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+            <li><a class="dropdown-item" href="cv.html">CV &amp; Profile</a></li>
+            <li><a class="dropdown-item" href="cv.html">Research</a></li>
+            <li><a class="dropdown-item" href="cv.html">Publications</a></li>
+          </ul>
+        </li>
+
+        <!-- Teaching & Outreach dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Teaching
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+            <li><a class="dropdown-item" href="courses.html">Courses</a></li>
+            <li><a class="dropdown-item" href="outreach.html">Outreach</a></li>
+            <li><a class="dropdown-item" href="media.html">Media</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="gallery.html">Gallery</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="blog.html">Blog</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="tools.html">Tools</a>
+        </li>
+
+        <li class="nav-item ms-lg-2">
+          <a class="btn btn-sm btn-outline-light cv-dl-btn" href="SARATH_PRABHVU_CV.pdf" target="_blank">
+            CV <i class="bi bi-download"></i>
+          </a>
+        </li>
+
       </ul>
     </div>
   </div>

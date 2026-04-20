@@ -4,119 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <title>Tools | Sarath Prabhavu</title>
-
-  <!-- Bootstrap -->
+  <title>Science Tools | Sarath Prabhavu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- NAVBAR -->
 <div id="navbar-placeholder"></div>
 
-<!-- PAGE HEADER -->
-<header class="bg-dark text-white text-center py-4">
+<!-- PAGE HERO -->
+<header class="page-hero">
   <div class="container">
-    <!-- <h1>Tools</h1> -->
-    <p class="lead">Interactive calculators and science tools</p>
+    <p class="hero-eyebrow">Interactive</p>
+    <h1 class="page-hero-title">Science Tools</h1>
+    <p class="page-hero-sub">Interactive calculators and visualisers for astronomy &amp; physics</p>
   </div>
 </header>
 
-<!-- TOOLS SECTION -->
-<section class="py-5 bg-light">
+<!-- TOOLS GRID -->
+<section class="py-5" style="background:var(--bg-alt);">
   <div class="container">
-
     <div class="row g-4">
 
       <!-- Solar System Scaler -->
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">🌌 Solar System Scaler</h5>
-            <p class="card-text">
-              Scale the entire solar system based on the size of Earth or Sun.
-            </p>
-            <a href="tools/solar_system_scaler.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open Tool</a>
-          </div>
+        <div class="tool-card">
+          <span class="tool-card-icon">🌌</span>
+          <div class="tool-card-title">Solar System Scaler</div>
+          <p class="tool-card-body">Scale the entire solar system based on the size of Earth or the Sun. Grasp the true distances between planets.</p>
+          <a href="tools/solar_system_scaler.html" target="_blank" class="btn btn-outline-primary btn-sm">Open Tool <i class="bi bi-arrow-up-right-square ms-1"></i></a>
         </div>
       </div>
 
       <!-- Light Speed Converter -->
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">⚡ Light Speed Converter</h5>
-            <p class="card-text">
-            Convert everyday distances into light seconds, minutes, days, and years to truly understand the scale of space
-            </p>
-            <a href="tools/light_speed_converter.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open Tool</a>
-          </div>
+        <div class="tool-card">
+          <span class="tool-card-icon">⚡</span>
+          <div class="tool-card-title">Light Speed Converter</div>
+          <p class="tool-card-body">Convert everyday distances into light-seconds, minutes, days, and years to truly understand the scale of space.</p>
+          <a href="tools/light_speed_converter.html" target="_blank" class="btn btn-outline-primary btn-sm">Open Tool <i class="bi bi-arrow-up-right-square ms-1"></i></a>
         </div>
       </div>
 
-      <!-- Schwarzschild Radius Calculator -->
+      <!-- Schwarzschild Radius -->
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">🚀 Schwarzschild Radius Calculator</h5>
-            <p class="card-text">
-              Calculate the Schwarzschild radius for any given mass.
-            </p>
-            <a href="tools/schwarzschild.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open Tool</a>
-          </div>
+        <div class="tool-card">
+          <span class="tool-card-icon">🕳️</span>
+          <div class="tool-card-title">Schwarzschild Radius Calculator</div>
+          <p class="tool-card-body">Calculate the Schwarzschild radius (event horizon) for any given mass. Understand black hole formation thresholds.</p>
+          <a href="tools/schwarzschild.html" target="_blank" class="btn btn-outline-primary btn-sm">Open Tool <i class="bi bi-arrow-up-right-square ms-1"></i></a>
         </div>
       </div>
 
       <!-- M-H Curve Plotter -->
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title">🧲 M–H Curve Plotter</h5>
-            <p class="card-text">
-              Plot magnetization versus magnetic field curves for different temperatures from csv file.
-            </p>
-            <a href="tools/M-M_curves.html" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Open Tool</a>
-          </div>
+        <div class="tool-card">
+          <span class="tool-card-icon">🧲</span>
+          <div class="tool-card-title">M–H Curve Plotter</div>
+          <p class="tool-card-body">Plot magnetisation versus magnetic field curves for different temperatures from a CSV file. Useful for condensed matter analysis.</p>
+          <a href="tools/M-M_curves.html" target="_blank" class="btn btn-outline-primary btn-sm">Open Tool <i class="bi bi-arrow-up-right-square ms-1"></i></a>
         </div>
       </div>
 
-
-      <!-- More Tools Placeholder -->
+      <!-- Coming Soon -->
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-dashed">
-          <div class="card-body text-center">
-            <h5 class="card-title">➕ More Coming</h5>
-            <p class="card-text">
-              New tools will be added soon.
-            </p>
-            <button class="btn btn-outline-secondary" disabled>Stay Tuned</button>
-          </div>
+        <div class="tool-card" style="border-style:dashed;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:220px;">
+          <i class="bi bi-plus-circle" style="font-size:2rem;color:var(--muted);margin-bottom:0.75rem;"></i>
+          <div class="tool-card-title" style="color:var(--muted);">More Coming Soon</div>
+          <p style="font-size:0.82rem;color:var(--muted);">New science tools are being developed and will be added here.</p>
         </div>
       </div>
 
     </div>
-
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-dark text-white text-center py-3">
-  <p class="mb-0">© 2026 Sarath Prabhavu</p>
+<footer class="site-footer">
+  <div class="container text-center">
+    <p class="footer-name">Sarath Prabhavu J.</p>
+    <p class="footer-links">
+      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
+      <a href="SARATH_PRABHVU_CV.pdf" target="_blank"><i class="bi bi-file-earmark-person-fill"></i></a>
+    </p>
+    <p class="footer-copy">© 2026 Sarath Prabhavu J.</p>
+  </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts.js"></script>
-
-<!-- Navbar Loader Script
-<script>
-fetch('navbar.html')
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById('navbar-placeholder').innerHTML = data;
-  });
-</script> -->
-
 </body>
 </html>

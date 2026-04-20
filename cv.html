@@ -2,390 +2,488 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sarath Prabhavu</title>
-
-  <!-- Bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <title>CV &amp; Profile | Sarath Prabhavu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Custom CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
+<div id="navbar-placeholder"></div>
 
-<!-- Navbar -->
- <div id="navbar-placeholder"></div>
-
-
-
-
-<div class="container my-5">
-
-  <!-- HEADER -->
-<div class="text-center mb-4">
-  <h1 class="fw-bold">Sarath Prabhavu J.</h1>
-  <p class="lead mb-3">Astrophysics Researcher • Astronomy Educator • Astrophotographer</p>
-
-<div class="d-flex mb-0 justify-content-center flex-wrap gap-3">
-  
-  <p class="mb-0">
-    <i class="bi bi-geo-alt-fill"></i>
-    France 
-  </p>
-  <p class="mb-0">
-    <i class="bi bi-flag-fill"></i>
-    India
-  </p>
-
-
-</div>
-
-  <div class="mt-3">
-    <a href="mailto:sarathprabhav@gmail.com" class="btn btn-outline-primary btn-sm">
-      <i class="bi bi-envelope"></i> Email
-    </a>
-    <a href="https://github.com/sarathprabhav" class="btn btn-outline-dark btn-sm">
-      <i class="bi bi-github"></i> GitHub
-    </a>
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <p class="hero-eyebrow">About</p>
+    <h1 class="page-hero-title">Sarath Prabhavu J.</h1>
+    <p class="page-hero-sub">Astrophysics Researcher &nbsp;·&nbsp; Astronomy Educator &nbsp;·&nbsp; Astrophotographer</p>
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      <span class="badge bg-opacity-20 text-white border border-white border-opacity-25 rounded-pill px-3 py-2" style="background:rgba(255,255,255,0.08);">
+        <i class="bi bi-geo-alt-fill me-1"></i>France · India
+      </span>
+      <a href="mailto:sarathprabhav@gmail.com" class="btn btn-sm btn-hero-outline py-1 px-3">
+        <i class="bi bi-envelope me-1"></i>Email
+      </a>
+      <a href="https://github.com/sarathprabhav" target="_blank" class="btn btn-sm btn-hero-outline py-1 px-3">
+        <i class="bi bi-github me-1"></i>GitHub
+      </a>
+      <a href="SARATH_PRABHVU_CV.pdf" target="_blank" class="btn btn-sm btn-hero-primary py-1 px-3">
+        <i class="bi bi-download me-1"></i>Download CV
+      </a>
+    </div>
   </div>
-</div>
-  <!-- TABS -->
-  <ul class="nav nav-tabs  " id="cvTabs">
-    <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#education"><i class="bi bi-mortarboard"></i>
-Education</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#research">Research</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#experience">Experience</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#publications">Publications</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#skills">Skills</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#projects">Projects</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#outreach">Outreach</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#certification">Certification</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#volunteering">Volunteering</button></li>
-    <!-- <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#awards">Extr</button></li> -->
+</header>
+
+<!-- CV TABS -->
+<div class="container my-5">
+  <ul class="nav nav-tabs flex-wrap gap-1" id="cvTabs">
+    <li class="nav-item">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#education">
+        <i class="bi bi-mortarboard me-1"></i>Education
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#research">
+        <i class="bi bi-cpu me-1"></i>Research
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#experience">
+        <i class="bi bi-briefcase me-1"></i>Experience
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#publications">
+        <i class="bi bi-journal-text me-1"></i>Publications
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#skills">
+        <i class="bi bi-tools me-1"></i>Skills
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#projects">
+        <i class="bi bi-diagram-3 me-1"></i>Projects
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#outreach">
+        <i class="bi bi-broadcast me-1"></i>Outreach
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#certification">
+        <i class="bi bi-patch-check me-1"></i>Certifications
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#volunteering">
+        <i class="bi bi-people me-1"></i>Volunteering
+      </button>
+    </li>
   </ul>
 
-  <!-- TAB CONTENT -->
-  <div class="tab-content p-4 border border-top-0">
+  <div class="tab-content p-4 border border-top-0 rounded-bottom" style="background:#fff;">
 
     <!-- EDUCATION -->
-<div class="tab-pane fade show active" id="education">
-  
-  <div class="border-start ps-3 mt-3">
+    <div class="tab-pane fade show active" id="education">
+      <p class="section-eyebrow mb-3">Academic Background</p>
 
+      <div class="border-start border-primary ps-4 border-2">
 
-    <div class="mb-4">
-      <h6 class="fw-bold mb-0">M.Phil Physics</h6>
-      <small class="text-muted">Cochin University • 2022</small>
-    <br>
-        <i>Courses</i>
-          <ul class="mb-1">
-            <li>Research Methodology and Quantitative Techniques</li>
-            <li>Physics of Materials and Theoretical Physics</li>
-            <li>General Relativity and Astrophysics (Elective)</li>
-          </ul> 
-    
-      <p class="mb-0"><i class="bi bi-file-earmark-text"></i> <i>Thesis:</i> Estimation of Magnetic Field Parameter in  Gamma Ray Burts Afterglows</p>
-      <small><i class="bi bi-person"></i> <i>Supervisor:</i> <b>Dr. Resmi L</b></small>
+        <div class="mb-4 position-relative">
+          <div class="position-absolute" style="left:-1.35rem; top:4px; width:12px; height:12px; background:var(--accent); border-radius:50%;"></div>
+          <h6 class="fw-bold mb-0">M.Phil Physics</h6>
+          <small class="text-muted">Cochin University &nbsp;·&nbsp; 2022</small>
+          <p class="mb-1 mt-2 text-muted" style="font-size:0.85rem;"><i>Courses:</i> Research Methodology, Physics of Materials, Theoretical Physics, General Relativity &amp; Astrophysics (Elective)</p>
+          <p class="mb-0 small"><i class="bi bi-file-earmark-text text-primary me-1"></i><em>Thesis:</em> Estimation of Magnetic Field Parameter in Gamma Ray Burst Afterglows</p>
+          <p class="mb-0 small text-muted"><i class="bi bi-person me-1"></i><em>Supervisor:</em> <strong>Dr. Resmi L</strong>, IIST</p>
+        </div>
+
+        <div class="mb-4 position-relative">
+          <div class="position-absolute" style="left:-1.35rem; top:4px; width:12px; height:12px; background:var(--accent); border-radius:50%;"></div>
+          <h6 class="fw-bold mb-0">M.Sc Physics</h6>
+          <small class="text-muted">Kerala University &nbsp;·&nbsp; 2015</small>
+          <p class="mb-1 mt-2 text-muted" style="font-size:0.85rem;"><i>Courses:</i> Mathematical Physics, Classical Mechanics, Quantum Mechanics, Electrodynamics, Statistical Physics, Electronics</p>
+          <p class="mb-0 small"><i class="bi bi-file-earmark-text text-primary me-1"></i><em>Project:</em> Estimation of HII region around massive stars</p>
+          <p class="mb-0 small text-muted"><i class="bi bi-person me-1"></i><em>Supervisor:</em> Prof. Anand Narayan</p>
+        </div>
+
+        <div class="mb-2 position-relative">
+          <div class="position-absolute" style="left:-1.35rem; top:4px; width:12px; height:12px; background:var(--accent); border-radius:50%;"></div>
+          <h6 class="fw-bold mb-0">B.Sc Physics</h6>
+          <small class="text-muted">Kerala University &nbsp;·&nbsp; 2012</small>
+          <p class="mb-0 mt-2 text-muted" style="font-size:0.85rem;"><i>Subjects:</i> Physics (Main), Mathematics, Chemistry</p>
+        </div>
+
+      </div>
     </div>
 
-
-    <div class="mb-4">
-  <h6 class="fw-bold mb-0">M.Sc in Physics</h6>
-  <small class="text-muted">Kerala University • 2015</small>
-  <br>
-        <i>Courses</i>
-          <ul class="mb-1">
-            <li> Mathematical Physics, Classical Mechanics, Quantum Mechanics</li>
-            <li>Electrodynamics, Statistical Physics,Electronics</li>
-            <!-- <li>General Relativity and Astrophysics (Elective)</li> -->
-          </ul> 
-    
-  
-  <p class="mb-0">
-    <i class="bi bi-file-earmark-text"></i>
-    <i>Project:</i> Estimation of HII region around massive stars
-  </p>
-  <small>
-    <i class="bi bi-person"></i>
-    <i>Supervisor:</i> Prof. Anand Narayan
-  </small>
-</div>
-
-<div class="mb-4">
-  <h6 class="fw-bold mb-0">B.Sc. in Physics</h6>
-  <small class="text-muted">Kerala University • 2012</small>
-<br>
-        <i>Courses</i>
-          <ul class="mb-1">
-            <li>Physics (Main)</li>
-            <li>Mathematics (Sub)</li>
-            <li>Chemistry (Sub)</li>
-          </ul> 
-    
-</div>
-
-</div>
-</div>
-
     <!-- RESEARCH -->
-<div class="tab-pane fade" id="research">
-  <h4><i class="bi bi-cpu"></i> Research</h4>
+    <div class="tab-pane fade" id="research">
+      <p class="section-eyebrow mb-3">Research Projects</p>
 
-      <div class="card shadow-sm h-100 mb-3">
+      <div class="card shadow-sm mb-3">
         <div class="card-body">
-          <h6 class="fw-bold mb-1">Understanding the space weather effects on exospheric escape from Earth</h6>
-          
-          <small class="text-muted">2025–Present (<i>Remote</i>)</small>
-          <!-- <p class="mb-0"></p> -->
-          <br>
-          <small class="mb-0">
-            <i class="bi bi-person"></i>
-          <i>Supervisor:</i> Dr. Dolon Bhattacharya,Research Scientist, LASP
-          </small>
-          <ul class="mt-0 mb-1">
-            <li>Study of Upper atmosphere using Lyman Alpha Emission</li>
-            <li>Exploring solar activity effects on the upper atmospheres of terrestrial planets</li>
-            <li>Explores the changes incurred by the exosphere of Earth when a strong solar storm impacts the planet, resulting in a large geomagnetic storm event with a highly neg-
-ative Dst index</li>
-            <li>Using the NRLMSIS model to simulate upper-atmospheric parameters and validat-
-ing model outputs with GOLD satellite measurements</li>
+          <span class="badge mb-2" style="background:rgba(59,130,246,0.1);color:var(--accent);">2025 – Present</span>
+          <h6 class="fw-bold mb-1">Understanding Space Weather Effects on Exospheric Escape from Earth</h6>
+          <p class="small text-muted mb-1"><i class="bi bi-person-circle me-1"></i><em>Supervisor:</em> Dr. Dolon Bhattacharya, Research Scientist, LASP <span class="text-muted">(Remote)</span></p>
+          <ul class="small text-muted mb-0">
+            <li>Study of upper atmosphere using Lyman Alpha Emission</li>
+            <li>Exploring solar activity effects on upper atmospheres of terrestrial planets</li>
+            <li>Changes incurred by Earth's exosphere during geomagnetic storm events (high negative Dst index)</li>
+            <li>NRLMSIS model simulations validated against GOLD satellite measurements</li>
           </ul>
         </div>
       </div>
 
-      <div class="card shadow-sm h-100 mb-3">
+      <div class="card shadow-sm mb-3">
         <div class="card-body">
-          <h6 class="fw-bold mb-1">High Energy Astrophysics- Gamma Ray Bursts</h6>
-          
-          <small class="text-muted">2024–2025 (<i>Remote</i>)</small>
-          <!-- <p class="mb-0"></p> -->
-          <br>
-          <small class="mb-0">
-            <i class="bi bi-person"></i>
-          <i>Supervisor:</i> Dr Resmi L., Associate Professor, Indian Institute of Space Science and 
-              Technology.</small>
-          <ul class="mt-0 mb-1">
-            <li>Studied how GRB hardness and duration vary with the observer’s viewing angle.</li>
-            <li>Modelled single-pulse GRBs using a geometrically and optically thin top-hat jet
-model.</li>
-            <li>Simulated bursts with isotropic viewing angles and computed pulse durations and
-spectral hardness in FERMI-GBM bands.</li>
-            <li>Established a strong dependence of spectral hardness on viewing angle (for bro-
-ken power-law spectra), with a less significant impact on duration.</li>
+          <span class="badge mb-2" style="background:rgba(100,116,139,0.1);color:var(--muted);">2024 – 2025</span>
+          <h6 class="fw-bold mb-1">High Energy Astrophysics — Gamma Ray Bursts</h6>
+          <p class="small text-muted mb-1"><i class="bi bi-person-circle me-1"></i><em>Supervisor:</em> Dr. Resmi L., Associate Professor, IIST <span class="text-muted">(Remote)</span></p>
+          <ul class="small text-muted mb-0">
+            <li>Studied how GRB hardness and duration vary with observer's viewing angle</li>
+            <li>Modelled single-pulse GRBs using a geometrically and optically thin top-hat jet model</li>
+            <li>Simulated bursts with isotropic viewing angles in FERMI-GBM bands</li>
+            <li>Established strong dependence of spectral hardness on viewing angle</li>
           </ul>
+          <a href="https://iopscience.iop.org/article/10.3847/1538-4357/adb1e0" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+            <i class="bi bi-box-arrow-up-right me-1"></i>Published in ApJ
+          </a>
         </div>
       </div>
-
     </div>
 
     <!-- EXPERIENCE -->
     <div class="tab-pane fade" id="experience">
-      <h4>Experience</h4>
+      <p class="section-eyebrow mb-3">Professional Experience</p>
 
-      <p><strong>Project Associate – ILMT, ARIES (2024)</strong><br>
-      - Telescope operations<br>
-      - Built FITS web app</p>
+      <div class="border-start border-primary ps-4 border-2">
 
-      <p><strong>Assistant Professor</strong><br>
-      - SN College Varkala<br>
-      - KSMDB College</p>
+        <div class="mb-4 position-relative">
+          <div class="position-absolute" style="left:-1.35rem; top:4px; width:12px; height:12px; background:var(--accent); border-radius:50%;"></div>
+          <h6 class="fw-bold mb-0">Project Associate — ILMT, ARIES</h6>
+          <small class="text-muted">Aryabhatta Research Institute of Observational Sciences &nbsp;·&nbsp; 2024</small>
+          <ul class="small text-muted mt-2 mb-0">
+            <li>Telescope operations at the 4m International Liquid Mirror Telescope</li>
+            <li>Built FITS web application for data storage and retrieval using Flask &amp; PostgreSQL</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 position-relative">
+          <div class="position-absolute" style="left:-1.35rem; top:4px; width:12px; height:12px; background:var(--accent); border-radius:50%;"></div>
+          <h6 class="fw-bold mb-0">Assistant Professor — Physics</h6>
+          <small class="text-muted">SN College Varkala &amp; KSMDB College</small>
+          <ul class="small text-muted mt-2 mb-0">
+            <li>Delivered 200+ university-level Physics lectures</li>
+            <li>Taught courses in Classical Mechanics, Optics, Electrodynamics, and Astrophysics</li>
+          </ul>
+        </div>
+
+        <div class="mb-2 position-relative">
+          <div class="position-absolute" style="left:-1.35rem; top:4px; width:12px; height:12px; background:var(--accent); border-radius:50%;"></div>
+          <h6 class="fw-bold mb-0">Freelance Science Educator &amp; Communicator</h6>
+          <small class="text-muted">2019 – Present</small>
+          <ul class="small text-muted mt-2 mb-0">
+            <li>Host of "Arike Aakaasam" astronomy TV show on KITE Victers</li>
+            <li>100+ public stargazing sessions and outreach events</li>
+            <li>Online courses in Python, Astronomy, and Astrophotography</li>
+          </ul>
+        </div>
+
+      </div>
     </div>
 
     <!-- PUBLICATIONS -->
-     <!-- PUBLICATIONS -->
-<div class="tab-pane fade" id="publications">
-  <h4><i class="bi bi-journal-text"></i> Publications</h4>
+    <div class="tab-pane fade" id="publications">
+      <p class="section-eyebrow mb-3">Peer-Reviewed Papers</p>
 
-  <div class="card mb-3 shadow-sm">
-    <div class="card-body">
-      <h6 class="fw-bold">Effect of Viewing Angle in Gamma-Ray Burst Properties
-</h6>
-      <small class="text-muted">Astrophysical Journal (2025)</small>
-      <p class="mb-1">Sreelakshmi P. Chakyar, <i>Sarath Prabhavu J.</i>, Lekshmi Resmi</p>
-      
-      <p class="mb-1">DOI: 10.3847/1538-4357/adb1e0</p>
-      <a href="https://iopscience.iop.org/article/10.3847/1538-4357/adb1e0" class="btn btn-sm btn-outline-primary">View Paper</a>
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <span class="badge mb-2" style="background:rgba(59,130,246,0.1);color:var(--accent);">The Astrophysical Journal · 2025</span>
+          <h6 class="fw-bold">Effect of Viewing Angle in Gamma-Ray Burst Properties</h6>
+          <p class="mb-1 small text-muted">Sreelakshmi P. Chakyar, <em>Sarath Prabhavu J.</em>, Lekshmi Resmi</p>
+          <p class="mb-2 small text-muted">DOI: 10.3847/1538-4357/adb1e0</p>
+          <a href="https://iopscience.iop.org/article/10.3847/1538-4357/adb1e0" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-box-arrow-up-right me-1"></i>View Paper
+          </a>
+        </div>
+      </div>
+
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <span class="badge mb-2" style="background:rgba(59,130,246,0.1);color:var(--accent);">Astronomy &amp; Astrophysics, Vol. 694, A80 · 2025</span>
+          <h6 class="fw-bold">The 4 m International Liquid Mirror Telescope: Construction, Operation, and Science</h6>
+          <p class="mb-1 small text-muted">J. Surdej, P. Hickson, K. Misra, D. Banerjee, <em>S. Prabhavu</em>, et al.</p>
+          <p class="mb-2 small text-muted">DOI: 10.1051/0004-6361/202452667</p>
+          <a href="https://www.aanda.org/articles/aa/full_html/2025/02/aa52667-24/aa52667-24.html" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-box-arrow-up-right me-1"></i>View Paper
+          </a>
+        </div>
+      </div>
     </div>
-  </div>
 
-    <div class="card mb-3 shadow-sm">
-    <div class="card-body">
-      <h6 class="fw-bold">The 4 m International Liquid Mirror Telescope: Construction, Operation, and Science</h6>
-      <small class="text-muted">Astronomy & Astrophysics, Vol. 694, A80</small>
-      <p class="mb-1">J. Surdej, P. Hickson, K. Misra, D. Banerjee, <i>S. Prabhavu</i>, et al.</p>
-      <p class="mt-2">DOI: 10.1051/0004-6361/202452667</p>
-      <a href="https://www.aanda.org/articles/aa/full_html/2025/02/aa52667-24/aa52667-24.html" class="btn btn-sm btn-outline-primary">View Paper</a>
+    <!-- SKILLS -->
+    <div class="tab-pane fade" id="skills">
+      <!-- <p class="section-eyebrow mb-3">Technical &amp; Research Skills</p> -->
+
+      <p class="skills-section-title mb-2">Programming &amp; Data Analysis</p>
+      <div class="row g-2 mb-3">
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-braces"></i></div>
+            <div>
+              <div class="hi-title">Python</div>
+              <div class="hi-sub">Data analysis, computational modelling &amp; web development · PyHDF, NetCDF</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-calculator"></i></div>
+            <div>
+              <div class="hi-title">Matlab</div>
+              <div class="hi-sub">Satellite data analysis (CloudSat) · M.Phil coursework</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-terminal"></i></div>
+            <div>
+              <div class="hi-title">C, C++ &amp; Bash Scripting</div>
+              <div class="hi-sub">Systems programming &amp; scripting workflows</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-code-square"></i></div>
+            <div>
+              <div class="hi-title">Fortran <span class="badge rounded-pill" style="font-size:0.68rem;background:rgba(59,130,246,0.1);color:var(--accent);font-weight:600;">ongoing</span></div>
+              <div class="hi-sub">Scientific computing foundations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="skills-section-title mb-2">Web Development &amp; Databases</p>
+      <div class="row g-2 mb-3">
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-server"></i></div>
+            <div>
+              <div class="hi-title">Flask Web Applications</div>
+              <div class="hi-sub">Scientific web tools development</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-database"></i></div>
+            <div>
+              <div class="hi-title">PostgreSQL / SQL</div>
+              <div class="hi-sub">FITS data storage &amp; retrieval</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="skills-section-title mb-2">Scientific &amp; Technical</p>
+      <div class="row g-2 mb-3">
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-cpu"></i></div>
+            <div>
+              <div class="hi-title">Computational Modelling</div>
+              <div class="hi-sub">GRB afterglow &amp; prompt emission</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-globe2"></i></div>
+            <div>
+              <div class="hi-title">Satellite Data Analysis</div>
+              <div class="hi-sub">Space weather modelling · NRLMSIS, GOLD</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-git"></i></div>
+            <div>
+              <div class="hi-title">Linux &amp; Git / GitHub</div>
+              <div class="hi-sub">Version control &amp; scientific computing workflows</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="skills-section-title mb-2">Multimedia &amp; Communication</p>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-camera2"></i></div>
+            <div>
+              <div class="hi-title">Astrophotography</div>
+              <div class="hi-sub">Deep sky, Milky Way &amp; planetary imaging</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-palette"></i></div>
+            <div>
+              <div class="hi-title">Adobe Creative Tools</div>
+              <div class="hi-sub">Illustrator, Photoshop, Blender</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-file-earmark-text"></i></div>
+            <div>
+              <div class="hi-title">LaTeX</div>
+              <div class="hi-sub">Scientific writing &amp; publication preparation</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-mic"></i></div>
+            <div>
+              <div class="hi-title">Public Speaking &amp; Science Communication</div>
+              <div class="hi-sub">Outreach, lectures &amp; astronomy communication in Malayalam &amp; English</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-</div>
-
-
-<!-- SKILLS -->
-<div class="tab-pane fade" id="skills">
-
-  <div class="skills-section-title">
-  Programming & Data Analysis
-</div>
-
-<div class="skills-group">
-    <ul class="skill-list">
-
-      <details class="skill-item">
-        <summary class="skill-title">Python</summary>
-        <ul class="skill-details">
-          <li>Primary language</li>
-          <li>Data analysis, computational modeling & web development</li>
-          <li>Satellite data analysis (PyHDF, NetCDF)</li>
-        </ul>
-      </details>
-    
-
-    
-      <details class="skill-item">
-        <summary class="skill-title">Matlab</summary>
-        <ul class="skill-details">
-          <li>Learned as part of M.Phil.</li>
-          <li>Satellite data analysis (CloudSat)</li>
-        </ul>
-      </details>
-    
-    
-      <details class="skill-item">
-        <summary class="skill-title">C, C++, Bash Scripting</summary>
-        <ul class="skill-details">
-          <li>Systems programming & scripting workflows</li>
-        </ul>
-      </details>
-    
-    
-      <details class="skill-item">
-        <summary class="skill-title">Fortran (ongoing learning)</summary>
-        <ul class="skill-details">
-          <li>Scientific computing foundations</li>
-        </ul>
-      </details>
-    
-
-  </ul>
-  </div>
-
-  <div class="skills-section-title">Web Development & Databases</div>
-  <ul class="skill-list">
-
-    
-      <details class="skill-item">
-        <summary class="skill-title">Flask-based Web Applications</summary>
-        <ul class="skill-details">
-          <li>Scientific web tools development</li>
-        </ul>
-      </details>
-    
-
-    
-      <details class="skill-item">
-        <summary class="skill-title">PostgreSQL / SQL</summary>
-        <ul class="skill-details">
-          <li>FITS data storage & retrieval</li>
-        </ul>
-      </details>
-    
-  </ul>
-
-  <div class="skills-section-title">Scientific & Technical Skills</div>
-  <ul class="skill-list">
-
-      <details class="skill-item">
-        <summary class="skill-title">Computational Modelling</summary>
-        <ul class="skill-details">
-          <li>GRB afterglow & prompt emission</li>
-        </ul>
-      </details>
-    
-      <details class="skill-item">
-        <summary class="skill-title">Satellite Data Analysis</summary>
-        <ul class="skill-details">
-          <li>Space weather modelling</li>
-        </ul>
-      </details>
-    
-    
-      <details class="skill-item">
-        <summary class="skill-title">Linux Environment & Git/GitHub</summary>
-        <ul class="skill-details">
-          <li>Version control & scientific computing workflows</li>
-        </ul>
-      </details>
-    
-
-  </ul>
-
-  <div class="skills-section-title">Multimedia & Communication</div>
-  <ul class="skill-list">
-
-      <details class="skill-item">
-        <summary class="skill-title">Astrophotography</summary>
-        <ul class="skill-details">
-          <li>Deep sky & Milky Way imaging</li>
-        </ul>
-      </details>
-    
-
-      <details class="skill-item">
-        <summary class="skill-title">Adobe Creative Tools</summary>
-        <ul class="skill-details">
-          <li>Illustrator, Photoshop, Blender</li>
-        </ul>
-      </details>
-
-
-      <details class="skill-item">
-        <summary class="skill-title">LaTeX</summary>
-        <ul class="skill-details">
-          <li>Scientific writing & publication preparation</li>
-        </ul>
-      </details>
-   
-   
-      <details class="skill-item">
-        <summary class="skill-title">Public Speaking & Science Communication</summary>
-        <ul class="skill-details">
-          <li>Outreach, lectures & astronomy communication</li>
-        </ul>
-      </details>
-    
-  </ul>
-
-</div>
     <!-- PROJECTS -->
     <div class="tab-pane fade" id="projects">
-      <h4>Projects</h4>
-
-      <p>GRB Afterglow Modelling (MPhil)</p>
-      <p>Exoplanet Detection – 51 Pegasi b</p>
-      <p>Strömgren Sphere Estimation</p>
+      <p class="section-eyebrow mb-3">Key Projects</p>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-lightning-fill"></i></div>
+            <div>
+              <div class="hi-title">GRB Afterglow Modelling</div>
+              <div class="hi-sub">M.Phil thesis project · IIST collaboration</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-globe2"></i></div>
+            <div>
+              <div class="hi-title">Exoplanet Detection — 51 Pegasi b</div>
+              <div class="hi-sub">Radial velocity analysis</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-stars"></i></div>
+            <div>
+              <div class="hi-title">Strömgren Sphere Estimation</div>
+              <div class="hi-sub">HII region around massive stars · M.Sc project</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-hdd-network-fill"></i></div>
+            <div>
+              <div class="hi-title">ILMT FITS Web App</div>
+              <div class="hi-sub">Flask · PostgreSQL · Telescope data pipeline</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- OUTREACH -->
     <div class="tab-pane fade" id="outreach">
-      <h4>Outreach</h4>
+      <p class="section-eyebrow mb-3">Public Engagement</p>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-telescope-fill"></i></div>
+            <div>
+              <div class="hi-title">100+ Public Stargazing Sessions</div>
+              <div class="hi-sub">Schools, colleges &amp; communities across Kerala</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-tv-fill"></i></div>
+            <div>
+              <div class="hi-title">Astronomy TV Show Host</div>
+              <div class="hi-sub">Arike Aakaasam · KITE Victers Channel (Malayalam)</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-newspaper"></i></div>
+            <div>
+              <div class="hi-title">Science Writing</div>
+              <div class="hi-sub">Articles in Malayalam regional science publications</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="highlight-item">
+            <div class="hi-icon"><i class="bi bi-camera2"></i></div>
+            <div>
+              <div class="hi-title">Astrophotography Workshops</div>
+              <div class="hi-sub">Budget astrophotography &amp; deep sky imaging</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-3">
+        <a href="outreach.html" class="btn btn-outline-primary btn-sm">View Full Outreach Timeline →</a>
+      </div>
+    </div>
 
-      <ul>
-        <li>100+ public stargazing sessions</li>
-        <li>Astronomy TV show host</li>
-        <li>Science articles in regional language</li>
-      </ul>
+    <!-- CERTIFICATION -->
+    <div class="tab-pane fade" id="certification">
+      <p class="section-eyebrow mb-3">Certifications &amp; Training</p>
+      <p class="text-muted small">Certifications and online courses to be listed here.</p>
+    </div>
+
+    <!-- VOLUNTEERING -->
+    <div class="tab-pane fade" id="volunteering">
+      <p class="section-eyebrow mb-3">Volunteer Work</p>
+      <p class="text-muted small">Volunteering activities to be listed here.</p>
     </div>
 
   </div>
-
 </div>
-<script src="scripts.js"></script>
+
+<footer class="site-footer">
+  <div class="container text-center">
+    <p class="footer-name">Sarath Prabhavu J.</p>
+    <p class="footer-links">
+      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
+      <a href="SARATH_PRABHVU_CV.pdf" target="_blank"><i class="bi bi-file-earmark-person-fill"></i></a>
+    </p>
+    <p class="footer-copy">© 2026 Sarath Prabhavu J.</p>
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
+<script src="scripts.js"></script>
 </body>
 </html>

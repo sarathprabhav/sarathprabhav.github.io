@@ -1,460 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Python For Absolute Beginners – Malayalam</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Malayalam:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
- <style>
-:root {
-  --green-dark: #0F6E56;
-  --green-mid: #1D9E75;
-  --green-light: #E1F5EE;
-  --green-accent: #5DCAA5;
-  --amber: #EF9F27;
-  --amber-dark: #854F0B;
-  --amber-light: #FAEEDA;
-  --text-dark: #1a1a1a;
-  --text-muted: #555;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <title>Python for Absolute Beginners | Sarath Prabhavu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Course-specific accent — green for Python branding */
+    :root {
+      --py-green: #0f6e56;
+      --py-green-mid: #1d9e75;
+      --py-green-light: #e1f5ee;
+      --py-green-accent: #5dcaa5;
+      --py-amber: #ef9f27;
+      --py-amber-dark: #854f0b;
+      --py-amber-light: #faeeda;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    .py-hero {
+      background: linear-gradient(135deg, #060d1f 0%, #063526 55%, #0a1628 100%);
+      position: relative;
+      padding: 4rem 0 3.5rem;
+      overflow: hidden;
+    }
+    .py-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 75% 50%, rgba(29,158,117,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 40% at 15% 80%, rgba(59,130,246,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
-body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: #f6fbf9;
-  color: var(--text-dark);
-  overflow-x: hidden;
-}
+    .py-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .py-lang-badge {
+      display: inline-block;
+      background: var(--py-amber);
+      color: var(--py-amber-dark);
+      font-weight: 800;
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
 
-/* HERO */
-.hero {
-  background: linear-gradient(135deg, #0F6E56 0%, #1D9E75 50%, #5DCAA5 100%);
-  color: #fff;
-  padding: 70px 0 50px;
-  position: relative;
-  overflow: hidden;
-}
+    .ai-banner {
+      background: var(--py-amber-light);
+      border-left: 4px solid var(--py-amber);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
 
-.hero::before,
-.hero::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-}
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: box-shadow 0.2s;
+    }
+    .info-card:hover { box-shadow: 0 4px 20px rgba(15,110,86,0.08); }
 
-.hero::before {
-  top: -60px;
-  right: -60px;
-  width: 220px;
-  height: 220px;
-}
+    .py-section-title {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--py-green);
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--py-green-accent);
+      display: inline-block;
+    }
 
-.hero::after {
-  bottom: -80px;
-  left: -40px;
-  width: 180px;
-  height: 180px;
-}
+    .series-card {
+      background: var(--py-green-light);
+      border: 1px solid var(--py-green-accent);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .series-card .num {
+      width: 30px;
+      height: 30px;
+      background: var(--py-green);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
 
-.hero h1 {
-  font-size: clamp(1.9rem, 5vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.2;
-}
+    .goal-item {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      align-items: flex-start;
+    }
+    .goal-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--py-green-light);
+      color: var(--py-green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
 
-.hero .subtitle {
-  font-size: 1rem;
-  line-height: 1.7;
-  max-width: 100%;
-}
+    .syllabus-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed #cce8dc;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .syllabus-item:last-child { border-bottom: none; }
+    .sy-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--py-green-accent);
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
 
-.badge-tag,
-.lang-badge {
-  display: inline-block;
-  margin-top: 10px;
-}
+    .details-table td {
+      padding: 0.65rem 0.25rem;
+      border-bottom: 1px solid #eaf4f0;
+      font-size: 0.9rem;
+    }
+    .details-table td:first-child {
+      width: 42%;
+      color: var(--muted);
+      font-weight: 500;
+    }
 
-.badge-tag {
-  background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.35);
-  color: #fff;
-  border-radius: 50px;
-  padding: 6px 14px;
-  font-size: 13px;
-}
+    .btn-register {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: var(--py-green);
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-register:hover { background: #085041; color: #fff; }
 
-.lang-badge {
-  background: var(--amber);
-  color: var(--amber-dark);
-  font-weight: 800;
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 13px;
-}
-
-/* AI BANNER */
-.ai-banner {
-  background: var(--amber-light);
-  border-left: 4px solid var(--amber);
-  border-radius: 10px;
-  padding: 16px 18px;
-  margin: 30px 0 10px;
-}
-
-.ai-banner p {
-  margin: 0;
-  line-height: 1.6;
-}
-
-/* SECTION TITLE */
-.section-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--green-dark);
-  margin-bottom: 14px;
-}
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 45px;
-  height: 3px;
-  background: var(--green-accent);
-  margin-top: 8px;
-  border-radius: 2px;
-}
-
-.info-card {
-  background: #fff;
-  border: 1px solid #d0ede4;
-  border-radius: 14px;
-  padding: 24px;
-}
-
-.info-card:hover {
-  box-shadow: 0 6px 24px rgba(15,110,86,0.10);
-}
-
-/* SERIES */
-.series-card {
-  background: var(--green-light);
-  border: 1px solid var(--green-accent);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 14px;
-  display: flex;
-  gap: 12px;
-}
-
-.series-card .num {
-  width: 32px;
-  height: 32px;
-  background: var(--green-dark);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  flex-shrink: 0;
-}
-
-/* GOALS */
-.goal-item {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.goal-item .icon {
-  width: 36px;
-  height: 36px;
-  background: var(--green-light);
-  color: var(--green-dark);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-/* SYLLABUS */
-.syllabus-item {
-  display: flex;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px dashed #cce8dc;
-}
-
-.syllabus-item .dot {
-  width: 8px;
-  height: 8px;
-  background: var(--green-accent);
-  border-radius: 50%;
-  margin-top: 8px;
-  flex-shrink: 0;
-}
-
-/* TABLE */
-.details-table td {
-  padding: 10px 4px;
-  border-bottom: 1px solid #eaf4f0;
-  font-size: 0.94rem;
-}
-
-.details-table td:first-child {
-  width: 42%;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-/* BUTTON */
-.btn-register,
-.btn-closed {
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  padding: 14px;
-  border-radius: 10px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.btn-register {
-  /* background: #5456dd; */
-  background: var(--green-dark);
-  color: #fff;
-}
-
-.btn-register:hover {
-  background: #085041;
-  color: #fff;
-  }
-
-.btn-closed {
-  background: #aaa;
-  color: #fff;
-}
-
-/* FOOTER */
-footer {
-  background: #0F6E56;
-  color: rgba(255,255,255,0.75);
-  font-size: 0.88rem;
-  padding: 24px 0;
-  text-align: center;
-  margin-top: 50px;
-}
-
-footer p {
-  margin: 6px 0;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .hero {
-    padding: 55px 0 40px;
-    text-align: center;
-  }
-
-  .hero .subtitle {
-    font-size: 0.95rem;
-  }
-
-  .info-card {
-    padding: 18px;
-  }
-
-  .section-title {
-    font-size: 1.2rem;
-  }
-
-  .series-card,
-  .goal-item,
-  .syllabus-item {
-    align-items: flex-start;
-  }
-
-  .details-table td {
-    font-size: 0.88rem;
-  }
-
-  footer {
-    font-size: 0.8rem;
-    padding: 18px 12px;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero h1 {
-    font-size: 1.7rem;
-  }
-
-  .badge-tag,
-  .lang-badge {
-    font-size: 12px;
-  }
-
-  .btn-register,
-  .btn-closed {
-    font-size: 0.95rem;
-  }
-}
-</style>
+    .details-card-highlight {
+      background: var(--py-green-light);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.87rem;
+      color: var(--py-green);
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
- <div id="navbar-placeholder"></div>
+<div id="navbar-placeholder"></div>
 
- <!-- HERO -->
-<div class="hero">
+<!-- HERO -->
+<header class="py-hero">
   <div class="container">
-    <div class="badge-tag">🐍 Python Course Series · Part 1</div>
-    <h1>Python for Absolute Beginners</h1>
-    <p class="subtitle">
-      No prior coding experience? No problem. This course builds your programming foundation from the ground up — in <strong>Malayalam</strong>, for students, researchers, and teachers.
+    <div class="py-badge">🐍 Python Course Series · Part 1</div>
+    <h1 class="hero-name" style="font-size:clamp(1.9rem,5vw,3rem);">Python for <span class="hero-accent">Absolute Beginners</span></h1>
+    <p class="hero-tagline" style="max-width:600px;">
+      No prior coding experience? No problem. Build your programming foundation from the ground up —
+      in <strong style="color:#fff;">Malayalam</strong>, for students, researchers, and teachers.
     </p>
-    <div class="lang-badge">🗣️ Conducted in Malayalam</div>
+    <div class="py-lang-badge">🗣️ Conducted in Malayalam</div>
+    <div class="d-flex flex-wrap gap-3 mt-4">
+      <a href="https://forms.gle/Er4VVBhKhGuvqAP67" target="_blank" class="btn-hero-primary btn" style="background:var(--py-green-mid);border:none;">
+        Register Now <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+      <a href="courses.html" class="btn-hero-outline btn">← Back to Courses</a>
+    </div>
   </div>
-</div>
+</header>
 
 <!-- MAIN CONTENT -->
-<div class="container py-5">
+<div style="background:var(--bg-alt);">
+  <div class="container py-5">
 
-  <!-- AI CALLOUT -->
-  <div class="ai-banner">
-    <span class="ai-icon">🤖</span>
-    <p>
-      <strong>Why coding still matters in the AI age:</strong> Tools like ChatGPT and Google Gemini can write code for you — but to use them powerfully (what people call <em>vibe coding</em>), you need to understand <em>what</em> to ask, <em>why</em> it works, and <em>how</em> to verify the output. A solid programming foundation turns you from a passive user into a confident problem-solver who gets real results from AI.
-    </p>
-  </div>
-
-  <div class="row g-4 mt-2">
-
-    <!-- LEFT COLUMN -->
-    <div class="col-lg-7">
-
-      <!-- ABOUT -->
-      <div class="info-card mb-4">
-        <h2 class="section-title">About This Course</h2>
-        <p style="color:var(--text-muted); line-height:1.75;">
-          This Python course is designed for absolute beginners who want to learn the core concepts of programming. The emphasis is on <strong>learning how to think like a programmer</strong>, not just memorising syntax. By the end, you will have the confidence to write basic programs, debug errors, read documentation, and tackle real problems — with or without AI assistance.
-        </p>
-        <p style="color:var(--text-muted); line-height:1.75; margin-bottom:0;">
-          The course includes <strong>100+ practice questions</strong> and online assistance to help you solidify your understanding. Recordings of all live sessions will be available.
-        </p>
-      </div>
-
-      <!-- COURSE SERIES -->
-      <div class="info-card mb-4">
-        <h2 class="section-title">Full Course Series</h2>
-        <p style="font-size:0.93rem; color:var(--text-muted); margin-bottom:18px;">
-          This is Part 1 of a 3-part series. Parts 2 &amp; 3 are especially useful for those working with data.
-        </p>
-        <div class="series-card active">
-          <div class="num">1</div>
-          <div>
-            <strong>Fundamentals of Coding</strong>
-            <span class="badge-open">Open to everyone</span>
-            <div style="font-size:0.9rem; color:var(--text-muted); margin-top:4px;">Core programming logic, Python syntax, data structures — starting May 2026.</div>
-          </div>
-        </div>
-        <div class="series-card">
-          <div class="num">2</div>
-          <div>
-            <strong>Data Handling</strong>
-            <div style="font-size:0.9rem; color:var(--text-muted); margin-top:4px;">Work with real datasets, file I/O, pandas basics.</div>
-          </div>
-        </div>
-        <div class="series-card">
-          <div class="num">3</div>
-          <div>
-            <strong>Data Visualization 📊</strong>
-            <div style="font-size:0.9rem; color:var(--text-muted); margin-top:4px;">Charts, plots, and visual storytelling with your own data.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- GOALS -->
-      <div class="info-card mb-4">
-        <h2 class="section-title">Learning Goals</h2>
-        <div class="goal-item"><div class="icon">🧠</div><div>Not just to learn Python, but to learn <strong>how to program</strong> — a skill that transcends any language.</div></div>
-        <div class="goal-item"><div class="icon">✍️</div><div>Write basic programs confidently using Python syntax.</div></div>
-        <div class="goal-item"><div class="icon">🔁</div><div>Understand core Python logic: conditions, loops, functions, and data structures.</div></div>
-        <div class="goal-item"><div class="icon">🐞</div><div>Be comfortable debugging, reading documentation, and strategising your code.</div></div>
-        <div class="goal-item"><div class="icon">🤝</div><div>Use AI coding tools more effectively by knowing what's happening under the hood.</div></div>
-      </div>
-
-      
+    <!-- AI BANNER -->
+    <div class="ai-banner">
+      <strong>🤖 Why coding still matters in the AI age:</strong> Tools like ChatGPT and Gemini can write code for you —
+      but to use them powerfully (<em>vibe coding</em>), you need to understand <em>what</em> to ask, <em>why</em> it works,
+      and <em>how</em> to verify the output. A solid programming foundation turns you from a passive user into a
+      confident problem-solver.
     </div>
 
-    <!-- RIGHT COLUMN -->
-    <div class="col-lg-5">
+    <div class="row g-4">
 
-      <!-- COURSE DETAILS -->
-      <div class="info-card mb-4" style="border-color: var(--green-dark); border-width: 1.5px;">
-        <h2 class="section-title">Course Details</h2>
-        <table class="details-table">
-          <tr><td>📅 Start Date</td><td><strong>May 2026</strong> (Exact Dates TBA)</td></tr>
-          <tr><td>⏱ Duration</td><td>10 Days</td></tr>
-          <tr><td>🕖 Timing</td><td>7:00 PM – 8:30 PM (Mon, Wed, Thu)</td></tr>
-          <tr><td>💻 Mode</td><td>Online — Live + Pre-Recorded</td></tr>
-          <tr><td>📼 Recordings</td><td>Available after each session</td></tr>
-          <!-- <tr><td>🛠 IDE</td><td>Jupyter Lab</td></tr> -->
-          <!-- <tr><td>📡 Platform</td><td>Google Meet</td></tr> -->
-          <tr><td>💰 Course Fee</td><td><strong>₹1000 / head</strong></td></tr>
-          <tr><td>👥 For Whom</td><td>Students, researchers, teachers — all welcome</td></tr>
-        </table>
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
 
-        <div style="background:var(--green-light); border-radius:8px; padding:12px 14px; margin-top:18px; font-size:0.9rem; color: var(--green-dark);">
-          <strong>
-             Register via the Google Form below. Fee is collected only after you receive the selection email.
-          </strong>
+        <!-- ABOUT -->
+        <div class="info-card">
+          <div class="py-section-title">About This Course</div>
+          <p class="section-body mb-2">
+            Designed for absolute beginners who want to learn the core concepts of programming. The emphasis is on
+            <strong>learning how to think like a programmer</strong>, not just memorising syntax. By the end,
+            you will have the confidence to write basic programs, debug errors, read documentation, and tackle
+            real problems — with or without AI assistance.
+          </p>
+          <p class="section-body mb-0">
+            Includes <strong>100+ practice questions</strong> and online assistance. Recordings of all live sessions are available.
+          </p>
         </div>
 
-        <div class="text-center mt-4">
-          <a href="https://forms.gle/Er4VVBhKhGuvqAP67" target="_blank" class="btn-register">
-            🐍 Register Now — Part 1
-          </a>
-          <p style="font-size:0.82rem; color:var(--text-muted); margin-top:10px;">Opens in Google Forms</p>
+        <!-- COURSE SERIES -->
+        <div class="info-card">
+          <div class="py-section-title">Full Course Series</div>
+          <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem;">
+            This is Part 1 of a 3-part series. Parts 2 &amp; 3 are especially useful for those working with data.
+          </p>
+          <div class="series-card">
+            <div class="num">1</div>
+            <div>
+              <strong style="color:var(--py-green);">Fundamentals of Coding</strong>
+              <span style="font-size:0.75rem;background:rgba(22,163,74,0.12);color:#16a34a;padding:0.1rem 0.5rem;border-radius:4px;margin-left:0.5rem;font-weight:600;">Open</span>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:3px;">Core programming logic, Python syntax, data structures — starting May 2026.</div>
+            </div>
+          </div>
+          <div class="series-card" style="opacity:0.7;">
+            <div class="num" style="background:var(--muted);">2</div>
+            <div>
+              <strong>Data Handling</strong>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:3px;">Work with real datasets, file I/O, pandas basics.</div>
+            </div>
+          </div>
+          <div class="series-card" style="opacity:0.7;">
+            <div class="num" style="background:var(--muted);">3</div>
+            <div>
+              <strong>Data Visualisation 📊</strong>
+              <div style="font-size:0.85rem;color:var(--muted);margin-top:3px;">Charts, plots, and visual storytelling with your own data.</div>
+            </div>
+          </div>
         </div>
+
+        <!-- GOALS -->
+        <div class="info-card">
+          <div class="py-section-title">Learning Goals</div>
+          <div class="goal-item">
+            <div class="goal-icon">🧠</div>
+            <div style="font-size:0.9rem;color:var(--text);">Not just to learn Python, but to learn <strong>how to program</strong> — a skill that transcends any language.</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon">✍️</div>
+            <div style="font-size:0.9rem;color:var(--text);">Write basic programs confidently using Python syntax.</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon">🔁</div>
+            <div style="font-size:0.9rem;color:var(--text);">Understand core Python logic: conditions, loops, functions, and data structures.</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon">🐞</div>
+            <div style="font-size:0.9rem;color:var(--text);">Be comfortable debugging, reading documentation, and strategising your code.</div>
+          </div>
+          <div class="goal-item" style="margin-bottom:0;">
+            <div class="goal-icon">🤝</div>
+            <div style="font-size:0.9rem;color:var(--text);">Use AI coding tools more effectively by knowing what's happening under the hood.</div>
+          </div>
+        </div>
+
       </div>
-      <!-- SYLLABUS -->
-      <div class="info-card">
-        <h2 class="section-title">Syllabus</h2>
-        <div class="syllabus-item"><div class="dot"></div><span>Introduction to Programming – Why it matters in science and research</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>How to think like a programmer – Algorithms</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Installation of Jupyter Notebook and Python</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Python as a Calculator</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Variables and Datatypes</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Basic Input and Print</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Lists, Dictionaries, Tuples</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Functions</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Conditional Methods</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Iterative Methods (Loops)</span></div>
-        <div class="syllabus-item"><div class="dot"></div><span>Introduction to the Next Level – NumPy</span></div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-5">
+
+        <!-- DETAILS + REGISTER -->
+        <div class="info-card" style="border-color:var(--py-green);border-width:2px;position:sticky;top:80px;">
+          <div class="py-section-title">Course Details</div>
+          <table class="details-table w-100">
+            <tr><td>📅 Start Date</td><td><strong>May 2026</strong> (Dates TBA)</td></tr>
+            <tr><td>⏱ Duration</td><td>10 Days</td></tr>
+            <tr><td>🕖 Timing</td><td>7:00 PM – 8:30 PM</td></tr>
+            <tr><td>📅 Days</td><td>Mon, Wed, Thu</td></tr>
+            <tr><td>💻 Mode</td><td>Online — Live + Recorded</td></tr>
+            <tr><td>📼 Recordings</td><td>After each session</td></tr>
+            <tr><td>💰 Fee</td><td><strong>₹1000 / person</strong></td></tr>
+            <tr><td>👥 For</td><td>Students, researchers, teachers</td></tr>
+          </table>
+          <div class="details-card-highlight">
+            Fee is collected only after you receive the selection email.
+          </div>
+          <div class="mt-4">
+            <a href="https://forms.gle/Er4VVBhKhGuvqAP67" target="_blank" class="btn-register">
+              🐍 Register Now — Part 1
+            </a>
+            <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.5rem;">Opens in Google Forms</p>
+          </div>
+        </div>
+
+        <!-- SYLLABUS -->
+        <div class="info-card">
+          <div class="py-section-title">Syllabus</div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Introduction to Programming — Why it matters in science</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>How to think like a programmer — Algorithms</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Installation of Jupyter Notebook and Python</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Python as a Calculator</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Variables and Datatypes</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Basic Input and Print</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Lists, Dictionaries, Tuples</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Functions</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Conditional Methods</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Iterative Methods (Loops)</span></div>
+          <div class="syllabus-item"><div class="sy-dot"></div><span>Introduction to the Next Level — NumPy</span></div>
+        </div>
+
       </div>
-
-
-
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <p style="margin:0;">© 2026 Sarath Prabhavu J </p>
-    <p style="margin:6px 0 0; font-size:0.8rem; opacity:0.6;">Learning how to program is more important than learning just a programming language.</p>
+<footer class="site-footer">
+  <div class="container text-center">
+    <p class="footer-name">Sarath Prabhavu J.</p>
+    <p class="footer-links">
+      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
+      <a href="SARATH_PRABHVU_CV.pdf" target="_blank"><i class="bi bi-file-earmark-person-fill"></i></a>
+    </p>
+    <p class="footer-copy">© 2026 Sarath Prabhavu J. &nbsp;·&nbsp; Learning how to program is more important than learning just a programming language.</p>
   </div>
 </footer>
-<script src="scripts.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>
