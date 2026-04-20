@@ -1,0 +1,170 @@
+<!-- 2025 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2025">
+      <i class="bi bi-calendar3 me-2"></i>2025
+    </button>
+  </h2>
+  <div id="y2025" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>21 Aug 2025</strong> – <em>Astronomy and Us</em>, National Space Day Celebration, Sree Sankara College, Nagaroor, Thiruvananthapuram</li>
+        <li><strong>14 Aug 2025</strong> – Book Discussion: <em>Vazhikurukkil Petta Poovu</em>, Kerala Sasthra Sahithya Parishath, Manaveeyam, Thiruvananthapuram</li>
+        <li><strong>23 Mar 2025</strong> – Volunteer and Resource Person, Kerala Amateur Astronomers Congress, Thrissur, organised by LUCA and AASTRO Kerala</li>
+        <li><strong>8 Mar 2025</strong> – Talk: <em>Astrophotography</em>, National Science Day Celebration, Christ Nagar College</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2024 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2024">
+      <i class="bi bi-calendar3 me-2"></i>2024
+    </button>
+  </h2>
+  <div id="y2024" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>31 Dec 2024 – 1 Jan 2025</strong> – Stargazing Camp, Astrotourism Host, Starvoirs, Sathyamangalam, Tamil Nadu</li>
+        <li><strong>15 Dec 2024</strong> – Discussion on Astrophotography, LUCY YouTube Channel</li>
+        <li><strong>8 Dec 2024</strong> – Kids Event, organised by CPIM, Kovalam, Thiruvananthapuram</li>
+        <li><strong>7 Dec 2024</strong> – Jupiter Opposition: Talk on Jupiter, Kerala State Science and Technology Museum, Thiruvananthapuram</li>
+        <li><strong>12 Nov 2024</strong> – Book Discussion: <em>Sooryananu Thaaram</em>, Sharjah International Book Festival, UAE</li>
+        <li><strong>27 Oct 2024</strong> – Stargazing Event, Al QUA Desert, KSC Kids Club, Abu Dhabi, UAE</li>
+        <li><strong>26 Oct 2024</strong> – Stargazing Event: <em>Saturn Walk</em>, Friends of Kerala Sasthra Sahithya Parishath, Wadi Showka, Ras Al Khaimah, UAE</li>
+        <li><strong>28–29 Sep 2024</strong> – Stargazing Astrotourism Camps, Starvoirs, Sathyamangalam, Tamil Nadu</li>
+        <li><strong>17 Jan 2024</strong> – Skywatch 2.0 Stargazing, MA College, Kothamangalam, Kerala</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2023 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2023">
+      <i class="bi bi-calendar3 me-2"></i>2023
+    </button>
+  </h2>
+  <div id="y2023" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>17 Dec 2023</strong> – Stargazing at Parishad Bhavan, Sharjah, UAE</li>
+        <li><strong>10 Dec 2023</strong> – Stargazing Session, Al Razeen Desert, Abu Dhabi, by Friends of Kerala Sasthra Sahithya Parishath</li>
+        <li><strong>9–10 Sep 2023</strong> – Stargazing and Board Games, Starvoirs, Kodaikanal, Tamil Nadu</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2020 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2020">
+      <i class="bi bi-calendar3 me-2"></i>2020
+    </button>
+  </h2>
+  <div id="y2020" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>21 Dec 2020</strong> – Saturn–Jupiter Conjunction Event, Department of Physics, CUSAT</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2019 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2019">
+      <i class="bi bi-calendar3 me-2"></i>2019
+    </button>
+  </h2>
+  <div id="y2019" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>26 Dec 2019</strong> – Eclipse Observation and Photography, Kannur, Kerala</li>
+        <li><strong>2 Dec 2019</strong> – Eclipse Talk, Kerala State Science and Technology Museum, Kerala</li>
+        <li><strong>8–14 Apr 2019</strong> – Astronomy Summer School, AASTRO Kerala – Volunteer and Session Facilitator</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2018 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2018">
+      <i class="bi bi-calendar3 me-2"></i>2018
+    </button>
+  </h2>
+  <div id="y2018" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>24–26 Sep 2018</strong> – Astrophotography Workshop, Sullamussalam College, Areekode, Malappuram</li>
+        <li><strong>8 Sep 2018</strong> – <em>Pale Blue Dot</em> Talk, Kerala State Science and Technology Museum, Thiruvananthapuram</li>
+        <li><strong>8 Apr 2018</strong> – Science Camp, Kerala State Institute for Children’s Literature</li>
+        <li><strong>17 Feb 2018</strong> – Stargazing, AASTRO Kerala, Thiruvananthapuram</li>
+        <li><strong>31 Jan 2018</strong> – Lunar Eclipse Observation and Photography, Thiruvananthapuram</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2017 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2017">
+      <i class="bi bi-calendar3 me-2"></i>2017
+    </button>
+  </h2>
+  <div id="y2017" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>18 Oct 2017</strong> – <em>Universe and Man</em> Talk, Kerala Sasthra Sahithya Parishath, Thiruvananthapuram</li>
+        <li><strong>29 Sep 2017</strong> – Two-Day Workshop on Universe and Man, Kerala Sasthra Sahithya Parishath, Thrissur</li>
+        <li><strong>2–4 Jun 2017</strong> – Talk on Scientific Temper, Chakka Camp, Yuvasmithi, Malappuram</li>
+        <li><strong>11 May 2017</strong> – Summer Camp, Thiruvananthapuram</li>
+        <li><strong>21 Apr 2017</strong> – Zero Shadow Day Celebration, Kerala Sasthra Sahithya Parishath, Kannur</li>
+        <li><strong>23 Apr 2017</strong> – Discussion on Scientific Temper, Kinakam Camp, Yuvasamithi, Alappuzha</li>
+        <li><strong>19 Apr 2017</strong> – Talk on Water Conservation and Pollution, Haritha Nagaram Camp, Thiruvananthapuram Corporation</li>
+        <li><strong>13 Apr 2017</strong> – Zero Shadow Day Celebration, Kerala Sasthra Sahithya Parishath, Sasthamcotta</li>
+        <li><strong>7 Apr 2017</strong> – Zero Shadow Day RP Training, Kerala State Science and Technology Museum, Thiruvananthapuram</li>
+        <li><strong>1 Jan 2017</strong> – Short Film Fest, NSS Camp, DB College, Kollam</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2016 -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2016">
+      <i class="bi bi-calendar3 me-2"></i>2016
+    </button>
+  </h2>
+  <div id="y2016" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <ul>
+        <li><strong>18 Oct 2016</strong> – Light Experiments, Girls Higher Secondary School, Manacaud, Thiruvananthapuram</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Total -->
+<div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ytotal">
+      <i class="bi bi-graph-up me-2"></i>Total Activities
+    </button>
+  </h2>
+  <div id="ytotal" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
+    <div class="accordion-body">
+      <p><strong>Total outreach / volunteering activities listed: 34</strong></p>
+      <p>Includes talks, workshops, astronomy camps, stargazing events, and volunteering contributions with AASTRO Kerala and Kerala Sasthra Sahithya Parishath.</p>
+    </div>
+  </div>
+</div>
