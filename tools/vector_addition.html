@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vector Addition Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --colA: #4dd0e1;
+      --colB: #ff8a65;
+      --colR: #ffd54f;
+      --bg: #121212;
+      --panel: #1e1e1e;
+      --border: #333;
+    }
+
+    body { background: var(--bg); color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; }
+
+    /* ── Canvas ─────────────────────────────────── */
+    #vecCanvas {
+      display: block;
+      width: 100%;
+      border-radius: 10px;
+      background: #0f1117;
+    }
+
+    /* ── Panels ─────────────────────────────────── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.3rem;
+    }
+
+    /* ── Sliders ─────────────────────────────────── */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 5px;
+      border-radius: 3px;
+      background: #2a2a2a;
+      outline: none;
+      margin: 4px 0 10px 0;
+    }
+    input[type=range].sA::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--colA); cursor: pointer;
+      box-shadow: 0 0 6px var(--colA);
+    }
+    input[type=range].sB::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--colB); cursor: pointer;
+      box-shadow: 0 0 6px var(--colB);
+    }
+    input[type=range].sA::-moz-range-thumb { width:17px;height:17px;border-radius:50%;background:var(--colA);cursor:pointer;border:none; }
+    input[type=range].sB::-moz-range-thumb { width:17px;height:17px;border-radius:50%;background:var(--colB);cursor:pointer;border:none; }
+
+    /* ── Vec labels ──────────────────────────────── */
+    .lA { color: var(--colA); font-weight: 700; }
+    .lB { color: var(--colB); font-weight: 700; }
+    .lR { color: var(--colR); font-weight: 700; }
+
+    .slider-row { font-size: 0.85rem; color: #bbb; }
+    .slider-val { float: right; font-weight: 600; color: #fff; min-width: 3.5em; text-align: right; }
+
+    /* ── Stats table ─────────────────────────────── */
+    .stat-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .stat-table th { color: #888; font-weight: 500; padding: 4px 8px; text-align: center; border-bottom: 1px solid #2a2a2a; }
+    .stat-table td { padding: 5px 8px; text-align: center; font-family: monospace; border-bottom: 1px solid #1a1a1a; }
+    .stat-table tr:last-child td { border-bottom: none; }
+
+    /* ── Formula bar ─────────────────────────────── */
+    .formula-bar {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      text-align: center;
+      line-height: 1.8;
+    }
+    .formula-bar span { font-size: 1.05rem; }
+
+    /* ── Toggle chips ────────────────────────────── */
+    .toggle-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #252525;
+      border: 1px solid #444;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color .2s;
+    }
+    .toggle-chip input { accent-color: var(--colA); }
+    .toggle-chip:hover { border-color: #666; }
+
+    /* ── Angle badge ─────────────────────────────── */
+    .angle-badge {
+      display: inline-block;
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.82rem;
+      color: #ccc;
+    }
+
+    footer { background: #0d0d0d; color: #555; padding: 0.9rem; text-align: center; font-size: 0.82rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid py-4 px-3 px-md-4" style="max-width:1060px; margin:auto;">
+
+  <h1 class="text-center mb-1" style="font-size:1.75rem; font-weight:700;">
+    &#x2192; Vector Addition Explorer
+  </h1>
+  <p class="text-center mb-3" style="color:#888; font-size:0.88rem;">
+    Adjust magnitudes and angles — watch the resultant update in real time
+  </p>
+
+  <!-- Formula bar -->
+  <div class="formula-bar mb-3">
+    <span>
+      <span class="lR">R</span> = <span class="lA">A</span> + <span class="lB">B</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      (<span class="lR">Rx</span>, <span class="lR">Ry</span>) = (<span class="lA">Ax</span> + <span class="lB">Bx</span>, &nbsp;<span class="lA">Ay</span> + <span class="lB">By</span>)
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      |<span class="lR">R</span>| = &radic;(<span class="lR">Rx</span>&sup2; + <span class="lR">Ry</span>&sup2;)
+    </span>
+  </div>
+
+  <!-- Main row: canvas + controls -->
+  <div class="row g-3">
+
+    <!-- Canvas col -->
+    <div class="col-lg-8">
+      <canvas id="vecCanvas" width="700" height="520"></canvas>
+
+      <!-- Toggles below canvas -->
+      <div class="d-flex gap-2 flex-wrap mt-2">
+        <label class="toggle-chip">
+          <input type="checkbox" id="chkComponents" checked onchange="redraw()">
+          Show components
+        </label>
+        <label class="toggle-chip">
+          <input type="checkbox" id="chkParallel" checked onchange="redraw()">
+          Show parallelogram
+        </label>
+        <label class="toggle-chip">
+          <input type="checkbox" id="chkArc" checked onchange="redraw()">
+          Show angle arc
+        </label>
+      </div>
+    </div>
+
+    <!-- Controls col -->
+    <div class="col-lg-4">
+
+      <!-- Vector A -->
+      <div class="panel mb-3">
+        <div class="mb-2" style="font-size:1rem;">
+          <span class="lA">&#x25B6; Vector A</span>
+        </div>
+
+        <div class="slider-row">
+          Magnitude |<span class="lA">A</span>|
+          <span class="slider-val" id="vMagA">5.0</span>
+        </div>
+        <input type="range" class="sA" id="magA" min="0.3" max="10" step="0.1" value="5" oninput="onSlider()">
+
+        <div class="slider-row">
+          Angle &theta;<span class="lA">A</span> from +x
+          <span class="slider-val" id="vAngA">30°</span>
+        </div>
+        <input type="range" class="sA" id="angA" min="0" max="360" step="1" value="30" oninput="onSlider()">
+      </div>
+
+      <!-- Vector B -->
+      <div class="panel mb-3">
+        <div class="mb-2" style="font-size:1rem;">
+          <span class="lB">&#x25B6; Vector B</span>
+        </div>
+
+        <div class="slider-row">
+          Magnitude |<span class="lB">B</span>|
+          <span class="slider-val" id="vMagB">4.0</span>
+        </div>
+        <input type="range" class="sB" id="magB" min="0.3" max="10" step="0.1" value="4" oninput="onSlider()">
+
+        <div class="slider-row">
+          Angle &theta;<span class="lB">B</span> from +x
+          <span class="slider-val" id="vAngB">120°</span>
+        </div>
+        <input type="range" class="sB" id="angB" min="0" max="360" step="1" value="120" oninput="onSlider()">
+      </div>
+
+      <!-- Angle between -->
+      <div class="text-center mb-3">
+        <span class="angle-badge">
+          Angle between <span class="lA">A</span> &amp; <span class="lB">B</span>:
+          &nbsp;<strong id="angleBetween" style="color:#fff;">90°</strong>
+        </span>
+      </div>
+
+      <!-- Stats table -->
+      <div class="panel">
+        <div style="font-size:0.78rem; color:#888; margin-bottom:6px;">Component breakdown</div>
+        <table class="stat-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>x</th>
+              <th>y</th>
+              <th>|mag|</th>
+              <th>angle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="lA" style="font-weight:700;">A</td>
+              <td id="sAx">—</td>
+              <td id="sAy">—</td>
+              <td id="sAmag">—</td>
+              <td id="sAang">—</td>
+            </tr>
+            <tr>
+              <td class="lB" style="font-weight:700;">B</td>
+              <td id="sBx">—</td>
+              <td id="sBy">—</td>
+              <td id="sBmag">—</td>
+              <td id="sBang">—</td>
+            </tr>
+            <tr style="background:#1a1610;">
+              <td class="lR" style="font-weight:700;">R</td>
+              <td id="sRx">—</td>
+              <td id="sRy">—</td>
+              <td id="sRmag">—</td>
+              <td id="sRang">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /controls col -->
+  </div><!-- /row -->
+</div><!-- /container -->
+
+<footer>© 2026 Sarath Prabhavu</footer>
+
+<!-- ═══════════════════════════════ SCRIPT ═══════════════════════════════ -->
+<script>
+const canvas = document.getElementById('vecCanvas');
+const ctx    = canvas.getContext('2d');
+const W = canvas.width;
+const H = canvas.height;
+const CX = W / 2;
+const CY = H / 2;
+
+const COL_A = '#4dd0e1';
+const COL_B = '#ff8a65';
+const COL_R = '#ffd54f';
+
+function toRad(d) { return d * Math.PI / 180; }
+function toDeg(r) { return r * 180 / Math.PI; }
+function fmt(n)   { return n.toFixed(2); }
+
+// ── State ────────────────────────────────────────────────────────────────
+let state = { magA: 5, angA: 30, magB: 4, angB: 120 };
+
+function onSlider() {
+  state.magA = +document.getElementById('magA').value;
+  state.angA = +document.getElementById('angA').value;
+  state.magB = +document.getElementById('magB').value;
+  state.angB = +document.getElementById('angB').value;
+
+  document.getElementById('vMagA').textContent = state.magA.toFixed(1);
+  document.getElementById('vAngA').textContent = state.angA + '°';
+  document.getElementById('vMagB').textContent = state.magB.toFixed(1);
+  document.getElementById('vAngB').textContent = state.angB + '°';
+
+  redraw();
+}
+
+// ── Scale ────────────────────────────────────────────────────────────────
+function getScale() {
+  const { magA, angA, magB, angB } = state;
+  const ax = magA * Math.cos(toRad(angA)), ay = magA * Math.sin(toRad(angA));
+  const bx = magB * Math.cos(toRad(angB)), by = magB * Math.sin(toRad(angB));
+  const rx = ax + bx, ry = ay + by;
+
+  const pts = [[ax,ay],[bx,by],[rx,ry],[ax+bx, ay],[ax, ay+by]];
+  let maxD = 1;
+  pts.forEach(([x,y]) => { maxD = Math.max(maxD, Math.abs(x), Math.abs(y)); });
+  maxD = Math.max(maxD, state.magA, state.magB);
+
+  const margin = 1.6; // units of breathing room
+  return Math.min(CX, CY) * 0.82 / (maxD + margin);
+}
+
+// Canvas coord helpers
+function cx(vx, sc) { return CX + vx * sc; }
+function cy(vy, sc) { return CY - vy * sc; }
+
+// ── Drawing helpers ──────────────────────────────────────────────────────
+function arrow(x1, y1, x2, y2, color, lw, headSz, dashed) {
+  const angle  = Math.atan2(y2 - y1, x2 - x1);
+  const hs     = headSz || 13;
+  const totalD = Math.sqrt((x2-x1)**2+(y2-y1)**2);
+  if (totalD < 2) return;
+
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.fillStyle   = color;
+  ctx.lineWidth   = lw;
+  ctx.lineCap     = 'round';
+  if (dashed) ctx.setLineDash([8, 6]);
+
+  // Line stops short of head base
+  const stopFrac = (totalD - hs * 0.75) / totalD;
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x1 + stopFrac * (x2 - x1), y1 + stopFrac * (y2 - y1));
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+  if (!dashed) {
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - hs * Math.cos(angle - Math.PI/6), y2 - hs * Math.sin(angle - Math.PI/6));
+    ctx.lineTo(x2 - hs * Math.cos(angle + Math.PI/6), y2 - hs * Math.sin(angle + Math.PI/6));
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function label(text, x, y, color, size) {
+  ctx.save();
+  ctx.font      = `bold ${size || 14}px Segoe UI, sans-serif`;
+  ctx.fillStyle = color;
+  ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
+function dashedLine(x1, y1, x2, y2, color, lw) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth   = lw || 1;
+  ctx.setLineDash([5, 5]);
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+// ── Grid & Axes ──────────────────────────────────────────────────────────
+function drawGrid(sc) {
+  ctx.save();
+  ctx.strokeStyle = '#ffffff08';
+  ctx.lineWidth   = 1;
+
+  const startX = (CX % sc);
+  for (let x = startX; x < W; x += sc) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  const startY = (CY % sc);
+  for (let y = startY; y < H; y += sc) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawAxes(sc) {
+  ctx.save();
+  ctx.strokeStyle = '#ffffff22';
+  ctx.lineWidth   = 1.5;
+
+  ctx.beginPath(); ctx.moveTo(0, CY); ctx.lineTo(W, CY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(CX, 0); ctx.lineTo(CX, H); ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle = '#ffffff44';
+  ctx.font = '11px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('+x', W - 14, CY - 6);
+  ctx.textAlign = 'right';
+  ctx.fillText('+y', CX - 5, 12);
+
+  // Tick marks
+  ctx.strokeStyle = '#ffffff22';
+  ctx.lineWidth = 1;
+  const units = Math.ceil(Math.max(W, H) / sc) + 1;
+  ctx.textAlign = 'center';
+  ctx.font = '10px monospace';
+  ctx.fillStyle = '#ffffff33';
+  for (let i = -units; i <= units; i++) {
+    if (i === 0) continue;
+    const px = CX + i * sc;
+    if (px > 8 && px < W - 8) {
+      ctx.beginPath(); ctx.moveTo(px, CY - 3); ctx.lineTo(px, CY + 3); ctx.stroke();
+      if (Math.abs(i) % 2 === 0) ctx.fillText(i, px, CY + 13);
+    }
+    const py = CY - i * sc;
+    if (py > 8 && py < H - 8) {
+      ctx.beginPath(); ctx.moveTo(CX - 3, py); ctx.lineTo(CX + 3, py); ctx.stroke();
+      if (Math.abs(i) % 2 === 0) {
+        ctx.textAlign = 'right';
+        ctx.fillText(i, CX - 5, py + 4);
+        ctx.textAlign = 'center';
+      }
+    }
+  }
+  ctx.restore();
+}
+
+// ── Angle arc between two angles ─────────────────────────────────────────
+function drawAngleArc(sc, angADeg, angBDeg) {
+  const r  = sc * 1.4;
+  const a1 = toRad(angADeg);
+  const a2 = toRad(angBDeg);
+
+  // Angle between (0-180)
+  let diff = ((angBDeg - angADeg) % 360 + 360) % 360;
+  if (diff > 180) diff = 360 - diff;
+
+  // mid-angle for label placement
+  let midDeg = angADeg + diff / 2;
+  if (((angBDeg - angADeg) % 360 + 360) % 360 > 180) midDeg = angADeg - diff / 2;
+
+  ctx.save();
+  ctx.strokeStyle = '#ffffff35';
+  ctx.lineWidth   = 1.5;
+  ctx.setLineDash([3, 4]);
+
+  // Draw arc in canvas orientation (y flipped)
+  let startC = -a1, endC = -a2;
+  let ccw = (((angBDeg - angADeg) % 360 + 360) % 360) > 180;
+  ctx.beginPath();
+  ctx.arc(CX, CY, r, startC, endC, ccw);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Label
+  const lx = CX + (r + 16) * Math.cos(toRad(midDeg));
+  const ly = CY - (r + 16) * Math.sin(toRad(midDeg));
+  ctx.font = '11px Segoe UI';
+  ctx.fillStyle = '#999';
+  ctx.textAlign = 'center';
+  ctx.fillText(diff.toFixed(0) + '°', lx, ly);
+
+  ctx.restore();
+
+  document.getElementById('angleBetween').textContent = diff.toFixed(1) + '°';
+}
+
+// ── Component projection lines ────────────────────────────────────────────
+function drawComponents(vx, vy, color, sc) {
+  const ex = cx(vx, sc), ey = cy(vy, sc);
+  // vertical drop to axis
+  dashedLine(ex, ey, ex, CY, color + '55', 1.2);
+  // horizontal to axis
+  dashedLine(ex, CY, CX, CY, color + '55', 1.2);
+  // label components
+  ctx.save();
+  ctx.font = '10px monospace';
+  ctx.fillStyle = color + 'aa';
+  ctx.textAlign = 'center';
+  if (Math.abs(vx) > 0.3) ctx.fillText(fmt(vx), (ex + CX) / 2, CY + 13);
+  ctx.textAlign = vy >= 0 ? 'right' : 'left';
+  if (Math.abs(vy) > 0.3) ctx.fillText(fmt(vy), ex + (vy >= 0 ? -4 : 4), (ey + CY) / 2);
+  ctx.restore();
+}
+
+// ── Update stats table ────────────────────────────────────────────────────
+function updateStats(ax, ay, bx, by, rx, ry, magA, angA, magB, angB, magR, angR) {
+  document.getElementById('sAx').textContent   = fmt(ax);
+  document.getElementById('sAy').textContent   = fmt(ay);
+  document.getElementById('sAmag').textContent = fmt(magA);
+  document.getElementById('sAang').textContent = angA.toFixed(1) + '°';
+
+  document.getElementById('sBx').textContent   = fmt(bx);
+  document.getElementById('sBy').textContent   = fmt(by);
+  document.getElementById('sBmag').textContent = fmt(magB);
+  document.getElementById('sBang').textContent = angB.toFixed(1) + '°';
+
+  document.getElementById('sRx').textContent   = fmt(rx);
+  document.getElementById('sRy').textContent   = fmt(ry);
+  document.getElementById('sRmag').textContent = fmt(magR);
+  document.getElementById('sRang').textContent = angR.toFixed(1) + '°';
+}
+
+// ── Main draw ─────────────────────────────────────────────────────────────
+function redraw() {
+  ctx.clearRect(0, 0, W, H);
+
+  const sc                         = getScale();
+  const { magA, angA, magB, angB } = state;
+
+  const ax = magA * Math.cos(toRad(angA)), ay = magA * Math.sin(toRad(angA));
+  const bx = magB * Math.cos(toRad(angB)), by = magB * Math.sin(toRad(angB));
+  const rx = ax + bx,                      ry = ay + by;
+  const magR  = Math.sqrt(rx * rx + ry * ry);
+  const angR  = ((toDeg(Math.atan2(ry, rx)) % 360) + 360) % 360;
+
+  const OX = CX, OY = CY;
+  const AX = cx(ax, sc), AY = cy(ay, sc);
+  const BX = cx(bx, sc), BY = cy(by, sc);
+  const RX = cx(rx, sc), RY = cy(ry, sc);
+
+  // Draw grid and axes
+  drawGrid(sc);
+  drawAxes(sc);
+
+  // Angle arc
+  if (document.getElementById('chkArc').checked) {
+    drawAngleArc(sc, angA, angB);
+  } else {
+    // Still compute angle-between for badge
+    let diff = ((angB - angA) % 360 + 360) % 360;
+    if (diff > 180) diff = 360 - diff;
+    document.getElementById('angleBetween').textContent = diff.toFixed(1) + '°';
+  }
+
+  // Component projections
+  if (document.getElementById('chkComponents').checked) {
+    drawComponents(ax, ay, COL_A, sc);
+    drawComponents(bx, by, COL_B, sc);
+  }
+
+  // Parallelogram dashed copies
+  if (document.getElementById('chkParallel').checked) {
+    // B copy from tip of A  (A + B = R)
+    arrow(AX, AY, RX, RY, COL_B, 1.8, 10, true);
+    // A copy from tip of B  (completing the parallelogram)
+    arrow(BX, BY, RX, RY, COL_A, 1.8, 10, true);
+  }
+
+  // Main vectors (drawn on top)
+  arrow(OX, OY, AX, AY, COL_A, 3,   15, false);
+  arrow(OX, OY, BX, BY, COL_B, 3,   15, false);
+  arrow(OX, OY, RX, RY, COL_R, 3.5, 17, false);
+
+  // Labels — offset outward from tip
+  function tipOffset(vx, vy, mag) {
+    const len = Math.sqrt(vx*vx + vy*vy) || 1;
+    return { dx: (vx / len) * 18, dy: -(vy / len) * 18 };
+  }
+  const oA = tipOffset(ax, ay); label('A', AX + oA.dx, AY + oA.dy, COL_A, 15);
+  const oB = tipOffset(bx, by); label('B', BX + oB.dx, BY + oB.dy, COL_B, 15);
+  const oR = tipOffset(rx, ry); label('R', RX + oR.dx, RY + oR.dy, COL_R, 15);
+
+  // Origin dot
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(OX, OY, 4, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.restore();
+
+  // Update stats table
+  updateStats(ax, ay, bx, by, rx, ry, magA, angA, magB, angB, magR, angR);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+onSlider(); // trigger initial draw + label sync
+</script>
+</body>
+</html>
