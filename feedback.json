@@ -1,0 +1,82 @@
+{
+  "course": "Data Analytics Essentials",
+  "overall_summary": {
+    "total_responses": 12,
+    "average_rating": 4.58,
+    "rating_distribution": {
+      "5_stars": 7,
+      "4_stars": 5,
+      "3_stars": 0,
+      "2_stars": 0,
+      "1_star": 0
+    }
+  },
+  "positive_feedbacks": [
+    {
+      "name": "GIRIKRISHNAN P R",
+      "rating": 5,
+      "overall_feedback": "The course is excellent and it gave me the idea about how python works. As a beginner your way of teaching and classes are excellent.",
+      "best_aspect": "Teaching concepts through PPT"
+    },
+    {
+      "name": "Anjitha Biju",
+      "rating": 4,
+      "overall_feedback": "I had a positive experience. The course was informative.",
+      "best_aspect": "The step-by-step teaching approach and interactive sessions were the strongest part of the course."
+    },
+    {
+      "name": "Sajna K",
+      "rating": 5,
+      "overall_feedback": "It encouraged me to think deeply, analyze ideas from different perspectives, and develop greater confidence in my learning journey.",
+      "best_aspect": "Deep Knowledge, Better structure of modules, simple language usage, specificity, clarity, patience, time management, interest generating."
+    },
+    {
+      "name": "Ijas M A",
+      "rating": 4,
+      "overall_feedback": "Attended sessions are good and well explanatory.",
+      "best_aspect": null
+    },
+    {
+      "name": "Greeshma Jayan",
+      "rating": 5,
+      "overall_feedback": "Wonderful",
+      "best_aspect": "Teaching theoretical aspects with examples and practical problems."
+    },
+    {
+      "name": "Halifa A Kabeer",
+      "rating": 4,
+      "overall_feedback": "Class was very helpful, simply conveyed the ideas. Got good basics on Python.",
+      "best_aspect": "The way of explanation"
+    },
+    {
+      "name": "Ann Maria Shine",
+      "rating": 4,
+      "overall_feedback": "Very much understanding",
+      "best_aspect": null
+    },
+    {
+      "name": "LIYA ANN MATHEW",
+      "rating": 5,
+      "overall_feedback": "Very nice",
+      "best_aspect": "Explaining from the absolute beginner level"
+    },
+    {
+      "name": "Akshaya Gouri L S",
+      "rating": 5,
+      "overall_feedback": "Excellent",
+      "best_aspect": "Basics about Python"
+    },
+    {
+      "name": "Elsa Paulson",
+      "rating": 5,
+      "overall_feedback": "Sessions were very nice and discussion of the concepts was very useful.",
+      "best_aspect": "Clarity in the concepts"
+    },
+    {
+      "name": "K.S VAISHNAVI",
+      "rating": 4,
+      "overall_feedback": "Understanding class.",
+      "best_aspect": "The best aspect of the course was the clear explanation of concepts and the practical approach to learning. Sir made complex topics easy to understand."
+    }
+  ]
+}

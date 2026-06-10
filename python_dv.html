@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <title>Data Visualisation with Python | Sarath Prabhavu</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --py-green: #0f6e56;
+      --py-green-mid: #1d9e75;
+      --py-green-light: #e1f5ee;
+      --py-green-accent: #5dcaa5;
+      --py-amber: #ef9f27;
+      --py-amber-dark: #854f0b;
+      --py-amber-light: #faeeda;
+    }
+
+    .py-hero {
+      background: linear-gradient(135deg, #060d1f 0%, #063526 55%, #0a1628 100%);
+      position: relative;
+      padding: 4rem 0 3.5rem;
+      overflow: hidden;
+    }
+    .py-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 75% 50%, rgba(29,158,117,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 40% at 15% 80%, rgba(59,130,246,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .py-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .py-lang-badge {
+      display: inline-block;
+      background: var(--py-amber);
+      color: var(--py-amber-dark);
+      font-weight: 800;
+      border-radius: 6px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      transition: box-shadow 0.2s;
+    }
+    .info-card:hover { box-shadow: 0 4px 20px rgba(15,110,86,0.08); }
+
+    .py-section-title {
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--py-green);
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--py-green-accent);
+      display: inline-block;
+    }
+
+    .week-card {
+      border: 1px solid #c8e8da;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .week-card-header {
+      background: var(--py-green);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .week-card-header .week-num {
+      background: rgba(255,255,255,0.2);
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      letter-spacing: 0.5px;
+    }
+    .week-card-header .week-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .week-card-body {
+      background: var(--py-green-light);
+      padding: 0.9rem 1rem;
+    }
+    .week-card-body p {
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    .week-topics {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .week-topics strong { color: var(--py-green); }
+
+    .goal-item {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      align-items: flex-start;
+    }
+    .goal-icon {
+      width: 34px;
+      height: 34px;
+      background: var(--py-green-light);
+      color: var(--py-green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .details-table td {
+      padding: 0.65rem 0.25rem;
+      border-bottom: 1px solid #eaf4f0;
+      font-size: 0.9rem;
+    }
+    .details-table td:first-child {
+      width: 42%;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .btn-register {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: var(--py-green);
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-register:hover { background: #085041; color: #fff; }
+
+    .tool-pill {
+      display: inline-block;
+      background: var(--py-green-light);
+      color: var(--py-green);
+      border: 1px solid var(--py-green-accent);
+      border-radius: 20px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin: 0.2rem;
+    }
+
+    /* Feedback cards */
+    .feedback-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .feedback-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 0.4rem;
+      left: 1rem;
+      font-size: 2.5rem;
+      color: var(--py-green-accent);
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .feedback-card .fb-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.7;
+      padding-top: 0.75rem;
+    }
+    .feedback-card .fb-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .fb-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--py-green);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .fb-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--py-green);
+    }
+    .fb-stars {
+      font-size: 0.75rem;
+      color: var(--py-amber);
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar-placeholder"></div>
+
+<!-- HERO -->
+<header class="py-hero">
+  <div class="container" style="position:relative;">
+    <a href="https://shasthrasnehi.com/" target="_blank" style="position:absolute;top:0;right:0;display:flex;align-items:center;text-decoration:none;">
+      <img src="assets/shasthrasnehi_logo.png" alt="Shasthrasnehi" style="height:46px;width:auto;filter:brightness(1) drop-shadow(0 1px 4px rgba(0,0,0,0.3));">
+    </a>
+    <div class="py-badge">📊 Python Course Series · Data Visualisation</div>
+    <h1 class="hero-name" style="font-size:clamp(1.9rem,5vw,3rem);">Data Visualisation <span class="hero-accent">with Python</span></h1>
+    <p class="hero-tagline" style="max-width:620px;">
+      From raw data to compelling charts — learn NumPy, Pandas, Matplotlib, Seaborn, and interactive
+      visualisation tools in <strong style="color:#fff;">Malayalam</strong>, for students, researchers, and teachers.
+    </p>
+    <div class="py-lang-badge">🗣️ Conducted in Malayalam</div>
+    <div class="d-flex flex-wrap gap-3 mt-4">
+      <a href="https://forms.gle/DwkRW7iUvzZxNq2V9" target="_blank" class="btn-hero-primary btn" style="background:var(--py-green-mid);border:none;">
+        Register Now <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+      <a href="courses.html" class="btn-hero-outline btn">← Back to Courses</a>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<div style="background:var(--bg-alt);">
+  <div class="container py-5">
+
+    <div class="row g-4">
+
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
+
+        <!-- ABOUT -->
+        <div class="info-card">
+          <div class="py-section-title">About This Course</div>
+          <p class="section-body mb-2">
+            This course takes you from data wrangling to visual storytelling using Python's most powerful scientific libraries.
+            You will master <strong>NumPy</strong> for numerical computing, <strong>Pandas</strong> for structured data manipulation,
+            and <strong>Matplotlib</strong> for creating publication-quality charts — including geographic maps with Cartopy and
+            statistical plots with Seaborn.
+          </p>
+          <p class="section-body mb-0">
+            Each session is <strong>1 hour of instruction + 30 minutes of hands-on coding</strong>. Live recordings
+            are available after every session. Batch size is kept small (15–20 students) for a personalised experience.
+          </p>
+        </div>
+
+        <!-- CURRICULUM -->
+        <div class="info-card">
+          <div class="py-section-title">Week-by-Week Curriculum</div>
+
+          <div class="week-card">
+            <div class="week-card-header">
+              <span class="week-num">MODULE 1</span>
+              <span class="week-title">Introduction to NumPy</span>
+            </div>
+            <div class="week-card-body">
+              <p>NumPy forms the numerical foundation of Python's scientific computing ecosystem. This module covers array operations, memory layout, and the tools that make large-scale numerical computation efficient.</p>
+              <ul class="week-topics" style="padding-left:1.2rem;margin-bottom:0;">
+                <li>How Python manages data types internally, and how NumPy improves on built-in structures for numerical work</li>
+                <li>Core properties of NumPy arrays — shape, dtype, indexing, slicing, and reshaping</li>
+                <li>Universal functions (ufuncs) for fast element-wise operations across arrays</li>
+                <li>Aggregation methods including sum, minimum, maximum, and statistical summaries</li>
+                <li>Broadcasting rules that allow operations between arrays of different but compatible shapes</li>
+                <li>Boolean masking and logical comparisons for conditional selection and filtering</li>
+                <li>Advanced indexing with integer arrays for non-contiguous data access</li>
+                <li>Techniques for sorting arrays along different axes</li>
+                <li>Structured arrays for working with heterogeneous, record-style data</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="week-card">
+            <div class="week-card-header">
+              <span class="week-num">MODULE 2</span>
+              <span class="week-title">Data Manipulation with Pandas</span>
+            </div>
+            <div class="week-card-body">
+              <p>Pandas provides labelled, table-oriented data structures that make real-world data cleaning and analysis practical. This module moves from raw arrays to structured datasets.</p>
+              <ul class="week-topics" style="padding-left:1.2rem;margin-bottom:0;">
+                <li>The Series and DataFrame objects — their design, construction, and relationship to NumPy</li>
+                <li>Label-based and position-based selection using .loc, .iloc, and related indexers</li>
+                <li>Arithmetic operations in Pandas and how index alignment works automatically</li>
+                <li>Strategies for detecting, removing, and imputing missing values</li>
+                <li>Multi-level (hierarchical) indexing for working with higher-dimensional data in a flat structure</li>
+                <li>Stacking datasets vertically using concatenation</li>
+                <li>Merging and joining tables on shared keys, similar to relational database operations</li>
+                <li>Grouping data and applying aggregation functions with groupby</li>
+                <li>Reshaping data into pivot table format for summary and cross-tabulation</li>
+                <li>String method vectorization for efficient text processing on Series</li>
+                <li>Time series functionality including resampling, rolling windows, and date-based indexing</li>
+                <li>Performance-oriented querying with eval() and query() for large DataFrames</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="week-card" style="margin-bottom:0;">
+            <div class="week-card-header">
+              <span class="week-num">MODULE 3</span>
+              <span class="week-title">Visualization with Matplotlib</span>
+            </div>
+            <div class="week-card-body">
+              <p>Matplotlib is Python's foundational plotting library. This module covers everything from basic charts to publication-quality figures and geospatial maps.</p>
+              <ul class="week-topics" style="padding-left:1.2rem;margin-bottom:0;">
+                <li>Creating and formatting line plots for continuous data</li>
+                <li>Building scatter plots and encoding additional dimensions through colour and size</li>
+                <li>Adding error bars and uncertainty bands to represent measurement variability</li>
+                <li>Drawing filled contour and density plots for two-dimensional distributions</li>
+                <li>Plotting histograms and kernel density estimates for univariate distributions</li>
+                <li>Controlling legend placement, content, and styling</li>
+                <li>Selecting and configuring colormaps for effective data encoding</li>
+                <li>Arranging multiple panels using subplots, GridSpec, and figure-level layout tools</li>
+                <li>Adding annotations, labels, and arrows to highlight features in a figure</li>
+                <li>Fine-grained control over axis tick locations and formatters</li>
+                <li>Applying style sheets and rcParams for consistent visual themes</li>
+                <li>Creating 3D line, scatter, and surface plots with mpl_toolkits.mplot3d</li>
+                <li>Plotting geographic data using Cartopy — map projections, coastlines, and gridlines</li>
+                <li>Statistical visualisation with Seaborn — distribution plots, categorical plots, pair plots, and heatmaps</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEARNING GOALS -->
+        <div class="info-card">
+          <div class="py-section-title">Learning Goals</div>
+          <div class="goal-item">
+            <div class="goal-icon">🔢</div>
+            <div style="font-size:0.9rem;color:var(--text);">Understand how <strong>NumPy arrays</strong> work under the hood — shape, dtype, broadcasting, and advanced indexing.</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon">🗂️</div>
+            <div style="font-size:0.9rem;color:var(--text);">Use <strong>Pandas</strong> to load, clean, merge, group, and summarise real-world datasets confidently.</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon">📈</div>
+            <div style="font-size:0.9rem;color:var(--text);">Create publication-quality charts with <strong>Matplotlib</strong> — from line plots and scatter plots to 3D surfaces.</div>
+          </div>
+          <div class="goal-item">
+            <div class="goal-icon">🌍</div>
+            <div style="font-size:0.9rem;color:var(--text);">Plot geographic data with <strong>Cartopy</strong> — map projections, coastlines, and gridlines.</div>
+          </div>
+          <div class="goal-item" style="margin-bottom:0;">
+            <div class="goal-icon">📊</div>
+            <div style="font-size:0.9rem;color:var(--text);">Build statistical visualisations with <strong>Seaborn</strong> — distributions, pair plots, heatmaps, and categorical plots.</div>
+          </div>
+        </div>
+
+        <!-- FEEDBACK -->
+        <div class="info-card">
+          <div class="py-section-title">What Learners Say</div>
+          <p style="font-size:0.82rem;color:var(--muted);margin-bottom:1.25rem;">Feedback from previous Python course participants</p>
+
+          <div class="feedback-card">
+            <div class="fb-text">"The course is excellent and it gave me the idea about how Python works. As a beginner your way of teaching and classes are excellent."</div>
+            <div class="fb-meta">
+              <div class="fb-avatar">GP</div>
+              <div class="fb-name">Girikrishnan P R</div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fb-text">"It encouraged me to think deeply, analyse ideas from different perspectives, and develop greater confidence in my learning journey. Deep knowledge, better structure of modules, simple language usage, clarity, and patience."</div>
+            <div class="fb-meta">
+              <div class="fb-avatar">SK</div>
+              <div class="fb-name">Sajna K</div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="feedback-card">
+            <div class="fb-text">"Sessions were very nice and discussion of the concepts was very useful. The clarity in explaining concepts stood out."</div>
+            <div class="fb-meta">
+              <div class="fb-avatar">EP</div>
+              <div class="fb-name">Elsa Paulson</div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+          </div>
+
+          <div class="feedback-card" style="margin-bottom:0;">
+            <div class="fb-text">"The best aspect of the course was the clear explanation of concepts and the practical approach to learning. Sir made complex topics easy to understand."</div>
+            <div class="fb-meta">
+              <div class="fb-avatar">KV</div>
+              <div class="fb-name">K S Vaishnavi</div>
+              <div class="fb-stars">★★★★☆</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-5">
+        <div style="position:sticky;top:80px;">
+
+        <!-- DETAILS + REGISTER -->
+        <div class="info-card" style="border-color:var(--py-green);border-width:2px;">
+          <div class="py-section-title">Course Details</div>
+          <table class="details-table w-100">
+            <tr><td>📅 Date</td><td><strong>To be Announced</strong></td></tr>
+            <tr><td>📚 Modules</td><td><strong>3 Modules</strong></td></tr>
+            <tr><td>⏱ Per Session</td><td>1.5 hrs (1 hr + 0.5 hr coding)</td></tr>
+            <tr><td>💰 Price</td><td><strong>₹1,800</strong></td></tr>
+            <tr><td>💻 Mode</td><td>Online — Live + Recorded</td></tr>
+            <tr><td>📼 Recordings</td><td>After each session</td></tr>
+            <tr><td>👥 Batch Size</td><td>15 – 20 students</td></tr>
+            <tr><td>🗣️ Language</td><td>Malayalam</td></tr>
+            <tr><td>🎯 For</td><td>Students, researchers, teachers</td></tr>
+          </table>
+          <a href="https://forms.gle/DwkRW7iUvzZxNq2V9" target="_blank" class="btn-register mt-4">
+            Register Now <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+          <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.6rem;margin-bottom:0;">Limited seats — 15 to 20 per batch</p>
+        </div>
+
+        <!-- TOOLS & LIBRARIES -->
+        <div class="info-card">
+          <div class="py-section-title">Tools &amp; Libraries</div>
+          <div>
+            <span class="tool-pill">NumPy</span>
+            <span class="tool-pill">Pandas</span>
+            <span class="tool-pill">Matplotlib</span>
+            <span class="tool-pill">Seaborn</span>
+            <span class="tool-pill">Cartopy</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--muted);margin-top:0.85rem;margin-bottom:0;">All tools are free and open-source. A working Python installation (Jupyter Notebook) is all you need.</p>
+        </div>
+
+        <!-- PREREQUISITE -->
+        <div class="info-card">
+          <div class="py-section-title">Prerequisite</div>
+          <p style="font-size:0.88rem;color:var(--text);margin-bottom:0.85rem;">Basic familiarity with Python is helpful but not strictly required. If you are new to programming, consider starting with:</p>
+          <a href="python_course.html" style="display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1rem;background:var(--py-green-light);border:1px solid var(--py-green-accent);border-radius:10px;text-decoration:none;">
+            <div style="width:36px;height:36px;background:var(--py-green);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">1</div>
+            <div>
+              <div style="font-weight:600;font-size:0.9rem;color:var(--py-green);">Python for Absolute Beginners</div>
+              <div style="font-size:0.78rem;color:var(--muted);">Completed · Available on request</div>
+            </div>
+            <i class="bi bi-arrow-right ms-auto" style="color:var(--py-green);"></i>
+          </a>
+        </div>
+
+        </div><!-- /sticky wrapper -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container text-center">
+    <p class="footer-name">Sarath Prabhavu J.</p>
+    <p class="footer-links">
+      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
+    </p>
+    <p class="footer-copy">© 2026 Sarath Prabhavu J. &nbsp;·&nbsp; Learning how to program is more important than learning just a programming language.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>

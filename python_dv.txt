@@ -1,0 +1,26 @@
+Data Visualization with Python
+16 Sessions · 1.5 hrs each · 4 Weeks · Batch size: 15–20
+1 hr instruction + 0.5 hr hands-on coding per session
+
+Week 1 — NumPy & Pandas Foundations
+Build the data skills that every visualization depends on. Learn how NumPy arrays work, how to clean and reshape data efficiently, and how to wrangle real-world messy datasets using Pandas — before a single chart is drawn.
+What you'll cover:
+Arrays, indexing, broadcasting, vectorized statistics, missing value handling, DataFrame operations, groupby, merging tables, pivot tables, and string methods.
+
+Week 2 — Core Visualization Libraries
+Master the two libraries that form the backbone of Python data visualization. Go from basic charts to complex multi-panel layouts and publication-ready statistical plots.
+What you'll cover:
+Matplotlib's Figure/Axes model, line, bar, scatter, and histogram charts, subplots, twin axes, log scale, annotations, custom styles, Seaborn distribution plots, relational plots, and categorical plots.
+
+Week 3 — Specialized Data Types
+Move beyond tabular data. Visualize time series, maps, and interactive charts — each data type with its own tools and techniques.
+What you'll cover:
+Time-indexed data, resampling, rolling averages, seasonal trends, interactive maps with Folium, choropleth maps with GeoPandas, and interactive web charts with Plotly Express and Graph Objects.
+
+Week 4 — Advanced Topics & Capstone
+Visualize scientific and image data, learn the design principles behind clear and honest charts, and present a complete data story as your capstone project.
+What you'll cover:
+Image arrays, colormaps, confusion matrices, contour plots, color theory, chart selection, accessibility, Tufte's data-ink ratio, avoiding misleading charts, and a student-led capstone presentation.
+
+Tools & Libraries
+NumPy · Pandas · Matplotlib · Seaborn · Plotly · Folium · GeoPandas
