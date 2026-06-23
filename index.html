@@ -17,6 +17,84 @@
 <!-- NAVBAR -->
 <div id="navbar-placeholder"></div>
 
+<!-- ═══ ANNOUNCEMENT BANNER ═══ -->
+<div class="announcement-banner">
+  <div class="announcement-inner">
+    <span class="announcement-badge">New Course</span>
+    <span class="announcement-text">
+      <marquee behavior="scroll" direction="left" scrollamount="4">
+        🐍 Python for Data Visualisation is now open for registration! Learn to create stunning charts &amp; plots with Python. &nbsp;·&nbsp; Limited seats available. &nbsp;·&nbsp; 🐍 Python for Data Visualisation is now open for registration! Learn to create stunning charts &amp; plots with Python. &nbsp;·&nbsp; Limited seats available. &nbsp;·&nbsp;
+      </marquee>
+    </span>
+    <a href="python.html" class="announcement-cta">Register Now →</a>
+  </div>
+</div>
+
+<style>
+.announcement-banner {
+  background: linear-gradient(90deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+  color: #fff;
+  padding: 10px 0;
+  position: relative;
+  z-index: 900;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  animation: bannerPulse 3s ease-in-out infinite;
+}
+@keyframes bannerPulse {
+  0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  50% { box-shadow: 0 2px 20px rgba(99, 179, 237, 0.4); }
+}
+.announcement-inner {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  gap: 12px;
+}
+.announcement-badge {
+  background: #e53e3e;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  animation: badgeBlink 1.5s ease-in-out infinite;
+}
+@keyframes badgeBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.announcement-text {
+  flex: 1;
+  overflow: hidden;
+  font-size: 0.88rem;
+  color: #e2e8f0;
+}
+.announcement-text marquee {
+  color: #e2e8f0;
+}
+.announcement-cta {
+  background: #f6ad55;
+  color: #1a1a2e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.2s;
+}
+.announcement-cta:hover {
+  background: #fff;
+  color: #0f3460;
+  transform: scale(1.05);
+}
+</style>
+
 <!-- ═══ HERO ═══ -->
 <header class="hero-academic">
   <div class="container">
