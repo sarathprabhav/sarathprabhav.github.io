@@ -1,451 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06080f">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <title>Outreach | Sarath Prabhavu</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <meta name="description" content="Astronomy talks, workshops, stargazing nights and courses by Sarath Prabhavu — 100+ events across schools, colleges and online.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* type colours */
+    :root { --t-talk:#6ea8ff; --t-workshop:#b392ff; --t-sky:#5eead4; --t-course:#ff9ad5; --t-media:#fbbf24; }
+
+    /* intro stats */
+    .o-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border);
+      border-radius:var(--radius); overflow:hidden; margin-top:2rem; }
+    .o-stats .stat-cell { background:var(--surface); padding:1.4rem .75rem; }
+    @media (max-width:575.98px) { .o-stats .stat-label { letter-spacing:.06em; font-size:.66rem; } }
+
+    /* what I do */
+    .o-cards { display:grid; gap:1rem; grid-template-columns:repeat(2,1fr); }
+    @media (min-width:992px) { .o-cards { grid-template-columns:repeat(4,1fr); } }
+    .o-cards .feature-card { padding:1.35rem; }
+    .o-cards .fc-title { font-size:1.05rem; }
+    .o-cards .fc-body { font-size:.88rem; }
+    @media (max-width:575.98px) { .o-cards .feature-card { padding:1.05rem; } .o-cards .fc-body { font-size:.82rem; } }
+
+    /* photos */
+    .field-grid figure { cursor:zoom-in; }
+    .field-grid figcaption { opacity:1; padding:2.2rem .9rem .7rem; font-size:.8rem; line-height:1.35; }
+
+    /* timeline controls */
+    .t-controls { display:flex; flex-direction:column; gap:.9rem; margin-bottom:2rem; }
+    .t-search { position:relative; max-width:26rem; }
+    .t-search i { position:absolute; left:1rem; top:50%; transform:translateY(-50%); color:var(--faint); }
+    .t-search input { width:100%; padding:.65rem 1rem .65rem 2.6rem; border-radius:999px; background:var(--surface);
+      border:1px solid var(--border-hi); color:#fff; font-size:.92rem; }
+    .t-search input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,168,255,.22); }
+    .t-row { display:flex; gap:.5rem; overflow-x:auto; padding-bottom:.3rem; scrollbar-width:none; -webkit-overflow-scrolling:touch; align-items:center; }
+    .t-row::-webkit-scrollbar { display:none; }
+    .t-label { flex:none; font-size:.7rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); margin-right:.4rem; min-width:3.2rem; }
+    .pill { flex:none; display:inline-flex; align-items:center; gap:.45rem; border:1px solid var(--border); background:rgba(255,255,255,.03);
+      color:var(--muted); font-size:.82rem; font-weight:500; padding:.38rem .9rem; border-radius:999px; transition:all .2s; }
+    .pill:hover { color:#fff; border-color:var(--border-hi); }
+    .pill.on { color:#fff; border-color:rgba(110,168,255,.6); background:rgba(110,168,255,.14); }
+    .pill .dot { width:8px; height:8px; border-radius:50%; background:var(--c, var(--accent)); }
+    .pill small { color:var(--faint); font-size:.7rem; }
+    .pill.on small { color:var(--accent-light); }
+    .t-count { font-size:.85rem; color:var(--muted); }
+
+    /* timeline */
+    .tl { position:relative; }
+    .tl-year { position:sticky; top:calc(var(--nav-h) + 6px); z-index:3; display:flex; align-items:center; gap:.9rem; padding:.55rem 0; margin:1.6rem 0 .8rem;
+      background:linear-gradient(180deg,var(--bg) 70%,transparent); }
+    .tl-year:first-child { margin-top:0; }
+    .tl-year b { font-family:var(--font-display); font-size:1.7rem; letter-spacing:-.03em; color:#fff; }
+    .tl-year span { font-size:.8rem; color:var(--faint); }
+    .tl-year::after { content:''; flex:1; height:1px; background:var(--border); }
+    .tl-list { position:relative; padding-left:1.6rem; }
+    .tl-list::before { content:''; position:absolute; left:5px; top:.5rem; bottom:.5rem; width:1px; background:linear-gradient(180deg,var(--border-hi),var(--border)); }
+    .ev { position:relative; display:grid; gap:.25rem 1rem; grid-template-columns:1fr; padding:.95rem 1.1rem; margin-bottom:.65rem;
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius-sm);
+      transition:transform .25s, border-color .25s, background .25s; animation:gIn .5s ease both; }
+    @media (min-width:768px) { .ev { grid-template-columns:150px 1fr auto; align-items:center; } }
+    .ev::before { content:''; position:absolute; left:-1.6rem; top:1.3rem; width:11px; height:11px; border-radius:50%;
+      background:var(--bg); border:2px solid var(--c); box-shadow:0 0 12px -2px var(--c); }
+    .ev:hover { transform:translateX(4px); border-color:var(--border-hi); background:var(--card-hi); }
+    .ev-date { font-size:.8rem; font-weight:600; color:var(--c); letter-spacing:.02em; }
+    .ev-title { font-family:var(--font-display); font-weight:600; color:#fff; line-height:1.3; }
+    .ev-venue { font-size:.86rem; color:var(--muted); margin-top:.1rem; }
+    .ev-tag { justify-self:start; font-size:.68rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:.22rem .65rem; border-radius:999px;
+      color:var(--c); background:color-mix(in srgb, var(--c) 12%, transparent); border:1px solid color-mix(in srgb, var(--c) 30%, transparent); white-space:nowrap; }
+    .t-empty { text-align:center; color:var(--muted); padding:3rem 0; }
+    @keyframes gIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+    /* lightbox */
+    #lb { position:fixed; inset:0; z-index:2000; display:none; background:rgba(4,6,11,.94); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+    #lb.open { display:flex; flex-direction:column; }
+    .lb-top { display:flex; justify-content:space-between; align-items:center; padding:.9rem 1.1rem; color:var(--muted); font-size:.85rem; }
+    .lb-btn { width:44px; height:44px; border-radius:50%; border:1px solid var(--border-hi); background:rgba(255,255,255,.06); color:#fff; display:grid; place-items:center; font-size:1.1rem; }
+    .lb-btn:hover { background:rgba(255,255,255,.16); }
+    .lb-stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; position:relative; padding:0 .75rem; }
+    .lb-stage img { max-width:100%; max-height:100%; object-fit:contain; border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+    .lb-nav { position:absolute; top:50%; transform:translateY(-50%); } .lb-prev { left:1rem; } .lb-next { right:1rem; }
+    @media (max-width:767.98px) { .lb-nav { display:none; } }
+    .lb-info { padding:1rem 1.25rem 1.4rem; text-align:center; color:var(--muted); font-size:.95rem; }
+    body.lb-lock { overflow:hidden; }
+  </style>
 </head>
 <body>
 
 <div id="navbar-placeholder"></div>
 
-<!-- PAGE HERO -->
 <header class="page-hero">
   <div class="container">
-    <p class="hero-eyebrow">Public Engagement</p>
-    <h1 class="page-hero-title">Outreach Activities</h1>
-    <p class="page-hero-sub">Astronomy workshops, public talks, training programs, sky observations, and science engagement events</p>
+    <p class="hero-eyebrow">Public engagement</p>
+    <h1 class="page-hero-title">Outreach</h1>
+    <p class="page-hero-sub">Talks, workshops, stargazing nights and courses — taking astronomy to classrooms, campuses, beaches and the internet.</p>
   </div>
 </header>
 
-<!-- STATS MINI BAR -->
-<div style="background:var(--navy2);border-bottom:1px solid rgba(255,255,255,0.06);">
+<div class="container">
+  <div class="o-stats">
+    <div class="stat-cell"><div class="stat-number">100<span class="stat-plus">+</span></div><div class="stat-label">Events</div></div>
+    <div class="stat-cell"><div class="stat-number">7<span class="stat-plus">+</span></div><div class="stat-label">Years active</div></div>
+    <div class="stat-cell"><div class="stat-number">10<span class="stat-plus">+</span></div><div class="stat-label">States / countries</div></div>
+  </div>
+</div>
+
+<!-- What I do -->
+<section class="section" style="padding-bottom:2rem">
   <div class="container">
-    <div class="row g-0 text-center">
-      <div class="col-4 stat-cell">
-        <div class="stat-number">100<span class="stat-plus">+</span></div>
-        <div class="stat-label">Events</div>
-      </div>
-      <div class="col-4 stat-cell">
-        <div class="stat-number">7<span class="stat-plus">+</span></div>
-        <div class="stat-label">Years Active</div>
-      </div>
-      <div class="col-4 stat-cell">
-        <div class="stat-number">10<span class="stat-plus">+</span></div>
-        <div class="stat-label">States / Countries</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MAIN CONTENT -->
-<section class="py-5" style="background:var(--bg-alt);">
-  <div class="container">
-    <div class="row g-4">
-
-      <!-- TIMELINE ACCORDION -->
-      <div class="col-lg-7">
-        <p class="section-eyebrow">Timeline</p>
-        <h2 class="section-heading mb-4">Events by Year</h2>
-
-        <div class="accordion" id="outreachAccordion">
-
-          <!-- 2026 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#y2026">
-                <i class="bi bi-calendar3 me-2"></i>2026
-              </button>
-            </h2>
-            <div id="y2026" class="accordion-collapse collapse show" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>May 11-22, 2026</strong> – "Python Course for Beginner&amp; Online Course</li>
-                  <li><strong>May 19-20, 2026</strong> – "IAAC Training", Everester Observatory, Qatar, Online</li>
-                  <li><strong>May 16, 2026</strong> – "Physics Simplified", Lead IAS, Online</li>
-                  <li><strong>May 12-13, 2026</strong> – "IAAC Training", Everester Observatory, Qatar, Online</li>
-                  <li><strong>May 09, 2026</strong> – "Physics Simplified", Lead IAS, Online</li>
-                  <li><strong>May 2, 2026</strong> – "Physics Simplified", Lead IAS, Online</li>
-                  <li><strong>Feb 09, 2026</strong> – "Starry Messenger" — Talk &amp; Stargazing, St. Thomas College Palai, Kottayam</li>
-                  <li><strong>Feb 07–08, 2026</strong> – "Treasure Hunt", Model Technical Higher Secondary School, Ernakulam</li>
-                  <li><strong>Feb 04, 2026</strong> – Telescope Observation, GHSS Puthur, Kollam</li>
-                  <li style="color:var(--muted);font-style:italic;">............. Archival Ongoing .............</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2025 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2025">
-                <i class="bi bi-calendar3 me-2"></i>2025
-              </button>
-            </h2>
-            <div id="y2025" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Dec 27–29, 2025</strong> – Indian Space Science Olympiad, Edumithra, IISc Bangalore</li>
-                  <li><strong>Oct 19, 2025</strong> – Stellar Evolution Talk, <em>Online</em> Library, Pallichal, Thiruvananthapuram</li>
-                  <li style="color:var(--muted);font-style:italic;">............. Archival Ongoing .............</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2024 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2024">
-                <i class="bi bi-calendar3 me-2"></i>2024
-              </button>
-            </h2>
-            <div id="y2024" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li style="color:var(--muted);font-style:italic;">............. Archival Ongoing .............</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2023 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2023">
-                <i class="bi bi-calendar3 me-2"></i>2023
-              </button>
-            </h2>
-            <div id="y2023" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Aug 23, 2023</strong> – Chandrayaan Landing Live &amp; Astro-Imaging Session, Sree SathyaSai College, Thonnakkal</li>
-                  <li><strong>Aug 22, 2023</strong> – Skywatching Session, Gowreeshapattom Residence Association</li>
-                  <li><strong>Aug 22, 2023</strong> – Chandrayaan 3 Panel Discussion, Asianet News</li>
-                  <li><strong>Aug 22, 2023</strong> – Training on Astronomical Coordinates, MSc Space Science Students, All Saints College</li>
-                  <li><strong>Aug 14–16, 2023</strong> – Edumitra International Space Olympiad (Online Workshop), UAE</li>
-                  <li><strong>Aug 07–11, 2023</strong> – Edumitra International Space Olympiad Online Training</li>
-                  <li><strong>Aug 06, 2023</strong> – Day-long Basic Astronomy Session, Gifted Children Programme, GHSS Kottarakkara</li>
-                  <li><strong>Jul 24, 2023</strong> – Moon Day Celebration &amp; Telescope Observation, Amrita Vidyalayam, Nedumangad</li>
-                  <li><strong>Jul 22, 2023</strong> – Moon Day Celebration, GHSS Kummil, Kollam</li>
-                  <li><strong>Jul 21, 2023</strong> – Moon Day Celebration, GLPS Sooranad, Kollam</li>
-                  <li><strong>Jul 21, 2023</strong> – Science Club Inauguration &amp; Moon Day, MTHSS Channappetta, Anchal</li>
-                  <li><strong>Jul 20, 2023</strong> – Exoplanets &amp; Transit Light Curve Activity, IIST Student Camp</li>
-                  <li><strong>Jul 08, 2023</strong> – Moon &amp; Water Rocket Activities, GHSS Vellanad</li>
-                  <li><strong>Jun 01–20, 2023</strong> – Python Course Season 2 (Online)</li>
-                  <li><strong>Jun 02, 2023</strong> – Astrophotography Workshop, IEEE KMEA College, Aluva</li>
-                  <li><strong>May 25, 2023</strong> – Astrophotography Talk, Vikram Sarabhai Foundation, LNCPE</li>
-                  <li><strong>May 23, 2023</strong> – Science Summer School for Children, Priyadarshini Planetarium</li>
-                  <li><strong>May 15–19, 2023</strong> – Space Safari Online Astronomy Camp, Edumitra</li>
-                  <li><strong>May 04, 2023</strong> – Astrophotography &amp; Andaman Expedition Talk, AASTRO Kerala</li>
-                  <li><strong>Apr 25–30, 2023</strong> – International Space Olympiad Training, Edumitra Campus Kochi</li>
-                  <li><strong>Apr 20–24, 2023</strong> – Stargazing &amp; Meteor Shower Events</li>
-                  <li><strong>Mar 01–31, 2023</strong> – Andaman Expedition</li>
-                  <li><strong>Feb 26, 2023</strong> – Stargazing Session, Punalur</li>
-                  <li><strong>Feb 24, 2023</strong> – Astronomy &amp; Astrophotography Talk, MES College Ponnani</li>
-                  <li><strong>Feb 04, 2023</strong> – Astronomy &amp; Life Talk, AASTRO Kerala, Vellayani</li>
-                  <li><strong>Feb 01, 2023</strong> – Astronomy Talk &amp; Stargazing, Govt Women's College TVM</li>
-                  <li><strong>Jan 29, 2023</strong> – Exoplanets Talk, Cochin (Outgrow)</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2022 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2022">
-                <i class="bi bi-calendar3 me-2"></i>2022
-              </button>
-            </h2>
-            <div id="y2022" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Dec 27–29, 2022</strong> – Space Olympiad Camp, Edumitra, Thrissur</li>
-                  <li><strong>Dec 28–30, 2022</strong> – Online LaTeX Workshop, CSIDR</li>
-                  <li><strong>Dec 17–18, 2022</strong> – Sky Observation Camp, Sayalgudi Beach (StarVoirs)</li>
-                  <li><strong>Dec 10–11, 2022</strong> – Astronomy &amp; Astrophotography Workshop, AGASTYA Foundation, Andhra Pradesh</li>
-                  <li><strong>Oct 29–30, 2022</strong> – Sky Observation Camp, Sayalgudi Beach</li>
-                  <li><strong>Oct 28, 2022</strong> – Astrophotography Workshop, MES Kuttippuram (IEEE)</li>
-                  <li><strong>Sep 30, 2022</strong> – Jupiter Opposition Talk &amp; Telescope Observation, Planetarium TVM</li>
-                  <li><strong>Sep 28, 2022</strong> – Telescope Setup &amp; Skywatching, Bharath Matha College, Ernakulam</li>
-                  <li><strong>Jul 09, 2022</strong> – "Know the Moon" Session, Kerala Science &amp; Technology Museum</li>
-                  <li><strong>May 23, 2022</strong> – Budget Astrophotography Workshop, Kovalam</li>
-                  <li><strong>Apr 03, 2022</strong> – Telescope Making &amp; Astrophotography, SpaceUp CUSAT</li>
-                  <li><strong>Mar 27, 2022</strong> – Night Photography Workshop, Mar Ivanios College</li>
-                  <li><strong>Mar 02, 2022</strong> – "How Big is Our Universe" Talk, Govt UP School Anachal</li>
-                  <li><strong>Dec 04, 2021</strong> – ABC of Stargazing, IEEE EXPLORICA</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2021 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2021">
-                <i class="bi bi-calendar3 me-2"></i>2021
-              </button>
-            </h2>
-            <div id="y2021" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Nov 28, 2021</strong> – Budget Astrophotography Talk (Online)</li>
-                  <li><strong>Sep 10, 2021</strong> – Sky Coordinates &amp; Astronomy Course</li>
-                  <li><strong>Jun 06, 2021</strong> – Stellar Evolution Talk, RCET Kochi</li>
-                  <li><strong>Jan 2021</strong> – Electrostatics Course (Swayamprabha DTH)</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2020 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2020">
-                <i class="bi bi-calendar3 me-2"></i>2020
-              </button>
-            </h2>
-            <div id="y2020" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Dec 21, 2020</strong> – Jupiter–Saturn Great Conjunction Live Stream, CUSAT</li>
-                  <li><strong>Jun 04, 2020</strong> – Sky Coordinates Online Course</li>
-                  <li><strong>Apr 26, 2020</strong> – Basics of Astronomy Online Course (1 Month)</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- 2019 -->
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2019">
-                <i class="bi bi-calendar3 me-2"></i>2019
-              </button>
-            </h2>
-            <div id="y2019" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-              <div class="accordion-body">
-                <ul>
-                  <li><strong>Dec 12, 2019</strong> – Solar Eclipse Talk, Kozhikode</li>
-                  <li><strong>Dec 07, 2019</strong> – Eclipse Talk, Science &amp; Technology Museum TVM</li>
-                  <li><strong>Nov 23, 2019</strong> – Solar Eclipse Demo, Karyavattom College</li>
-                  <li><strong>Oct 17, 2019</strong> – Astronomy Workshop, Kondotty</li>
-                  <li><strong>Sep 02, 2019</strong> – Astronomy &amp; Sky Observation Camp, Kalpakkam</li>
-                  <li><strong>Aug 28, 2019</strong> – Dark Matter Talk, Kollam</li>
-                  <li><strong>Aug 24–25, 2019</strong> – Astronomy &amp; Photography Workshop, Chennai</li>
-                  <li><strong>May 03–05, 2019</strong> – Science Camp Activities, Kovalam</li>
-                  <li><strong>Apr 12–20, 2019</strong> – Astronomy Summer School, AASTRO Kerala</li>
-                  <li><strong>Mar 30–31, 2019</strong> – Astronomy Workshop, Maharajas College</li>
-                  <li><strong>Jan 05, 2019</strong> – Basic Astronomy Talk, SIET Kerala</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- 2018 -->
-<div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2018">
-      <i class="bi bi-calendar3 me-2"></i>2018
-    </button>
-  </h2>
-  <div id="y2018" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-    <div class="accordion-body">
-      <ul>
-        <li><strong>Sep 8, 2018</strong> – Pale Blue Dot - A Cosmic Perspective, monthly talk organised by AASTRO Kerala at Kerala State Science and Technology Museum</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- 2017 -->
-<div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2017">
-      <i class="bi bi-calendar3 me-2"></i>2017
-    </button>
-  </h2>
-  <div id="y2017" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-    <div class="accordion-body">
-      <ul>
-        <li><strong>Archival ongoing</strong> – Outreach and astronomy education activities</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- 2016 -->
-<div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2016">
-      <i class="bi bi-calendar3 me-2"></i>2016
-    </button>
-  </h2>
-  <div id="y2016" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-    <div class="accordion-body">
-      <ul>
-        <li><strong>Apr 4–10, 2016</strong> – Stellar Evolution, Day Time Astronomy, Telescope Making; led multiple sessions as part of one-week Astronomy Summer School organised by AASTRO Kerala and Kerala State Science and Technology Museum</li>
-        <li><strong>Apr 13, 2016</strong> – Zero Shadow Day Celebration, Sasthamcotta, Organised by Kerala State Science and Technology Museum</li>
-
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- 2015 -->
-<div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2015">
-      <i class="bi bi-calendar3 me-2"></i>2015
-    </button>
-  </h2>
-  <div id="y2015" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-    <div class="accordion-body">
-      <ul>
-        <li><strong>Archival ongoing</strong> – Outreach and astronomy education activities</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- 2014 -->
-<div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#y2014">
-      <i class="bi bi-calendar3 me-2"></i>2014
-    </button>
-  </h2>
-  <div id="y2014" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-    <div class="accordion-body">
-      <ul>
-        <li><strong>Apr 21–27, 2014</strong> – Introduction to Astronomy, Day Time Astronomy, Telescope Making; led multiple sessions as part of one-week Astronomy Summer School organised by AASTRO Kerala and Kerala State Science and Technology Museum</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<!-- Earlier Years
-<div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#yarchive">
-      <i class="bi bi-calendar3 me-2"></i>Earlier Years
-    </button>
-  </h2>
-  <div id="yarchive" class="accordion-collapse collapse" data-bs-parent="#outreachAccordion">
-    <div class="accordion-body">
-      <ul>
-        <li><strong>Archival ongoing</strong> – Additional astronomy outreach sessions, telescope workshops, and public talks in earlier years</li>
-      </ul>
-    </div>
-  </div>
-</div> -->
-        </div>
-      </div>
-
-      <!-- PHOTO CAROUSEL -->
-      <div class="col-lg-5">
-        <p class="section-eyebrow">Photos</p>
-        <h2 class="section-heading mb-4">From the Field</h2>
-
-        <div id="outreachCarousel" class="carousel slide" data-bs-ride="carousel" style="border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.15);">
-          <div class="carousel-inner" id="carouselImages"></div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#outreachCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#outreachCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </button>
-        </div>
-
-        <!-- HIGHLIGHTS -->
-        <div class="mt-4">
-          <div class="row g-3">
-            <div class="col-6">
-              <div class="highlight-item">
-                <div class="hi-icon"><i class="bi bi-telescope-fill"></i></div>
-                <div>
-                  <div class="hi-title">Stargazing</div>
-                  <div class="hi-sub">100+ public sessions</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="highlight-item">
-                <div class="hi-icon"><i class="bi bi-camera2"></i></div>
-                <div>
-                  <div class="hi-title">Workshops</div>
-                  <div class="hi-sub">Astrophotography</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="highlight-item">
-                <div class="hi-icon"><i class="bi bi-globe2"></i></div>
-                <div>
-                  <div class="hi-title">International</div>
-                  <div class="hi-sub">UAE, India &amp; online</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="highlight-item">
-                <div class="hi-icon"><i class="bi bi-mortarboard-fill"></i></div>
-                <div>
-                  <div class="hi-title">Training</div>
-                  <div class="hi-sub">Space olympiad camps</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="o-cards">
+      <div class="feature-card"><div class="fc-icon"><i class="bi bi-stars"></i></div><h3 class="fc-title">Stargazing</h3><p class="fc-body">100+ public sky-watching sessions.</p></div>
+      <div class="feature-card"><div class="fc-icon v2"><i class="bi bi-camera-fill"></i></div><h3 class="fc-title">Workshops</h3><p class="fc-body">Astrophotography and telescope making.</p></div>
+      <div class="feature-card"><div class="fc-icon v3"><i class="bi bi-globe2"></i></div><h3 class="fc-title">International</h3><p class="fc-body">UAE, India and online audiences.</p></div>
+      <div class="feature-card"><div class="fc-icon v4"><i class="bi bi-mortarboard-fill"></i></div><h3 class="fc-title">Training</h3><p class="fc-body">Space olympiad camps and courses.</p></div>
     </div>
   </div>
 </section>
 
+<!-- Photos -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="section-eyebrow">From the field</p>
+      <h2 class="section-heading">Moments from the sessions.</h2>
+    </div>
+    <div class="masonry field-grid" id="field"></div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section class="section" id="timeline">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-eyebrow">Timeline</p>
+      <h2 class="section-heading">Every event, year by year.</h2>
+      <p class="section-body">Filter by type or year, or search for a place or topic.</p>
+    </div>
+
+    <div class="t-controls">
+      <div class="t-search"><i class="bi bi-search"></i><input id="q" type="search" placeholder="Search events, places, topics…" aria-label="Search events"></div>
+      <div class="t-row" id="types" aria-label="Filter by type"></div>
+      <div class="t-row" id="years" aria-label="Filter by year"></div>
+      <div class="t-count" id="count" aria-live="polite"></div>
+    </div>
+
+    <div class="tl" id="tl"></div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-top"><span id="lbCount"></span><button class="lb-btn" id="lbClose" aria-label="Close"><i class="bi bi-x-lg"></i></button></div>
+  <div class="lb-stage">
+    <button class="lb-btn lb-nav lb-prev" id="lbPrev" aria-label="Previous"><i class="bi bi-chevron-left"></i></button>
+    <img id="lbImg" alt="">
+    <button class="lb-btn lb-nav lb-next" id="lbNext" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+  </div>
+  <div class="lb-info" id="lbCap"></div>
+</div>
+
 <footer class="site-footer">
-  <div class="container text-center">
-    <p class="footer-name">Sarath Prabhavu J.</p>
-    <p class="footer-links">
-      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
-      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
-      <a href="SARATH_PRABHVU_CV.pdf" target="_blank"><i class="bi bi-file-earmark-person-fill"></i></a>
-    </p>
-    <p class="footer-copy">© 2026 Sarath Prabhavu J.</p>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-name">Sarath Prabhavu J.</p>
+        <p class="footer-copy">© 2026 · Want a session at your school or club? Get in touch.</p>
+      </div>
+      <p class="footer-links">
+        <a href="mailto:sarathprabhav@gmail.com" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+        <a href="https://github.com/sarathprabhav" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      </p>
+    </div>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts.js"></script>
+<script src="outreach-events.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const images = [
-    "IMG20240508143340.jpg",
-    "IMG-20241029-WA0035.jpg",
-    "IMG-20241207-WA0040.jpg",
-    "IMG-20241216-WA0047.jpg",
-    "IMG-20250323-WA0001.jpg",
-    "IMG-20250721-WA0012.jpg",
-    "IMG-20250723-WA0074.jpg"
+  const esc = s => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
+  // ── Photos ─────────────────────────────────────────────
+  const photos = [
+    { f: "IMG-20241216-WA0047.jpg", cap: "Talking under a giant model of Jupiter" },
+    { f: "IMG-20241029-WA0035.jpg", cap: "An auditorium session with school students" },
+    { f: "IMG-20250323-WA0001.jpg", cap: "Astrophotography demo — camera on a tracker" },
+    { f: "IMG-20250723-WA0074.jpg", cap: "An interactive classroom session" },
+    { f: "IMG20240508143340.jpg",   cap: "Behind the scenes at the telescope" },
+    { f: "IMG-20241207-WA0040.jpg", cap: "With the volunteer team after the session" },
+    { f: "IMG-20250721-WA0012.jpg", cap: "A packed classroom of curious kids" }
   ];
-  const container = document.getElementById("carouselImages");
-  images.forEach((file, index) => {
-    const div = document.createElement("div");
-    div.className = "carousel-item" + (index === 0 ? " active" : "");
-    const img = document.createElement("img");
-    img.src = "images/outreach/" + file;
-    img.className = "d-block w-100";
-    img.style.cssText = "aspect-ratio:16/9;object-fit:cover;";
-    div.appendChild(img);
-    container.appendChild(div);
+  const field = document.getElementById("field");
+  field.innerHTML = photos.map((p, i) =>
+    `<figure data-i="${i}"><img src="images/thumbs/o_${p.f}" alt="${esc(p.cap)}" loading="lazy" decoding="async" tabindex="0"><figcaption>${esc(p.cap)}</figcaption></figure>`).join("");
+
+  const lb = document.getElementById("lb"), lbImg = document.getElementById("lbImg");
+  let pos = 0, lastFocus = null;
+  const show = n => {
+    pos = (n + photos.length) % photos.length;
+    lbImg.src = "images/outreach/web/" + photos[pos].f; lbImg.alt = photos[pos].cap;
+    document.getElementById("lbCap").textContent = photos[pos].cap;
+    document.getElementById("lbCount").textContent = (pos + 1) + " / " + photos.length;
+  };
+  const openLb = i => { lastFocus = document.activeElement; lb.classList.add("open"); document.body.classList.add("lb-lock"); show(i); document.getElementById("lbClose").focus(); };
+  const closeLb = () => { lb.classList.remove("open"); document.body.classList.remove("lb-lock"); lbImg.src = ""; if (lastFocus) lastFocus.focus(); };
+  field.addEventListener("click", e => { const f = e.target.closest("figure"); if (f) openLb(+f.dataset.i); });
+  field.addEventListener("keydown", e => { if (e.key === "Enter") { const f = e.target.closest("figure"); if (f) openLb(+f.dataset.i); } });
+  document.getElementById("lbClose").onclick = closeLb;
+  document.getElementById("lbPrev").onclick = () => show(pos - 1);
+  document.getElementById("lbNext").onclick = () => show(pos + 1);
+  lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("lb-stage")) closeLb(); });
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLb(); if (e.key === "ArrowLeft") show(pos - 1); if (e.key === "ArrowRight") show(pos + 1);
   });
+  let sx = null;
+  lb.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) show(pos + (dx < 0 ? 1 : -1)); });
+
+  // ── Timeline ───────────────────────────────────────────
+  const EV = window.OUTREACH_EVENTS || [];
+  const TYPES = {
+    talk:     { label: "Talks & events",      c: "var(--t-talk)" },
+    workshop: { label: "Workshops & camps",   c: "var(--t-workshop)" },
+    sky:      { label: "Stargazing",          c: "var(--t-sky)" },
+    course:   { label: "Courses & training",  c: "var(--t-course)" },
+    media:    { label: "Media",               c: "var(--t-media)" }
+  };
+  let type = "all", year = "all", q = "";
+  const years = [...new Set(EV.map(e => e.y))].sort((a, b) => b - a);
+  const matches = (e, ignore) =>
+    (ignore === "type" || type === "all" || e.type === type) &&
+    (ignore === "year" || year === "all" || e.y === +year) &&
+    (!q || (e.title + " " + e.venue + " " + e.d).toLowerCase().includes(q));
+
+  function pills() {
+    const nT = k => EV.filter(e => matches(e, "type") && (k === "all" || e.type === k)).length;
+    document.getElementById("types").innerHTML = `<span class="t-label">Type</span>` +
+      `<button class="pill ${type === "all" ? "on" : ""}" data-type="all">All <small>${nT("all")}</small></button>` +
+      Object.keys(TYPES).map(k => `<button class="pill ${type === k ? "on" : ""}" data-type="${k}" style="--c:${TYPES[k].c}"><span class="dot"></span>${TYPES[k].label} <small>${nT(k)}</small></button>`).join("");
+    const nY = y => EV.filter(e => matches(e, "year") && (y === "all" || e.y === y)).length;
+    document.getElementById("years").innerHTML = `<span class="t-label">Year</span>` +
+      `<button class="pill ${year === "all" ? "on" : ""}" data-year="all">All</button>` +
+      years.map(y => `<button class="pill ${year == y ? "on" : ""}" data-year="${y}">${y} <small>${nY(y)}</small></button>`).join("");
+  }
+
+  function list() {
+    const rows = EV.filter(e => matches(e));
+    document.getElementById("count").textContent = rows.length + (rows.length === 1 ? " event" : " events");
+    if (!rows.length) { document.getElementById("tl").innerHTML = `<p class="t-empty">No events match — try clearing a filter.</p>`; return; }
+    let html = "", cur = null, n = 0;
+    rows.forEach(e => {
+      if (e.y !== cur) {
+        if (cur !== null) html += `</div>`;
+        cur = e.y;
+        html += `<div class="tl-year"><b>${e.y}</b><span>${rows.filter(r => r.y === e.y).length} events</span></div><div class="tl-list">`;
+      }
+      const t = TYPES[e.type];
+      html += `<div class="ev" style="--c:${t.c};animation-delay:${Math.min(n++, 12) * 35}ms">` +
+        `<div class="ev-date">${esc(e.d)}</div>` +
+        `<div><div class="ev-title">${esc(e.title)}</div>${e.venue ? `<div class="ev-venue">${esc(e.venue)}</div>` : ""}</div>` +
+        `<span class="ev-tag">${t.label.replace(" & events", "").replace(" & camps", "").replace(" & training", "")}</span></div>`;
+    });
+    document.getElementById("tl").innerHTML = html + `</div>`;
+  }
+  const refresh = () => { pills(); list(); };
+
+  document.getElementById("types").addEventListener("click", e => { const b = e.target.closest("[data-type]"); if (b) { type = b.dataset.type; refresh(); } });
+  document.getElementById("years").addEventListener("click", e => { const b = e.target.closest("[data-year]"); if (b) { year = b.dataset.year; refresh(); } });
+  document.getElementById("q").addEventListener("input", e => { q = e.target.value.trim().toLowerCase(); refresh(); });
+  refresh();
 });
 </script>
 </body>

@@ -1,154 +1,398 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06080f">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <title>Gallery | Sarath Prabhavu</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <meta name="description" content="Astrophotography and photography by Sarath Prabhavu — nebulae, Milky Way, eclipses, aurora, autumn colour and winter landscapes.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── controls ── */
+    .g-controls { display:flex; flex-direction:column; gap:1rem; margin-bottom:2rem; }
+    .seg { display:inline-flex; align-self:flex-start; padding:4px; gap:2px; border-radius:999px;
+      background:var(--surface); border:1px solid var(--border); }
+    .seg button { border:0; background:transparent; color:var(--muted); font-weight:600; font-size:.88rem;
+      padding:.5rem 1.15rem; border-radius:999px; transition:all .2s; white-space:nowrap; }
+    .seg button:hover { color:#fff; }
+    .seg button.on { background:#fff; color:#07090f; }
+    .chips { display:flex; gap:.5rem; overflow-x:auto; padding-bottom:.35rem; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .chips::-webkit-scrollbar { display:none; }
+    .chip-btn { flex:none; display:inline-flex; align-items:center; gap:.45rem; border:1px solid var(--border);
+      background:rgba(255,255,255,.03); color:var(--muted); font-size:.82rem; font-weight:500;
+      padding:.4rem .9rem; border-radius:999px; transition:all .2s; }
+    .chip-btn:hover { color:#fff; border-color:var(--border-hi); }
+    .chip-btn.on { color:#fff; border-color:rgba(110,168,255,.6); background:rgba(110,168,255,.14); }
+    .chip-btn small { font-size:.7rem; color:var(--faint); }
+    .chip-btn.on small { color:var(--accent-light); }
+
+    /* ── category cards ── */
+    .g-group { margin-bottom:3rem; }
+    .g-group-head { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-bottom:1.1rem; }
+    .g-group-head h2 { font-size:clamp(1.3rem,3vw,1.7rem); margin:0; letter-spacing:-.02em; }
+    .g-group-head span { color:var(--faint); font-size:.85rem; }
+    .cat-grid { display:grid; gap:1rem; grid-template-columns:repeat(2,1fr); }
+    @media (min-width:768px) { .cat-grid { grid-template-columns:repeat(3,1fr); gap:1.15rem; } }
+    @media (max-width:767.98px) { .cat-card:last-child:nth-child(odd) { grid-column:1 / -1; aspect-ratio:2 / 1; } }
+    @media (min-width:768px) {
+      .cat-grid.n5 { grid-template-columns:repeat(6,1fr); }
+      .cat-grid.n5 .cat-card { grid-column:span 2; }
+      .cat-grid.n5 .cat-card:nth-child(n+4) { grid-column:span 3; aspect-ratio:2 / 1; }
+    }
+    .cat-card { position:relative; display:block; aspect-ratio:4/3; overflow:hidden; text-align:left; width:100%;
+      border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:0; color:#fff;
+      transition:transform .3s, border-color .3s, box-shadow .3s; }
+    .cat-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      transition:transform .9s cubic-bezier(.2,.7,.2,1), filter .4s; filter:saturate(1.05); }
+    .cat-card::after { content:''; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(6,8,15,0) 35%, rgba(6,8,15,.82) 100%); transition:opacity .3s; }
+    .cat-card:hover { transform:translateY(-4px); border-color:var(--border-hi); box-shadow:0 24px 60px rgba(0,0,0,.5); }
+    .cat-card:hover img { transform:scale(1.08); }
+    .cat-label { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:1rem 1.1rem;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:.5rem; }
+    .cat-label b { font-family:var(--font-display); font-weight:600; font-size:clamp(1rem,2.4vw,1.3rem); line-height:1.15; }
+    .cat-label small { display:block; margin-top:.15rem; font-size:.78rem; color:#c4cbdb; font-weight:400; }
+    .cat-label i { flex:none; width:34px; height:34px; display:grid; place-items:center; border-radius:50%;
+      background:rgba(255,255,255,.14); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+      transition:transform .3s, background .3s; }
+    .cat-card:hover .cat-label i { transform:translateX(3px); background:#fff; color:#07090f; }
+
+    /* category view */
+    .back-link { display:inline-flex; align-items:center; gap:.5rem; border:0; background:none; color:var(--muted);
+      font-size:.88rem; font-weight:500; padding:0; margin-bottom:1rem; }
+    .back-link:hover { color:#fff; }
+    .cv-head h2 { font-size:clamp(1.8rem,4.5vw,2.8rem); letter-spacing:-.03em; margin:0 0 .4rem; }
+    .cv-head p { color:var(--muted); max-width:38rem; margin:0 0 1.2rem; }
+    .rel { margin-bottom:1.75rem; }
+    .rel-title { font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); font-weight:600; margin-bottom:.6rem; }
+    .rel-strip { display:flex; gap:.7rem; overflow-x:auto; padding:.2rem .1rem .5rem; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .rel-strip::-webkit-scrollbar { display:none; }
+    .rel-card { position:relative; flex:none; width:168px; height:72px; overflow:hidden; padding:0; color:#fff; text-align:left;
+      border:1px solid var(--border); border-radius:14px; background:var(--surface);
+      opacity:.5; filter:grayscale(.55); transition:opacity .35s, filter .35s, transform .3s, border-color .3s, box-shadow .3s; }
+    .rel-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+    .rel-card::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg, rgba(6,8,15,.8) 0%, rgba(6,8,15,.1) 100%); }
+    .rel-card span { position:absolute; left:.8rem; bottom:.55rem; z-index:2; font-size:.82rem; font-weight:600; line-height:1.15; font-family:var(--font-display); }
+    .rel-card small { display:block; font-weight:400; font-size:.68rem; color:#c4cbdb; }
+    .rel-card:hover, .rel-card:focus-visible { opacity:1; filter:none; transform:translateY(-3px); border-color:rgba(110,168,255,.65);
+      box-shadow:0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(110,168,255,.25); }
+    .rel-card:hover img { transform:scale(1.1); }
+    @media (hover:none) { .rel-card { opacity:.85; filter:none; } }
+
+    /* ── grid ── */
+    .g-grid figure { position:relative; cursor:zoom-in; }
+    .g-grid figure { animation: gIn .55s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes gIn { from { opacity:0; transform:translateY(14px) scale(.98); } to { opacity:1; transform:none; } }
+    .g-grid figure img { transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .4s; }
+    .g-grid figure:hover img { transform: scale(1.05); }
+    .g-grid figcaption { padding:2.6rem .95rem .8rem; opacity:0; transform:translateY(6px); transition:all .3s;
+      display:flex; flex-direction:column; gap:.1rem; line-height:1.3; }
+    .g-grid figure:hover figcaption, .g-grid figure:focus-within figcaption { opacity:1; transform:none; }
+    .g-grid figcaption b { font-family:var(--font-display); font-weight:600; font-size:.95rem; }
+    .g-grid figcaption span { font-size:.72rem; color:var(--accent-light); letter-spacing:.08em; text-transform:uppercase; }
+    @media (hover:none) { .g-grid figcaption { opacity:1; transform:none; padding-top:2rem; } .g-grid figcaption b { font-size:.85rem; } }
+    .g-empty { color:var(--muted); text-align:center; padding:3rem 0; }
+
+    /* ── lightbox ── */
+    #lb { position:fixed; inset:0; z-index:2000; display:none; background:rgba(4,6,11,.94);
+      -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+    #lb.open { display:flex; flex-direction:column; animation:lbIn .25s ease; }
+    @keyframes lbIn { from { opacity:0; } to { opacity:1; } }
+    .lb-top { display:flex; justify-content:space-between; align-items:center; padding:.9rem 1.1rem; color:var(--muted); font-size:.85rem; }
+    .lb-btn { width:44px; height:44px; border-radius:50%; border:1px solid var(--border-hi); background:rgba(255,255,255,.06);
+      color:#fff; display:grid; place-items:center; font-size:1.1rem; transition:background .2s; }
+    .lb-btn:hover { background:rgba(255,255,255,.16); }
+    .lb-stage { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; position:relative; padding:0 .75rem; }
+    .lb-stage img { max-width:100%; max-height:100%; object-fit:contain; border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,.6); animation:gIn .35s ease both; }
+    .lb-nav { position:absolute; top:50%; transform:translateY(-50%); }
+    .lb-prev { left:1rem; } .lb-next { right:1rem; }
+    @media (max-width:767.98px) { .lb-nav { display:none; } }
+    .lb-info { padding:1rem 1.25rem 1.4rem; text-align:center; }
+    .lb-info h3 { font-size:1.25rem; margin:0 0 .25rem; }
+    .lb-info p { color:var(--muted); font-size:.92rem; margin:0 auto; max-width:40rem; }
+    .lb-tag { display:inline-block; margin-bottom:.5rem; padding:.2rem .7rem; border-radius:999px; font-size:.7rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent-light); background:rgba(110,168,255,.12); border:1px solid rgba(110,168,255,.25); }
+    body.lb-lock { overflow:hidden; }
+  </style>
 </head>
 
 <body class="gallery-page">
 
 <div id="navbar-placeholder"></div>
 
-<!-- PAGE HERO (dark, matches navy theme) -->
 <header class="page-hero">
   <div class="container">
-    <p class="hero-eyebrow">Visual Work</p>
+    <p class="hero-eyebrow">Photography</p>
     <h1 class="page-hero-title">Gallery</h1>
-    <p class="page-hero-sub">Astrophotography &amp; photography from across the sky and Earth</p>
+    <p class="page-hero-sub">Deep-sky nebulae and Milky Way arches, eclipses and comets — plus aurora, autumn colour and quiet winter landscapes. Pick a collection to explore.</p>
   </div>
 </header>
 
-<div class="container my-5">
+<main class="container py-5">
+  <!-- Level 1: category thumbnails -->
+  <div id="catView"></div>
 
-  <!-- TABS -->
-  <ul class="nav nav-tabs justify-content-center mb-4">
-    <li class="nav-item">
-      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#astro">
-        <i class="bi bi-stars me-1"></i>Astrophotography
-      </button>
-    </li>
-    <li class="nav-item">
-      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#photo">
-        <i class="bi bi-camera me-1"></i>Photography
-      </button>
-    </li>
-  </ul>
+  <!-- Level 2: photos of one category -->
+  <div id="photoView" hidden>
+    <button class="back-link" id="backBtn"><i class="bi bi-arrow-left"></i> All categories</button>
+    <div class="cv-head"><h2 id="cvTitle"></h2><p id="cvDesc"></p></div>
+    <div class="rel" id="rel" hidden><div class="rel-title">More collections like this</div><div class="rel-strip" id="relStrip"></div></div>
+    <div class="masonry g-grid" id="gallery"></div>
+  </div>
+</main>
 
-  <div class="tab-content">
-
-    <!-- ASTROPHOTOGRAPHY -->
-    <div class="tab-pane fade show active" id="astro">
-      <div class="row g-3" id="astroGallery"></div>
-    </div>
-
-    <!-- PHOTOGRAPHY -->
-    <div class="tab-pane fade" id="photo">
-      <div class="row g-3" id="photoGallery"></div>
-    </div>
-
+<!-- Lightbox -->
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-top">
+    <span id="lbCount"></span>
+    <button class="lb-btn" id="lbClose" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="lb-stage">
+    <button class="lb-btn lb-nav lb-prev" id="lbPrev" aria-label="Previous"><i class="bi bi-chevron-left"></i></button>
+    <img id="lbImg" alt="">
+    <button class="lb-btn lb-nav lb-next" id="lbNext" aria-label="Next"><i class="bi bi-chevron-right"></i></button>
+  </div>
+  <div class="lb-info">
+    <span class="lb-tag" id="lbTag"></span>
+    <h3 id="lbTitle"></h3>
+    <p id="lbCap"></p>
   </div>
 </div>
 
-<!-- LIGHTBOX MODAL -->
-<div class="modal fade" id="lightboxModal" tabindex="-1">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content border-0" style="background:#060d1f;">
-      <div class="modal-header border-0 pb-0">
-        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal"></button>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-name">Sarath Prabhavu J.</p>
+        <p class="footer-copy">© 2026 · Please don't reuse photos without asking</p>
       </div>
-      <div class="modal-body text-center px-4 pb-4">
-        <img id="lightboxImg" class="img-fluid rounded mb-3" style="max-height:70vh;object-fit:contain;">
-        <h5 id="lightboxTitle" style="color:#fff;font-family:'Merriweather',serif;font-size:1.1rem;"></h5>
-        <p id="lightboxMeta" style="color:rgba(255,255,255,0.55);font-size:0.85rem;"></p>
-      </div>
+      <p class="footer-links">
+        <a href="mailto:sarathprabhav@gmail.com" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+        <a href="https://github.com/sarathprabhav" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      </p>
     </div>
-  </div>
-</div>
-
-<footer class="site-footer mt-0">
-  <div class="container text-center">
-    <p class="footer-name">Sarath Prabhavu J.</p>
-    <p class="footer-links">
-      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
-      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
-      <a href="SARATH_PRABHVU_CV.pdf" target="_blank"><i class="bi bi-file-earmark-person-fill"></i></a>
-    </p>
-    <p class="footer-copy">© 2026 Sarath Prabhavu J.</p>
   </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="scripts.js"></script>
-
 <script>
-function openLightbox(img) {
-  document.getElementById('lightboxImg').src = img.src;
-  document.getElementById('lightboxTitle').innerText = img.dataset.title;
-  document.getElementById('lightboxMeta').innerText = img.dataset.meta;
-  new bootstrap.Modal(document.getElementById('lightboxModal')).show();
-}
-
 document.addEventListener("DOMContentLoaded", function () {
 
-  const astroImages = [
-    { file: "Karthika.jpg", title: "Karthika", meta: "" },
-    { file: "Annular.jpg", title: "Annular Eclipse", meta: "2019 December, Kannur Kerala" },
-    { file: "Devasthal Milkyway.jpg", title: "Devasthal Optical Telescope Milky Way", meta: "Nainital, India" },
-    { file: "DSC_1056.jpg", title: "DSC 1056", meta: "" },
-    { file: "DSC_3795.jpg", title: "DSC 3795", meta: "" },
-    { file: "dss_orion_cloud120_starless.TIF.jpg", title: "Orion Cloud 120 Starless", meta: "" },
-    { file: "eclipse2025.jpg", title: "Total Lunar Eclipse", meta: "" },
-    { file: "final.jpg", title: "Final Image", meta: "" },
-    { file: "final_MW_54mm.jpg", title: "Milky Way 54mm", meta: "" },
-    { file: "ILMT_new milkyway.jpg", title: "ILMT Milky Way", meta: "" },
-    { file: "lemmon_insta.jpg", title: "Comet Lemmon", meta: "" },
-    { file: "m42_full_logo.jpg", title: "Orion Nebula M42", meta: "" },
-    { file: "MineralMoon-insta.jpg", title: "Mineral Moon", meta: "" },
-    { file: "moon1.jpg", title: "Moon", meta: "" },
-    { file: "mw1.jpg", title: "Milky Way Core", meta: "" },
-    { file: "mway2.jpg", title: "Milky Way", meta: "" },
-    { file: "Rosetta_Nebula.jpg", title: "Rosetta Nebula", meta: "" },
-    { file: "StarStaX_img-01-img-60_gap_filling.jpg", title: "Star Trails Composite", meta: "" },
-    { file: "sun-.jpg", title: "Sun", meta: "" }
+  // ── Data ───────────────────────────────────────────────
+  const CATS = {
+    deep:   { label: "Deep sky",           group: "astro", cover: "images/thumbs/Rosetta_Nebula.jpg",
+              desc: "Nebulae, star clusters and galaxies — faint light gathered over hours of exposure." },
+    mw:     { label: "Milky Way",          group: "astro", cover: "images/thumbs/Devasthal Milkyway.jpg",
+              desc: "Galactic arches over observatories and hillsides, plus star trails." },
+    sky:    { label: "Moon, Sun & events", group: "astro", cover: "images/thumbs/MineralMoon-insta.jpg",
+              desc: "The Moon, the Sun, eclipses and comets." },
+    aurora: { label: "Aurora",             group: "photo", cover: "images/thumbs/p_DSC_7400.jpg",
+              desc: "Northern lights dancing above quiet villages." },
+    winter: { label: "Winter",             group: "photo", cover: "images/thumbs/p_DSC_8317.jpg",
+              desc: "Snow, frost and warm windows in the blue hour." },
+    autumn: { label: "Autumn",             group: "photo", cover: "images/thumbs/p_DSC_0350.jpg",
+              desc: "Maple gold, fallen leaves and low light." },
+    forest: { label: "Forest & river",     group: "photo", cover: "images/thumbs/p_DSC_0838.jpg",
+              desc: "Moss, pines, trails and fast water." },
+    dusk:   { label: "Twilight",           group: "photo", cover: "images/thumbs/p_DSC_7240.jpg",
+              desc: "Silhouettes and the last colour of the day." }
+  };
+  const GROUPS = [
+    { key: "astro", title: "Astrophotography" },
+    { key: "photo", title: "Photography" }
   ];
 
-  const photoImages = [
-    { file: "eclipse2025.jpg", title: "Total Lunar Eclipse", meta: "Location: Kerala, India | 70-200mm at 200mm" },
-    { file: "mw1.jpg", title: "Milky Way Core", meta: "Location: Tamil Nadu | Nikon 24-120mm | Stacked" },
-    { file: "moon1.jpg", title: "Andromeda Galaxy", meta: "Location: Kerala | Tracker: Star Adventurer | 60s x 50" },
-    { file: "Rosetta_Nebula.jpg", title: "Rosetta Nebula", meta: "Location: Kerala | Telescope Setup | Deep Sky" }
-  ];
+  // a = astrophotography (images/astrophotos), p = photography (images/photography)
+  const A = (file, title, cat, cap = "", meta = "") => ({ src: "images/astrophotos/web/" + file, thumb: "images/thumbs/" + file, title, cat, cap, meta });
+  const P = (id, title, cat, cap = "") => ({ src: `images/photography/web/DSC_${id}.jpg`, thumb: `images/thumbs/p_DSC_${id}.jpg`, title, cat, cap, meta: "" });
 
-  function buildGallery(images, containerId, folder) {
-    const container = document.getElementById(containerId);
-    images.forEach(imgData => {
-      const col = document.createElement("div");
-      col.className = "col-6 col-md-4 col-lg-3";
-      col.innerHTML = `
-        <div style="border-radius:10px;overflow:hidden;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);">
-          <img src="${folder + imgData.file}"
-               class="img-fluid gallery-img"
-               style="width:100%;aspect-ratio:4/3;object-fit:cover;"
-               onclick="openLightbox(this)"
-               data-title="${imgData.title}"
-               data-meta="${imgData.meta}"
-               loading="lazy">
-          <div class="meta px-2 py-1">${imgData.title}</div>
-        </div>
-      `;
-      container.appendChild(col);
-    });
+  const photos = [
+    // opening spread: a mix of the best from every collection
+    P("7400", "Aurora over the village", "aurora", "A green ribbon of northern lights arcing above a quiet street."),
+    A("Rosetta_Nebula.jpg", "Rosetta Nebula", "deep", "A glowing hydrogen cloud with a young star cluster at its heart.", "Kerala · telescope setup"),
+    P("8317", "Village lights on a snowy hillside", "winter", "Warm windows glowing through the blue hour."),
+    A("Devasthal Milkyway.jpg", "Milky Way over Devasthal", "mw", "The galaxy rising behind the Devasthal Optical Telescope.", "Nainital, India"),
+    P("0350", "Maple gold", "autumn", "Backlit maple leaves against a soft blue sky."),
+    A("StarStaX_img-01-img-60_gap_filling.jpg", "Star trails", "mw", "Sixty frames stacked to show Earth's rotation around the pole.", "Stacked with StarStaX"),
+    P("7928", "Snow peaks and a quiet trail", "winter", "Two hikers pause below a freshly snow-dusted ridge."),
+    A("eclipse2025.jpg", "Total lunar eclipse", "sky", "Every phase of the eclipse, from full Moon to blood-red totality.", "Kerala, India · 70–200 mm at 200 mm"),
+    P("7485", "Aurora and birch", "aurora", "Green curtains behind a bare birch and the rooftops."),
+    A("MineralMoon-insta.jpg", "Mineral Moon", "sky", "Boosted colour reveals the Moon's mineral differences — blue for titanium-rich, orange for iron-rich."),
+    P("0840","Boardwalk through the pines", "forest", "A small footbridge winding into the evening forest."),
+    A("Karthika.jpg", "Karthika (Pleiades)", "deep", "The Seven Sisters wrapped in blue reflection nebulosity."),
+
+    // Astrophotography — the rest
+    A("m42_full_logo.jpg", "Orion region: M42 & Horsehead", "deep", "From the Horsehead and Flame nebulae to the Great Orion Nebula."),
+    A("001_andro.jpg", "Andromeda Galaxy", "deep", "Our nearest large galaxy, 2.5 million light-years away.", "Kerala · Star Adventurer tracker · 60 s × 50"),
+    A("dss_orion_cloud120_starless.TIF.jpg", "Orion cloud complex", "deep", "The dust and gas of Orion with the stars removed, annotated with the main objects."),
+    A("ILMT_new milkyway.jpg", "Milky Way over the ILMT", "mw", "The liquid-mirror telescope enclosure under the galactic core.", "Devasthal, India"),
+    A("DSC_1056.jpg", "Milky Way over Devasthal", "mw", "Galactic arch above the observatory domes."),
+    A("mw1.jpg", "Milky Way core", "mw", "The dusty heart of our galaxy above the hills.", "Tamil Nadu · Nikon 24–120 mm · stacked"),
+    A("final.jpg", "Milky Way rising", "mw", "The galactic core climbing over a dark ridge."),
+    A("final_MW_54mm.jpg", "Galactic centre, 54 mm", "mw", "A tight view of the dust lanes and glowing nebulae toward the centre."),
+    A("mway2.jpg", "Milky Way", "mw", "A vertical sweep of the Milky Way's dark rifts."),
+    A("moon1.jpg", "Gibbous Moon", "sky", "Craters and maria along the terminator."),
+    A("Annular.jpg", "Annular solar eclipse", "sky", "The December 2019 'ring of fire' in sequence.", "Kannur, Kerala · 26 Dec 2019"),
+    A("lemmon_insta.jpg", "Comet Lemmon", "sky", "A green-tailed comet drifting past the stars."),
+    A("DSC_3795.jpg", "Comet over the palms", "sky", "A comet's tail above coconut palms in daylight-blue twilight."),
+    A("sun-.jpg", "The Sun", "sky", "A sunspot group, with Earth and Jupiter drawn to scale."),
+
+    // Photography — Aurora
+    P("7425", "Aurora over the rooftops", "aurora", "Northern lights stretching across the whole sky."),
+    P("7444", "Aurora over the rooftops II", "aurora", "A second frame as the arc shifted."),
+
+    // Winter
+    P("7248", "Red house at dusk", "winter", "Lit windows against a cold blue evening."),
+    P("8280", "Frosted birches", "winter", "Hoar frost on the trees and a dark cabin beyond."),
+    P("8296", "Blue hour on the farm", "winter", "Snow, stillness and a single warm light."),
+    P("8309", "A lit cabin in the snow", "winter", "A small cabin glowing in the deep-blue landscape."),
+    P("8321", "Cabins in the blue hour", "winter", "Evening settling over a mountain village."),
+
+    // Autumn
+    P("0346", "Carpet of maple leaves", "autumn", "Fallen leaves in every shade of red and yellow."),
+    P("0340", "Leaf-strewn garden steps", "autumn", "A wooden stair half hidden in autumn colour."),
+    P("0348", "Old trunk, blue sky", "autumn", "Bark and the last yellow leaves against a clear sky."),
+    P("0349", "Row of maples", "autumn", "A line of trunks over a floor of orange."),
+    P("0370", "Golden canopy", "autumn", "Light filtering through a maple in full colour."),
+    P("0374", "Looking up through the gold", "autumn", "A canopy of yellow leaves seen from below."),
+    P("0379", "Avenue of maples", "autumn", "A tree-lined path buried in leaves."),
+    P("0863", "Fallen leaves on green", "autumn", "Scattered orange leaves on a bright lawn."),
+
+    // Forest & river
+    P("0838", "River rapids at sunset", "forest", "Fast water below a pink-streaked evening sky."),
+    P("0812", "A quiet forest walk", "forest", "A lone walker among moss-covered boulders."),
+    P("0815", "Pines against the sky", "forest", "Looking straight up through tall pines."),
+    P("0816", "Moss and boulders", "forest", "Soft green moss over old forest rock."),
+    P("0844", "Forest trail", "forest", "A narrow path winding through the trees."),
+
+    // Twilight
+    P("7240", "Silhouettes at dusk", "dusk", "A couple against a violet sky."),
+    P("0877", "Twilight road", "dusk", "Bare trees and the last colour of the evening.")
+  ];
+  photos.forEach((p, i) => p.i = i);
+
+  // ── State & routing (#category in the URL) ──────────────
+  const catView = document.getElementById("catView");
+  const photoView = document.getElementById("photoView");
+  const grid = document.getElementById("gallery");
+    const esc = s => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  const count = k => photos.filter(p => p.cat === k).length;
+  let view = null;                       // null = category overview, "all" or a CATS key
+  const shown = () => photos.filter(p => view === "all" || p.cat === view);
+
+  function renderCategories() {
+    catView.innerHTML =
+      `<div class="mb-4"><button class="btn btn-ghost btn-sm" data-cat="all"><i class="bi bi-grid-3x3-gap me-2"></i>View all ${photos.length} photos</button></div>` +
+      GROUPS.map(g => {
+        const keys = Object.keys(CATS).filter(k => CATS[k].group === g.key);
+        const n = keys.reduce((t, k) => t + count(k), 0);
+        return `<section class="g-group">` +
+          `<div class="g-group-head"><h2>${g.title}</h2><span>${n} photos</span></div>` +
+          `<div class="cat-grid ${keys.length === 5 ? "n5" : ""}">` +
+          keys.map(k => `<button class="cat-card" data-cat="${k}" aria-label="${CATS[k].label}, ${count(k)} photos">` +
+            `<img src="${encodeURI(CATS[k].cover)}" alt="" loading="lazy" decoding="async">` +
+            `<span class="cat-label"><span><b>${CATS[k].label}</b><small>${count(k)} photos</small></span><i class="bi bi-arrow-right"></i></span>` +
+          `</button>`).join("") +
+          `</div></section>`;
+      }).join("");
   }
 
-  buildGallery(astroImages, 'astroGallery', 'images/astrophotos/');
-  buildGallery(photoImages, 'photoGallery', 'images/astrophotos/');
+  function renderRelated() {
+    const rel = document.getElementById("rel");
+    const sibs = view === "all" ? [] : Object.keys(CATS).filter(k => k !== view && CATS[k].group === CATS[view].group);
+    rel.hidden = !sibs.length;
+    document.getElementById("relStrip").innerHTML = sibs.map(k =>
+      `<button class="rel-card" data-cat="${k}" aria-label="${CATS[k].label}, ${count(k)} photos">` +
+        `<img src="${encodeURI(CATS[k].cover)}" alt="" loading="lazy">` +
+        `<span>${CATS[k].label}<small>${count(k)} photos</small></span>` +
+      `</button>`).join("");
+  }
+
+  function renderGrid() {
+    document.getElementById("cvTitle").textContent = view === "all" ? "All photos" : CATS[view].label;
+    document.getElementById("cvDesc").textContent = view === "all" ? "Everything in one place — astrophotography and photography." : CATS[view].desc;
+    grid.innerHTML = shown().map((p, n) =>
+      `<figure data-i="${p.i}" style="animation-delay:${Math.min(n, 14) * 40}ms">` +
+        `<img src="${encodeURI(p.thumb)}" alt="${esc(p.title)}" loading="lazy" decoding="async" tabindex="0">` +
+        `<figcaption><span>${CATS[p.cat].label}</span><b>${esc(p.title)}</b></figcaption>` +
+      `</figure>`).join("");
+  }
+
+  function route() {
+    const h = decodeURIComponent(location.hash.slice(1));
+    view = (h === "all" || CATS[h]) ? h : null;
+    catView.hidden = view !== null;
+    photoView.hidden = view === null;
+    if (view === null) { renderCategories(); document.title = "Gallery | Sarath Prabhavu"; }
+    else { renderRelated(); renderGrid(); document.title = (view === "all" ? "All photos" : CATS[view].label) + " | Gallery"; }
+  }
+  function go(k) {
+    location.hash = k ? "#" + k : "";
+    if (!k) history.replaceState(null, "", location.pathname + location.search);
+    route();
+    document.querySelector("main").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  document.querySelector("main").addEventListener("click", e => {
+    if (e.target.closest("#backBtn")) { go(null); return; }
+    const b = e.target.closest("[data-cat]"); if (b) go(b.dataset.cat);
+  });
+  window.addEventListener("hashchange", route);
+
+  // ── Lightbox ───────────────────────────────────────────
+  const lb = document.getElementById("lb");
+  const lbImg = document.getElementById("lbImg");
+  let list = [], pos = 0, lastFocus = null;
+
+  function show(n) {
+    pos = (n + list.length) % list.length;
+    const p = list[pos];
+    lbImg.style.animation = "none"; void lbImg.offsetWidth; lbImg.style.animation = "";
+    lbImg.src = encodeURI(p.src); lbImg.alt = p.title;
+    document.getElementById("lbTitle").textContent = p.title;
+    document.getElementById("lbTag").textContent = CATS[p.cat].label;
+    document.getElementById("lbCap").textContent = [p.cap, p.meta].filter(Boolean).join(" — ");
+    document.getElementById("lbCount").textContent = (pos + 1) + " / " + list.length;
+    // preload neighbours
+    [pos + 1, pos - 1].forEach(k => { const q = list[(k + list.length) % list.length]; new Image().src = encodeURI(q.src); });
+  }
+  function open(i) {
+    list = shown(); pos = list.findIndex(p => p.i === i);
+    lastFocus = document.activeElement;
+    lb.classList.add("open"); document.body.classList.add("lb-lock");
+    show(pos); document.getElementById("lbClose").focus();
+  }
+  function close() { lb.classList.remove("open"); document.body.classList.remove("lb-lock"); lbImg.src = ""; if (lastFocus) lastFocus.focus(); }
+
+  grid.addEventListener("click", e => { const f = e.target.closest("figure"); if (f) open(+f.dataset.i); });
+  grid.addEventListener("keydown", e => { if (e.key === "Enter") { const f = e.target.closest("figure"); if (f) open(+f.dataset.i); } });
+  document.getElementById("lbClose").addEventListener("click", close);
+  document.getElementById("lbPrev").addEventListener("click", () => show(pos - 1));
+  document.getElementById("lbNext").addEventListener("click", () => show(pos + 1));
+  lb.addEventListener("click", e => { if (e.target === lb || e.target.classList.contains("lb-stage")) close(); });
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") show(pos - 1);
+    if (e.key === "ArrowRight") show(pos + 1);
+  });
+  // swipe
+  let sx = null;
+  lb.addEventListener("touchstart", e => { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", e => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 50) show(pos + (dx < 0 ? 1 : -1));
+  });
+
+  route();
 });
 </script>
 </body>

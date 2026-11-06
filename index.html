@@ -1,277 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06080f">
+  <title>Sarath Prabhavu J. — Astrophysics, Teaching &amp; Astrophotography</title>
+  <meta name="description" content="Sarath Prabhavu J. — researcher studying gamma-ray bursts and space weather, astronomy educator, TV host and astrophotographer.">
+  <meta property="og:title" content="Sarath Prabhavu J.">
+  <meta property="og:description" content="Chasing light from across the universe — research, teaching and astrophotography.">
+  <meta property="og:image" content="https://www.sarathprabhav.co.in/images/hero_2400.jpg">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-  <title>Sarath Prabhavu J. — Researcher &amp; Educator</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="preload" as="image" href="images/hero_2400.jpg">
 </head>
 <body>
 
-<!-- NAVBAR -->
 <div id="navbar-placeholder"></div>
 
 <!-- ═══ HERO ═══ -->
-<header class="hero-academic">
+<header class="hero">
+  <div class="hero-bg" role="img" aria-label="Sarath under a starry winter sky, Orion overhead"></div>
   <div class="container">
-    <div class="row align-items-center min-vh-hero">
-      <div class="col-lg-8">
-        <p class="hero-eyebrow">Astrophysics · Education · Science Communication</p>
-        <h1 class="hero-name">Sarath <span class="hero-accent">Prabhavu J.</span></h1>
-        <p class="hero-tagline">
-          M.Phil in Astrophysics &nbsp;·&nbsp; Astronomy Educator &nbsp;·&nbsp; Astrophotographer<br>
-          <span class="hero-location"><i class="bi bi-geo-alt-fill"></i> France &nbsp;|&nbsp; India</span>
-        </p>
-        <div class="hero-cta d-flex flex-wrap gap-3 mt-4">
-          <a href="cv.html" class="btn btn-hero-primary">View Full CV</a>
-          <a href="https://forms.gle/7Es2bT1rqQyUyZPj8" target="_blank" class="btn btn-hero-outline">
-            <i class="bi bi-envelope me-1"></i>Contact
-          </a>
-        </div>
-      </div>
+    <div class="hero-pill"><span class="pulse"></span> Astrophysics · Teaching · Astrophotography</div>
+    <h1 class="hero-title">Chasing <span class="grad-text">light</span> from across the universe.</h1>
+    <p class="hero-lead">
+      I'm Sarath. I research gamma-ray bursts and space weather, teach astronomy in Malayalam and English,
+      and photograph the night sky.
+    </p>
+    <div class="d-flex flex-wrap gap-3">
+      <a href="#research" class="btn btn-glow">See my work <i class="bi bi-arrow-down ms-1"></i></a>
+      <a href="gallery.html" class="btn btn-ghost"><i class="bi bi-camera me-2"></i>Photo gallery</a>
     </div>
   </div>
-  <div class="hero-scroll-hint">
-    <i class="bi bi-chevron-double-down"></i>
-  </div>
+  <div class="scroll-hint">Scroll</div>
 </header>
 
-<!-- ═══ STATS BAR ═══ -->
+<!-- ═══ STATS ═══ -->
 <section class="stats-bar">
   <div class="container">
-    <div class="row g-0 text-center">
-      <div class="col-6 col-md-3 stat-cell">
-        <div class="stat-number">200<span class="stat-plus">+</span></div>
-        <div class="stat-label">Classes Taught</div>
-      </div>
-      <!-- <div class="col-6 col-md-3 stat-cell">
-        <div class="stat-number">2</div>
-        <div class="stat-label">Research Papers</div>
-      </div> -->
-      <div class="col-6 col-md-3 stat-cell">
-        <div class="stat-number">100<span class="stat-plus">+</span></div>
-        <div class="stat-label">Stargazing Sessions</div>
-      </div>
-      <!-- <div class="col-6 col-md-3 stat-cell">
-        <div class="stat-number">M.Phil</div>
-        <div class="stat-label">Astrophysics</div>
-      </div> -->
+    <div class="stats-grid reveal">
+      <div class="stat-cell"><div class="stat-number">200<span class="stat-plus">+</span></div><div class="stat-label">Classes taught</div></div>
+      <div class="stat-cell"><div class="stat-number">100<span class="stat-plus">+</span></div><div class="stat-label">Public sky sessions</div></div>
+      <div class="stat-cell"><div class="stat-number">2</div><div class="stat-label">Papers published</div></div>
+      <div class="stat-cell"><div class="stat-number">1</div><div class="stat-label">TV show hosted</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
-<section class="section-about">
+<!-- ═══ WHAT I DO ═══ -->
+<section class="section" id="about">
   <div class="container">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-7">
-        <p class="section-eyebrow">About</p>
-        <h2 class="section-heading">Bridging Research &amp; Education</h2>
-        <p class="section-body">
-          Freelance educator and science enthusiast with a passion for promoting scientific thinking.
-          Post-graduate in Physics (Kerala University) and M.Phil in Physics with a specialization in
-          Astrophysics (Cochin University). Research experience spans high-energy astrophysics (Gamma-Ray
-          Bursts) and space weather effects on planetary exospheres.
-        </p>
-        <p class="section-body">
-          Host of <strong>"Arike Aakaasam"</strong>, an astronomy TV show on KITE Victers — Kerala's
-          educational channel — bringing the universe closer to Malayalam-speaking audiences. Former
-          Assistant Professor at SN College Varkala and KSMDB College.
-        </p>
-        <div class="d-flex gap-3 mt-4">
-          <a href="https://github.com/sarathprabhav" target="_blank" class="btn btn-sm btn-outline-dark">
-            <i class="bi bi-github me-1"></i>GitHub
-          </a>
-          <a href="outreach.html" class="btn btn-sm btn-outline-primary">
-            <i class="bi bi-broadcast me-1"></i>Outreach Work
-          </a>
-        </div>
+    <div class="section-head reveal">
+      <p class="section-eyebrow">What I do</p>
+      <h2 class="section-heading">Part Researcher, Part Storyteller.</h2>
+      <p class="section-body">
+        I started out explaining the sky to anyone who'd look up. Research came later, and now the two feed each other.
+      </p>
+    </div>
+
+    <div class="row g-3 g-lg-4">
+      <div class="col-md-6 col-lg-3 reveal">
+        <a class="feature-card" href="#research">
+          <div class="fc-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+          <h3 class="fc-title">Research</h3>
+          <p class="fc-body">Modelling gamma-ray bursts and the way solar storms shake Earth's upper atmosphere.</p>
+          <span class="fc-more">Read more <i class="bi bi-arrow-right"></i></span>
+        </a>
       </div>
-      <div class="col-lg-5">
-        <div class="about-highlights">
-          <div class="highlight-item">
-            <div class="hi-icon"><i class="bi bi-mortarboard-fill"></i></div>
-            <div>
-              <div class="hi-title">M.Phil Physics</div>
-              <div class="hi-sub">Cochin University · Specialization in Astrophysics</div>
-            </div>
-          </div>
-          <div class="highlight-item">
-            <div class="hi-icon"><i class="bi bi-telescope-fill"></i></div>
-            <div>
-              <div class="hi-title">Active Researcher</div>
-              <div class="hi-sub">Space Weather &amp; High-Energy Astrophysics</div>
-            </div>
-          </div>
-          <div class="highlight-item">
-            <div class="hi-icon"><i class="bi bi-camera2"></i></div>
-            <div>
-              <div class="hi-title">Astrophotographer</div>
-              <div class="hi-sub">Deep sky, Milky Way &amp; planetary imaging</div>
-            </div>
-          </div>
-          <div class="highlight-item">
-            <div class="hi-icon"><i class="bi bi-tv-fill"></i></div>
-            <div>
-              <div class="hi-title">TV Show Host</div>
-              <div class="hi-sub">Arike Aakaasam · KITE Victers Channel</div>
-            </div>
-          </div>
-        </div>
+      <div class="col-md-6 col-lg-3 reveal d1">
+        <a class="feature-card" href="courses.html">
+          <div class="fc-icon v2"><i class="bi bi-mortarboard-fill"></i></div>
+          <h3 class="fc-title">Teaching</h3>
+          <p class="fc-body">200+ classes — from university physics to Python for beginners, taught in Malayalam.</p>
+          <span class="fc-more">See courses <i class="bi bi-arrow-right"></i></span>
+        </a>
       </div>
+      <div class="col-md-6 col-lg-3 reveal d2">
+        <a class="feature-card" href="gallery.html">
+          <div class="fc-icon v3"><i class="bi bi-camera-fill"></i></div>
+          <h3 class="fc-title">Astrophotography</h3>
+          <p class="fc-body">Milky Way arches, nebulae, eclipses and comets — shot from Kerala to Devasthal.</p>
+          <span class="fc-more">Open gallery <i class="bi bi-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal d3">
+        <a class="feature-card" href="outreach.html">
+          <div class="fc-icon v4"><i class="bi bi-broadcast"></i></div>
+          <h3 class="fc-title">Outreach &amp; TV</h3>
+          <p class="fc-body">Host of <em>Arike Aakaasam</em> and 100+ stargazing sessions in schools, colleges and campsites.</p>
+          <span class="fc-more">Explore outreach <i class="bi bi-arrow-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PHOTOS ═══ -->
+<section class="section section-alt" id="photos">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 section-head reveal">
+      <div>
+        <p class="section-eyebrow">Astrophotography</p>
+        <h2 class="section-heading mb-0">Frames from the night.</h2>
+      </div>
+      <a href="gallery.html" class="btn btn-ghost btn-sm">View all photos <i class="bi bi-arrow-right ms-1"></i></a>
+    </div>
+
+    <div class="bento reveal">
+      <a href="gallery.html" class="b-wide"><img src="images/thumbs/Rosetta_Nebula.jpg" alt="Rosetta Nebula" loading="lazy"><span class="cap">Rosetta Nebula</span></a>
+      <a href="gallery.html" class="b-tall"><img src="images/thumbs/StarStaX_img-01-img-60_gap_filling.jpg" alt="Star trails over the hills" loading="lazy"><span class="cap">Star trails</span></a>
+      <a href="gallery.html"><img src="images/thumbs/MineralMoon-insta.jpg" alt="Mineral Moon" loading="lazy"><span class="cap">Mineral Moon</span></a>
+      <a href="gallery.html"><img src="images/thumbs/Karthika.jpg" alt="The Pleiades (Karthika)" loading="lazy"><span class="cap">Karthika · Pleiades</span></a>
+      <a href="gallery.html"><img src="images/thumbs/m42_full_logo.jpg" alt="Orion Nebula and Horsehead" loading="lazy"><span class="cap">Orion region</span></a>
+      <a href="gallery.html"><img src="images/thumbs/sun-.jpg" alt="The Sun with sunspots" loading="lazy"><span class="cap">The Sun</span></a>
     </div>
   </div>
 </section>
 
 <!-- ═══ RESEARCH ═══ -->
-<section class="section-research">
+<section class="section" id="research">
   <div class="container">
-    <p class="section-eyebrow">Research</p>
-    <h2 class="section-heading">Current &amp; Past Projects</h2>
+    <div class="section-head reveal">
+      <p class="section-eyebrow">Research</p>
+      <h2 class="section-heading">What I'm working on.</h2>
+      <p class="section-body">Studying how solar storms shake the edge of Earth's atmosphere — and the papers behind the work so far.</p>
+    </div>
 
-    <div class="row g-4 mt-2">
-
-      <div class="col-md-6">
-        <div class="research-card h-100">
-          <div class="rc-badge">2025 – Present</div>
-          <h5 class="rc-title">Space Weather &amp; Exospheric Escape</h5>
-          <p class="rc-body">
-            Studying solar activity effects on Earth's upper atmosphere via Lyman Alpha emission.
-            Using the NRLMSIS model to simulate atmospheric parameters and validate against GOLD
-            satellite measurements during geomagnetic storm events.
+    <div class="row g-3 g-lg-4">
+      <div class="col-lg-6 reveal">
+        <article class="project-card">
+          <span class="pc-tag">2025 – Present</span>
+          <h3 class="pc-title">How do solar storms change Earth's upper-atmosphere glow?</h3>
+          <p class="pc-body">
+            Geomagnetic storms disturb the thin hydrogen halo around Earth. I simulate the upper atmosphere with the
+            NRLMSIS model and test it against Lyman-alpha measurements from the GOLD satellite, to understand how
+            hydrogen escapes during a storm.
           </p>
-          <p class="rc-supervisor"><i class="bi bi-person-circle me-1"></i>Dr. Dolon Bhattacharya · LASP</p>
-        </div>
+          <div class="pc-chips"><span class="chip">Space weather</span><span class="chip">Lyman-α</span><span class="chip">NRLMSIS</span><span class="chip">GOLD</span><span class="chip">Python</span></div>
+          <span class="rc-supervisor"><i class="bi bi-people-fill me-1"></i>In collaboration with LASP</span>
+        </article>
       </div>
 
-      <div class="col-md-6">
-        <div class="research-card h-100">
-          <div class="rc-badge rc-badge-past">2024 – 2025</div>
-          <h5 class="rc-title">Gamma-Ray Burst Viewing Angle Effects</h5>
-          <p class="rc-body">
-            Modelled single-pulse GRBs using a geometrically thin top-hat jet model. Established
-            strong dependence of spectral hardness on viewing angle for broken power-law spectra
-            via FERMI-GBM band simulations.
-          </p>
-          <p class="rc-supervisor"><i class="bi bi-person-circle me-1"></i>Dr. Resmi L. · IIST</p>
-          <a href="https://iopscience.iop.org/article/10.3847/1538-4357/adb1e0" target="_blank" class="rc-link">
-            Published in ApJ <i class="bi bi-arrow-up-right-square ms-1"></i>
+      <div class="col-lg-6 reveal d1">
+        <div class="papers-box">
+          <p class="section-eyebrow">Published papers</p>
+          <a class="paper-row" href="https://iopscience.iop.org/article/10.3847/1538-4357/adb1e0" target="_blank" rel="noopener">
+            <span class="paper-year">2025</span>
+            <span><span class="paper-title d-block">Effect of Viewing Angle in Gamma-Ray Burst Properties</span>
+              <span class="paper-sub">The Astrophysical Journal · with S. P. Chakyar &amp; L. Resmi</span></span>
+            <i class="bi bi-arrow-up-right paper-arrow"></i>
+          </a>
+          <a class="paper-row" href="https://www.aanda.org/articles/aa/full_html/2025/02/aa52667-24/aa52667-24.html" target="_blank" rel="noopener">
+            <span class="paper-year">2025</span>
+            <span><span class="paper-title d-block">The 4 m International Liquid Mirror Telescope: Construction, Operation, and Science</span>
+              <span class="paper-sub">Astronomy &amp; Astrophysics, 694, A80 · part of the ILMT team</span></span>
+            <i class="bi bi-arrow-up-right paper-arrow"></i>
           </a>
         </div>
       </div>
-
-    </div>
-
-    <div class="text-center mt-4">
-      <a href="cv.html" class="btn btn-outline-primary">All Research &amp; Experience →</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ PUBLICATIONS ═══ -->
-<section class="section-publications">
+<!-- ═══ CONTACT ═══ -->
+<section class="section pt-0" id="contact">
   <div class="container">
-    <p class="section-eyebrow">Publications</p>
-    <h2 class="section-heading">Peer-Reviewed Papers</h2>
-
-    <div class="pub-list mt-4">
-
-      <div class="pub-item">
-        <span class="pub-year">2025</span>
-        <div class="pub-content">
-          <div class="pub-title">Effect of Viewing Angle in Gamma-Ray Burst Properties</div>
-          <div class="pub-authors">Sreelakshmi P. Chakyar, <em>Sarath Prabhavu J.</em>, Lekshmi Resmi</div>
-          <div class="pub-journal">The Astrophysical Journal · DOI: 10.3847/1538-4357/adb1e0</div>
-          <a href="https://iopscience.iop.org/article/10.3847/1538-4357/adb1e0" target="_blank" class="pub-link">
-            View Paper <i class="bi bi-box-arrow-up-right"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="pub-item">
-        <span class="pub-year">2025</span>
-        <div class="pub-content">
-          <div class="pub-title">The 4 m International Liquid Mirror Telescope: Construction, Operation, and Science</div>
-          <div class="pub-authors">J. Surdej, P. Hickson, K. Misra, D. Banerjee, <em>S. Prabhavu</em>, et al.</div>
-          <div class="pub-journal">Astronomy &amp; Astrophysics, Vol. 694, A80 · DOI: 10.1051/0004-6361/202452667</div>
-          <a href="https://www.aanda.org/articles/aa/full_html/2025/02/aa52667-24/aa52667-24.html" target="_blank" class="pub-link">
-            View Paper <i class="bi bi-box-arrow-up-right"></i>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══ TEACHING HIGHLIGHT ═══ -->
-<section class="section-teaching">
-  <div class="container">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6">
-        <p class="section-eyebrow">Teaching</p>
-        <h2 class="section-heading">200+ Classes &amp; Counting</h2>
-        <p class="section-body">
-          From university-level physics lectures to public stargazing sessions, science communication
-          is at the heart of everything I do. Teaching roles span Assistant Professor positions, online
-          courses in Python for beginners (Malayalam), and over 100 public outreach events.
-        </p>
-        <div class="d-flex flex-wrap gap-3 mt-4">
-          <a href="courses.html" class="btn btn-outline-primary">View Courses</a>
-          <a href="outreach.html" class="btn btn-outline-secondary">Outreach Events</a>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="row g-3">
-          <div class="col-6">
-            <div class="teaching-tile">
-              <i class="bi bi-book-fill teaching-icon"></i>
-              <div class="tt-title">University Lectures</div>
-              <div class="tt-sub">Physics · Astrophysics</div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="teaching-tile">
-              <i class="bi bi-code-slash teaching-icon"></i>
-              <div class="tt-title">Python Course</div>
-              <div class="tt-sub">Beginners · Malayalam</div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="teaching-tile">
-              <i class="bi bi-stars teaching-icon"></i>
-              <div class="tt-title">Stargazing</div>
-              <div class="tt-sub">100+ Public Events</div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="teaching-tile">
-              <i class="bi bi-newspaper teaching-icon"></i>
-              <div class="tt-title">Science Writing</div>
-              <div class="tt-sub">Regional Language Articles</div>
-            </div>
-          </div>
-        </div>
+    <div class="cta-box reveal">
+      <h2 class="cta-title">Let's talk <span class="grad-text">stars.</span></h2>
+      <p>Invite me to speak, run a sky-watching night, collaborate on a project — or just say hi.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="mailto:sarathprabhav@gmail.com" class="btn btn-glow"><i class="bi bi-envelope-fill me-2"></i>Email me</a>
+        <a href="https://forms.gle/7Es2bT1rqQyUyZPj8" target="_blank" rel="noopener" class="btn btn-ghost">Contact form</a>
+        <a href="https://github.com/sarathprabhav" target="_blank" rel="noopener" class="btn btn-ghost"><i class="bi bi-github me-2"></i>GitHub</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
 <footer class="site-footer">
-  <div class="container text-center">
-    <p class="footer-name">Sarath Prabhavu J.</p>
-    <p class="footer-links">
-      <a href="mailto:sarathprabhav@gmail.com"><i class="bi bi-envelope-fill"></i></a>
-      <a href="https://github.com/sarathprabhav" target="_blank"><i class="bi bi-github"></i></a>
-    </p>
-    <p class="footer-copy">© 2026 Sarath Prabhavu J.</p>
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-name">Sarath Prabhavu J.</p>
+        <p class="footer-copy">© 2026 · Made under dark skies</p>
+      </div>
+      <p class="footer-links">
+        <a href="mailto:sarathprabhav@gmail.com" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+        <a href="https://github.com/sarathprabhav" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+      </p>
+    </div>
   </div>
 </footer>
 
